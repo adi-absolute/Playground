@@ -7,9 +7,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_main", "..\gtest-1.7.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\gtest-1.7.0\msvc\gtest.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Template", "Template.vcxproj", "{519B0C63-EF7B-41C5-A29E-B89642440343}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CountingCoins", "CountingCoins.vcxproj", "{519B0C63-EF7B-41C5-A29E-B89642440343}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TemplateTests", "TemplateTests\TemplateTests.vcxproj", "{CBD598B5-999F-40CA-A079-1214AA409310}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CountingCoinsTests", "CountingCoinsTests\CountingCoinsTests.vcxproj", "{CBD598B5-999F-40CA-A079-1214AA409310}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

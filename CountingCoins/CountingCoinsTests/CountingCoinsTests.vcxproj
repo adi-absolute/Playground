@@ -93,7 +93,7 @@
     <ProjectReference Include="..\..\gtest-1.7.0\msvc\gtest_main.vcxproj">
       <Project>{3af54c8a-10bf-4332-9147-f68ed9862032}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Template.vcxproj">
+    <ProjectReference Include="..\CountingCoins.vcxproj">
       <Project>{519b0c63-ef7b-41c5-a29e-b89642440343}</Project>
     </ProjectReference>
   </ItemGroup>

@@ -31,11 +31,13 @@ namespace CommonTests
 
 		std::vector<std::vector<unsigned int>> expectedResult =
 		{
-			{ 5, 0, 0, 0 },
-			{ 0, 1, 0, 0 }
+			{ 0, 1, 0, 0 },
+			{ 5, 0, 0, 0 }
 		};
 
-		ASSERT_EQ(0, memcmp(&result, &expectedResult, sizeof(expectedResult)));
+		ASSERT_EQ(result.size(), expectedResult.size());
+		ASSERT_EQ(result[0], expectedResult[0]);
+		ASSERT_EQ(result[1], expectedResult[1]);
 	}
 
 	TEST_F(TestCountingCoins, Ten_Cents)
@@ -50,7 +52,11 @@ namespace CommonTests
 			{ 10, 0, 0, 0 },
 		};
 
-		ASSERT_EQ(0, memcmp(&result, &expectedResult, sizeof(expectedResult)));
+		ASSERT_EQ(result.size(), expectedResult.size());
+		ASSERT_EQ(result[0], expectedResult[0]);
+		ASSERT_EQ(result[1], expectedResult[1]);
+		ASSERT_EQ(result[2], expectedResult[2]);
+		ASSERT_EQ(result[3], expectedResult[3]);
 	}
 
 }
