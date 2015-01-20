@@ -11,8 +11,8 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 	bool end = false;
 	unsigned int dropValueLoop = 500;
 	unsigned int dropCoinValue = (unsigned int)Denominations::Dollar;
-	unsigned int firstCoinValue = (unsigned int)Denominations::Dime;
-	
+	unsigned int firstCoin = (unsigned int)Denominations::Quarter;
+	unsigned int workingCoin = (unsigned int)Denominations::Dollar;
 
 	while (!end)
 	{
@@ -21,7 +21,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 		unsigned int loopNo = 0;
 		
 		unsigned int remainingAmount = valueInCents;
-		unsigned int currentCoin = firstCoinValue;
+		unsigned int currentCoin = firstCoin;
 
 		while (remainingAmount > 0)
 		{		
@@ -34,7 +34,10 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 			if (remainingAmount >= CoinValues[currentCoin])
 			{
 				if (loopNo == 0)
-					firstCoinValue = currentCoin;
+					firstCoin = currentCoin;
+
+				if (currentCoin > (unsigned int)Denominations::Penny)
+					workingCoin = currentCoin;
 
 				remainingAmount -= CoinValues[currentCoin];
 				thisRound[currentCoin]++;
@@ -55,7 +58,10 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 			dropCoinValue = currentCoin - 1;
 		}
 		else
-			dropValueLoop = loopNo - 6;
+		{
+			
+			dropValueLoop = loopNo - thisRound[(unsigned int)Denominations::Penny] - 1;
+		}
 		
 		result.push_back(thisRound);
 	}

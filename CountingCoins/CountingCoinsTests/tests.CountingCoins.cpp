@@ -59,4 +59,19 @@ namespace CommonTests
 		ASSERT_EQ(result[3], expectedResult[3]);
 	}
 
+	TEST_F(TestCountingCoins, Eight_Cents)
+	{
+		std::vector<std::vector<unsigned int>> result = CountCoins(8);
+
+		std::vector<std::vector<unsigned int>> expectedResult =
+		{
+			{ 3, 1, 0, 0 },
+			{ 8, 0, 0, 0 },
+		};
+
+		ASSERT_EQ(result.size(), expectedResult.size());
+		ASSERT_EQ(result[0], expectedResult[0]);
+		ASSERT_EQ(result[1], expectedResult[1]);
+	}
+
 }
