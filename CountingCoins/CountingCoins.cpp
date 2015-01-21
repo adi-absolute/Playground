@@ -2,14 +2,13 @@
 
 using namespace ::std;
 
-static unsigned int CoinValues[] = { 1, 5, 10, 25 };
+static unsigned int CoinValue[] = { 1, 5, 10, 25 };
 
 vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 {
 	vector<vector<unsigned int>> result;
-	unsigned int lastIndex = 0;
 	bool end = false;
-	unsigned int dropValueLoop = 500;
+	unsigned int dropValueLoop = 1000;
 	unsigned int dropCoinValue = (unsigned int)Denominations::Dollar;
 	unsigned int firstCoin = (unsigned int)Denominations::Quarter;
 	unsigned int workingCoin = (unsigned int)Denominations::Dollar;
@@ -17,7 +16,6 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 	while (!end)
 	{
 		vector<unsigned int> thisRound(4);
-		unsigned int amount = valueInCents;
 		unsigned int loopNo = 0;
 		
 		unsigned int remainingAmount = valueInCents;
@@ -31,7 +29,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 			if ((loopNo == 0) && (currentCoin == (unsigned int)Denominations::Penny))
 				end = true;
 
-			if (remainingAmount >= CoinValues[currentCoin])
+			if (remainingAmount >= CoinValue[currentCoin])
 			{
 				if (loopNo == 0)
 					firstCoin = currentCoin;
@@ -39,7 +37,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 				if (currentCoin > (unsigned int)Denominations::Penny)
 					workingCoin = currentCoin;
 
-				remainingAmount -= CoinValues[currentCoin];
+				remainingAmount -= CoinValue[currentCoin];
 				thisRound[currentCoin]++;
 				loopNo++;
 			}
@@ -48,8 +46,6 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 				if (currentCoin > (unsigned int)Denominations::Penny)
 					currentCoin--;
 			}
-
-			
 		}
 
 		if (currentCoin != (unsigned int)Denominations::Penny)
