@@ -59,7 +59,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 		}
 		else
 		{
-			
+			dropCoinValue = workingCoin - 1;
 			dropValueLoop = loopNo - thisRound[(unsigned int)Denominations::Penny] - 1;
 		}
 		
