@@ -95,7 +95,7 @@ namespace CommonTests
 
 	TEST_F(TestCountingCoins, Twenty_five_Cents)
 	{
-		std::vector<std::vector<unsigned int>> result = CountCoins(25);
+		std::vector<std::vector<unsigned int>> result = CountCoins(100);
 
 		std::vector<std::vector<unsigned int>> expectedResult =
 		{

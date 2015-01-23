@@ -10,7 +10,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 {
 	vector<vector<unsigned int>> result;
 	bool end = false;
-	int dropValueLoop = DO_NOT_DROP;
+	int dropCoinValueLoopNo = DO_NOT_DROP;
 	unsigned int dropCoinValue = (unsigned int)Denominations::Dollar;
 	unsigned int firstCoin = (unsigned int)Denominations::Quarter;
 	unsigned int workingCoin = (unsigned int)Denominations::Dollar;
@@ -30,7 +30,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 			if (!recordSwapped)
 			{
 				vector <unsigned int> temp;
-				while ((loopNo < dropValueLoop) && (dropValueLoop != DO_NOT_DROP))
+				while ((loopNo < dropCoinValueLoopNo) && (dropCoinValueLoopNo != DO_NOT_DROP))
 				{
 					unsigned int coin = record[loopNo];
 					thisRound[coin]++;
@@ -44,7 +44,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 				recordSwapped = true;
 			}
 
-			if (loopNo == dropValueLoop)
+			if (loopNo == dropCoinValueLoopNo)
 				currentCoin = dropCoinValue;
 
 			if ((loopNo == 0) && (currentCoin == (unsigned int)Denominations::Penny))
@@ -72,13 +72,13 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 
 		if (currentCoin != (unsigned int)Denominations::Penny)
 		{
-			dropValueLoop = loopNo - 1;
+			dropCoinValueLoopNo = loopNo - 1;
 			dropCoinValue = currentCoin - 1;
 		}
 		else
 		{
 			dropCoinValue = workingCoin - 1;
-			dropValueLoop = loopNo - thisRound[(unsigned int)Denominations::Penny] - 1;
+			dropCoinValueLoopNo = loopNo - thisRound[(unsigned int)Denominations::Penny] - 1;
 		}
 		
 		result.push_back(thisRound);
