@@ -1,6 +1,6 @@
 #include "CountingCoins.h"
 
-#define RIDICULOUS_NUMBER 1000
+#define DO_NOT_DROP -1
 
 using namespace ::std;
 
@@ -10,7 +10,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 {
 	vector<vector<unsigned int>> result;
 	bool end = false;
-	unsigned int dropValueLoop = RIDICULOUS_NUMBER;
+	int dropValueLoop = DO_NOT_DROP;
 	unsigned int dropCoinValue = (unsigned int)Denominations::Dollar;
 	unsigned int firstCoin = (unsigned int)Denominations::Quarter;
 	unsigned int workingCoin = (unsigned int)Denominations::Dollar;
@@ -19,18 +19,18 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 	while (!end)
 	{
 		vector<unsigned int> thisRound(4);
-		unsigned int loopNo = 0;
+		int loopNo = 0;
 		
 		unsigned int remainingAmount = valueInCents;
 		unsigned int currentCoin = firstCoin;
 		bool recordSwapped = false;
 
 		while (remainingAmount > 0)
-		{	
-			vector <unsigned int> temp;
+		{				
 			if (!recordSwapped)
 			{
-				while ((loopNo < dropValueLoop) && (dropValueLoop != RIDICULOUS_NUMBER))
+				vector <unsigned int> temp;
+				while ((loopNo < dropValueLoop) && (dropValueLoop != DO_NOT_DROP))
 				{
 					unsigned int coin = record[loopNo];
 					thisRound[coin]++;
@@ -45,9 +45,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 			}
 
 			if (loopNo == dropValueLoop)
-			{
 				currentCoin = dropCoinValue;
-			}
 
 			if ((loopNo == 0) && (currentCoin == (unsigned int)Denominations::Penny))
 				end = true;
@@ -58,9 +56,7 @@ vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 					firstCoin = currentCoin;
 
 				if (currentCoin > (unsigned int)Denominations::Penny)
-				{					
 					workingCoin = currentCoin;
-				}
 
 				record.push_back(currentCoin);
 				remainingAmount -= CoinValue[currentCoin];
