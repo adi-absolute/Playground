@@ -8,7 +8,7 @@ enum class Denominations
 	Nickel,
 	Dime,
 	Quarter,
-	Dollar
+	NoOfCoins
 };
 
 std::vector<std::vector<unsigned int>> CountCoins(unsigned int valueInCents);

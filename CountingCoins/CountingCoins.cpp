@@ -4,21 +4,21 @@
 
 using namespace ::std;
 
-static unsigned int CoinValue[] = { 1, 5, 10, 25 };
+static unsigned int CoinValue[(unsigned int)Denominations::NoOfCoins] = { 1, 5, 10, 25 };
 
 vector<vector<unsigned int>> CountCoins(unsigned int valueInCents)
 {
 	vector<vector<unsigned int>> result;
 	bool end = false;
 	int dropCoinValueLoopNo = DO_NOT_DROP;
-	unsigned int dropCoinValue = (unsigned int)Denominations::Dollar;
+	unsigned int dropCoinValue = (unsigned int)Denominations::NoOfCoins;
 	unsigned int firstCoin = (unsigned int)Denominations::Quarter;
-	unsigned int workingCoin = (unsigned int)Denominations::Dollar;
+	unsigned int workingCoin = (unsigned int)Denominations::NoOfCoins;
 	vector <unsigned int> record;
 
 	while (!end)
 	{
-		vector<unsigned int> thisRound(4);
+		vector<unsigned int> thisRound((unsigned int)Denominations::NoOfCoins);
 		int loopNo = 0;
 		
 		unsigned int remainingAmount = valueInCents;
