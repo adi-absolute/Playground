@@ -16,6 +16,14 @@ void Grid::Run()
 
 }
 
+void Grid::SetCellAlive(int row, int col)
+{
+	if (row > _grid.size() || col > _grid[0].size())
+		return;
+
+	_grid[row][col] = CellState::Alive;
+}
+
 vector<vector<CellState>>& Grid::GetState()
 {
 	return _grid;
