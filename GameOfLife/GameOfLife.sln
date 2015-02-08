@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameOfLife", "GameOfLife.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameOfLifeTests", "GameOfLifeTests\GameOfLifeTests.vcxproj", "{CBD598B5-999F-40CA-A079-1214AA409310}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameOfLifeApp", "GameOfLifeApp\GameOfLifeApp.vcxproj", "{386681D3-C4E4-4FAA-80B9-ED249B6047D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{CBD598B5-999F-40CA-A079-1214AA409310}.Debug|Win32.Build.0 = Debug|Win32
 		{CBD598B5-999F-40CA-A079-1214AA409310}.Release|Win32.ActiveCfg = Release|Win32
 		{CBD598B5-999F-40CA-A079-1214AA409310}.Release|Win32.Build.0 = Release|Win32
+		{386681D3-C4E4-4FAA-80B9-ED249B6047D1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{386681D3-C4E4-4FAA-80B9-ED249B6047D1}.Debug|Win32.Build.0 = Debug|Win32
+		{386681D3-C4E4-4FAA-80B9-ED249B6047D1}.Release|Win32.ActiveCfg = Release|Win32
+		{386681D3-C4E4-4FAA-80B9-ED249B6047D1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
