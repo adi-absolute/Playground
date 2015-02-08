@@ -4,9 +4,6 @@
 
 using namespace ::std;
 
-#define ROWS 8
-#define COLS 8
-
 void PrintGrid(vector<vector<CellState>>& grid)
 {
 	for (int i = 0; i < grid.size(); i++)
@@ -25,15 +22,8 @@ void PrintGrid(vector<vector<CellState>>& grid)
 
 void main()
 {
-	//Grid game(ROWS, COLS);
 	bool exit = false;
-/*
-	game->SetCellAlive(0, 1);
-	game->SetCellAlive(1, 2);
-	game->SetCellAlive(2, 0);
-	game->SetCellAlive(2, 1);
-	game->SetCellAlive(2, 2);
-*/
+
 	int w;
 	cout << "Enter width/height of grid: ";
 	cin >> w;
