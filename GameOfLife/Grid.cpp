@@ -5,7 +5,7 @@ using namespace ::std;
 Grid::Grid(int rows, int cols)
 	: _noOfRows(rows), _noOfCols(cols)
 {
-	for (int i = 0; i < _noOfRows; i++)
+	for (int row = 0; row < _noOfRows; row++)
 	{
 		vector<CellState> vec(_noOfCols);
 		_grid.push_back(vec);
@@ -25,29 +25,29 @@ int Grid::CalculateNeighbours(int row, int col)
 	if (row > 0)
 	{
 		if (col > 0)
-			IncrementIfCellIsAlive(_grid[row - 1][col - 1], &noOfNeighbours);
+			IncrementIfCellIsAlive(_grid[row - 1][col - 1], &noOfNeighbours);		// Above Left
 
-		IncrementIfCellIsAlive(_grid[row - 1][col], &noOfNeighbours);
+		IncrementIfCellIsAlive(_grid[row - 1][col], &noOfNeighbours);				// Above
 
 		if (col < (_noOfCols - 1))
-			IncrementIfCellIsAlive(_grid[row - 1][col + 1], &noOfNeighbours);
+			IncrementIfCellIsAlive(_grid[row - 1][col + 1], &noOfNeighbours);		// Above Right
 	}
 
 	if (col > 0)
-		IncrementIfCellIsAlive(_grid[row][col - 1], &noOfNeighbours);
+		IncrementIfCellIsAlive(_grid[row][col - 1], &noOfNeighbours);				// Left
 
 	if (col < (_noOfCols - 1))
-		IncrementIfCellIsAlive(_grid[row][col + 1], &noOfNeighbours);
+		IncrementIfCellIsAlive(_grid[row][col + 1], &noOfNeighbours);				// Right
 
 	if (row < (_noOfRows - 1))
 	{
 		if (col > 0)
-			IncrementIfCellIsAlive(_grid[row + 1][col - 1], &noOfNeighbours);
+			IncrementIfCellIsAlive(_grid[row + 1][col - 1], &noOfNeighbours);		// Below Left
 
-		IncrementIfCellIsAlive(_grid[row + 1][col], &noOfNeighbours);
+		IncrementIfCellIsAlive(_grid[row + 1][col], &noOfNeighbours);				// Below
 
 		if (col < (_noOfCols - 1))
-			IncrementIfCellIsAlive(_grid[row + 1][col + 1], &noOfNeighbours);
+			IncrementIfCellIsAlive(_grid[row + 1][col + 1], &noOfNeighbours);		// Below Right
 	}
 
 	return noOfNeighbours;
@@ -57,28 +57,28 @@ void Grid::Run()
 {
 	vector<vector<CellState>> newGrid;
 	
-	for (int i = 0; i < _noOfRows; i++)
+	for (int row = 0; row < _noOfRows; row++)
 	{
 		vector<CellState> vec(_noOfCols);
 		newGrid.push_back(vec);
 	}
 
-	for (int i = 0; i < _noOfRows; i++)
+	for (int row = 0; row < _noOfRows; row++)
 	{
-		for (int j = 0; j < _noOfCols; j++)
+		for (int col = 0; col < _noOfCols; col++)
 		{
-			switch (CalculateNeighbours(i, j))
+			switch (CalculateNeighbours(row, col))
 			{
 			case 2:
-				newGrid[i][j] = _grid[i][j];
+				newGrid[row][col] = _grid[row][col];		// Rule 2: http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules
 				break;
 
 			case 3:
-				newGrid[i][j] = CellState::Alive;
+				newGrid[row][col] = CellState::Alive;	// Rule 2 & 4
 				break;
 
 			default:
-				newGrid[i][j] = CellState::Dead;
+				newGrid[row][col] = CellState::Dead;	// Rule 1 & 3
 				break;
 			}
 		}

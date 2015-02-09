@@ -25,11 +25,11 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 		
-		for (int i = 0; i < 4; i++)
+		for (int row = 0; row < 4; row++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int col = 0; col < 4; col++)
 			{
-				ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+				ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}		
 	}
@@ -42,14 +42,14 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 4; i++)
+		for (int row = 0; row < 4; row++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int col = 0; col < 4; col++)
 			{
-				if ((i == 1) && (j == 2))
-					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				if ((row == 1) && (col == 2))
+					ASSERT_EQ(CellState::Alive, currentGrid[row][col]);
 				else
-					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+					ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -62,11 +62,11 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 4; i++)
+		for (int row = 0; row < 4; row++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int col = 0; col < 4; col++)
 			{
-				ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+				ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -84,11 +84,11 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 8; i++)
+		for (int row = 0; row < 8; row++)
 		{
-			for (int j = 0; j < 8; j++)
+			for (int col = 0; col < 8; col++)
 			{
-				ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+				ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -106,11 +106,11 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 8; i++)
+		for (int row = 0; row < 8; row++)
 		{
-			for (int j = 0; j < 8; j++)
+			for (int col = 0; col < 8; col++)
 			{
-				ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+				ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -127,17 +127,17 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 8; i++)
+		for (int row = 0; row < 8; row++)
 		{
-			for (int j = 0; j < 8; j++)
+			for (int col = 0; col < 8; col++)
 			{
-				if (((i == 4) && (j==4))
-					|| (i == 4) && (j == 5)
-					|| (i == 5) && (j == 4)
-					|| (i == 5) && (j == 5))
-					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				if (((row == 4) && (col==4))
+					|| (row == 4) && (col == 5)
+					|| (row == 5) && (col == 4)
+					|| (row == 5) && (col == 5))
+					ASSERT_EQ(CellState::Alive, currentGrid[row][col]);
 				else
-					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+					ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -162,18 +162,18 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 8; i++)
+		for (int row = 0; row < 8; row++)
 		{
-			for (int j = 0; j < 8; j++)
+			for (int col = 0; col < 8; col++)
 			{
-				if (((i == 4) && (j == 4))
-					|| (i == 4) && (j == 5)
-					|| (i == 5) && (j == 3)
-					|| (i == 6) && (j == 4)
-					|| (i == 6) && (j == 5))
-					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				if (((row == 4) && (col == 4))
+					|| (row == 4) && (col == 5)
+					|| (row == 5) && (col == 3)
+					|| (row == 6) && (col == 4)
+					|| (row == 6) && (col == 5))
+					ASSERT_EQ(CellState::Alive, currentGrid[row][col]);
 				else
-					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+					ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -182,11 +182,11 @@ namespace CommonTests
 	{
 		Grid grid(3, 3);
 
-		for (int i = 0; i < 3; i++)
+		for (int row = 0; row < 3; row++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int col = 0; col < 3; col++)
 			{
-				grid.SetCellAlive(i, j);
+				grid.SetCellAlive(row, col);
 			}
 		}
 
@@ -194,27 +194,27 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 3; i++)
+		for (int row = 0; row < 3; row++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int col = 0; col < 3; col++)
 			{
-				if (((i == 0) && (j == 0))
-					|| (i == 0) && (j == 2)
-					|| (i == 2) && (j == 0)
-					|| (i == 2) && (j == 2))
-					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				if (((row == 0) && (col == 0))
+					|| (row == 0) && (col == 2)
+					|| (row == 2) && (col == 0)
+					|| (row == 2) && (col == 2))
+					ASSERT_EQ(CellState::Alive, currentGrid[row][col]);
 				else
-					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+					ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 
 		grid.Run();
 
-		for (int i = 0; i < 3; i++)
+		for (int row = 0; row < 3; row++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int col = 0; col < 3; col++)
 			{
-				ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+				ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
@@ -231,31 +231,31 @@ namespace CommonTests
 
 		vector<vector<CellState>>& currentGrid = grid.GetState();
 
-		for (int i = 0; i < 3; i++)
+		for (int row = 0; row < 3; row++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int col = 0; col < 3; col++)
 			{
-				if (((i == 1) && (j == 0))
-					|| (i == 1) && (j == 1)
-					|| (i == 1) && (j == 2))
-					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				if (((row == 1) && (col == 0))
+					|| (row == 1) && (col == 1)
+					|| (row == 1) && (col == 2))
+					ASSERT_EQ(CellState::Alive, currentGrid[row][col]);
 				else
-					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+					ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 
 		grid.Run();
 
-		for (int i = 0; i < 3; i++)
+		for (int row = 0; row < 3; row++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int col = 0; col < 3; col++)
 			{
-				if (((i == 0) && (j == 1))
-					|| (i == 1) && (j == 1)
-					|| (i == 2) && (j == 1))
-					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				if (((row == 0) && (col == 1))
+					|| (row == 1) && (col == 1)
+					|| (row == 2) && (col == 1))
+					ASSERT_EQ(CellState::Alive, currentGrid[row][col]);
 				else
-					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+					ASSERT_EQ(CellState::Dead, currentGrid[row][col]);
 			}
 		}
 	}
