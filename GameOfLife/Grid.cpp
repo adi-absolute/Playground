@@ -12,6 +12,12 @@ Grid::Grid(int rows, int cols)
 	}
 }
 
+void Grid::IncrementIfCellIsAlive(CellState state, int* count)
+{
+	if (state == CellState::Alive)
+		(*count)++;
+}
+
 int Grid::CalculateNeighbours(int row, int col)
 {
 	int noOfNeighbours = 0;
@@ -19,49 +25,29 @@ int Grid::CalculateNeighbours(int row, int col)
 	if (row > 0)
 	{
 		if (col > 0)
-		{
-			if (_grid[row - 1][col - 1] == CellState::Alive)
-				noOfNeighbours++;
-		}
+			IncrementIfCellIsAlive(_grid[row - 1][col - 1], &noOfNeighbours);
 
-		if (_grid[row - 1][col] == CellState::Alive)
-			noOfNeighbours++;
+		IncrementIfCellIsAlive(_grid[row - 1][col], &noOfNeighbours);
 
 		if (col < (_noOfCols - 1))
-		{
-			if (_grid[row - 1][col + 1] == CellState::Alive)
-				noOfNeighbours++;
-		}
+			IncrementIfCellIsAlive(_grid[row - 1][col + 1], &noOfNeighbours);
 	}
 
 	if (col > 0)
-	{
-		if (_grid[row][col - 1] == CellState::Alive)
-			noOfNeighbours++;
-	}
+		IncrementIfCellIsAlive(_grid[row][col - 1], &noOfNeighbours);
 
 	if (col < (_noOfCols - 1))
-	{
-		if (_grid[row][col + 1] == CellState::Alive)
-			noOfNeighbours++;
-	}
+		IncrementIfCellIsAlive(_grid[row][col + 1], &noOfNeighbours);
 
 	if (row < (_noOfRows - 1))
 	{
 		if (col > 0)
-		{
-			if (_grid[row + 1][col - 1] == CellState::Alive)
-				noOfNeighbours++;
-		}
+			IncrementIfCellIsAlive(_grid[row + 1][col - 1], &noOfNeighbours);
 
-		if (_grid[row + 1][col] == CellState::Alive)
-			noOfNeighbours++;
+		IncrementIfCellIsAlive(_grid[row + 1][col], &noOfNeighbours);
 
 		if (col < (_noOfCols - 1))
-		{
-			if (_grid[row + 1][col + 1] == CellState::Alive)
-				noOfNeighbours++;
-		}
+			IncrementIfCellIsAlive(_grid[row + 1][col + 1], &noOfNeighbours);
 	}
 
 	return noOfNeighbours;
