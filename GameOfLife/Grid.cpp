@@ -67,9 +67,7 @@ void Grid::Run()
 	{
 		for (int j = 0; j < _noOfCols; j++)
 		{
-			int noOfNeighbours = CalculateNeighbours(i, j);
-
-			switch (noOfNeighbours)
+			switch (CalculateNeighbours(i, j))
 			{
 			case 2:
 				newGrid[i][j] = _grid[i][j];
