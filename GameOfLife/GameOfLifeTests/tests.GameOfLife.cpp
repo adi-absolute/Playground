@@ -177,6 +177,47 @@ namespace CommonTests
 			}
 		}
 	}
+
+	TEST_F(TestGameOfLife, CellWithMoreThanFourNeighboursDies)
+	{
+		Grid grid(3, 3);
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				grid.SetCellAlive(i, j);
+			}
+		}
+
+		grid.Run();
+
+		vector<vector<CellState>>& currentGrid = grid.GetState();
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (((i == 0) && (j == 0))
+					|| (i == 0) && (j == 2)
+					|| (i == 2) && (j == 0)
+					|| (i == 2) && (j == 2))
+					ASSERT_EQ(CellState::Alive, currentGrid[i][j]);
+				else
+					ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+			}
+		}
+
+		grid.Run();
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				ASSERT_EQ(CellState::Dead, currentGrid[i][j]);
+			}
+		}
+	}
 	
 	TEST_F(TestGameOfLife, Oscillator)
 	{

@@ -85,10 +85,8 @@ void Grid::Run()
 
 			switch (noOfNeighbours)
 			{
-			case 0:
-			case 1:
-			case 4:
-				newGrid[i][j] = CellState::Dead;
+			case 2:
+				newGrid[i][j] = _grid[i][j];
 				break;
 
 			case 3:
@@ -96,7 +94,7 @@ void Grid::Run()
 				break;
 
 			default:
-				newGrid[i][j] = _grid[i][j];
+				newGrid[i][j] = CellState::Dead;
 				break;
 			}
 		}
