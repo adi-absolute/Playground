@@ -70,7 +70,7 @@ void Grid::Run()
 			switch (CalculateNeighbours(row, col))
 			{
 			case 2:
-				newGrid[row][col] = _grid[row][col];		// Rule 2: http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules
+				newGrid[row][col] = _grid[row][col];	// Rule 2: http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules
 				break;
 
 			case 3:
