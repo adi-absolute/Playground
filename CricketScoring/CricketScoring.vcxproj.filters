@@ -15,12 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CricketScoring.h">
+    <ClInclude Include="Over.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BallType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CricketScoring.cpp">
+    <ClCompile Include="Over.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

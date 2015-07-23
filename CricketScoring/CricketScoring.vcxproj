@@ -11,10 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CricketScoring.cpp" />
+    <ClCompile Include="Over.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CricketScoring.h" />
+    <ClInclude Include="BallType.h" />
+    <ClInclude Include="Over.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{519B0C63-EF7B-41C5-A29E-B89642440343}</ProjectGuid>
