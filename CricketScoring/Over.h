@@ -1,7 +1,8 @@
 #pragma once
 
-#include "BallType.h"
+#include "Ball.h"
 #include <string>
+#include <vector>
 
 class Over
 {
@@ -9,7 +10,7 @@ public:
 	Over();
    Over(std::string bowlerName);
 
-   void BallBowled(BallType ballType, int runsScored = 0);
+   void AddBall(Ball* ball);
    
    int LegalBallsBowled();
    int RunsOffTheBat();

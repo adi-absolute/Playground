@@ -12,8 +12,11 @@ m_legalBalls(0), m_runsOffTheBat(0), m_bowlerName(bowlerName), m_extraRuns(0)
 {
 }
 
-void Over::BallBowled(BallType ballType, int runsScored)
+void Over::AddBall(Ball* ball)
 {
+   BallType ballType = ball->ballType;
+   int runsScored = ball->runsScored;
+
    switch (ballType)
    {
    case BallType::NoBall:
