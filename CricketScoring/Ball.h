@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Player.h"
 #include "BallType.h"
 
 class Ball
