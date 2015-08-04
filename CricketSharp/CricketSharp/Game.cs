@@ -9,6 +9,7 @@ namespace CricketSharp
     public class Game
     {
         List<Team> teams = new List<Team>();
+        public int NoOfOvers;
 
         public void AddTeam(Team t)
         {
