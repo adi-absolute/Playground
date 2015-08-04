@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace CricketSharp
 {
-    class Game
+    public class Game
     {
+        List<Team> teams = new List<Team>();
+
+        public void AddTeam(Team t)
+        {
+            teams.Add(t);
+        }
+
+        public string GetFirstTeamName()
+        {
+            return teams.ElementAt(0).teamName;
+        }
+
+        public string GetSecondTeamName()
+        {
+            return teams.ElementAt(1).teamName;
+        }
     }
 }

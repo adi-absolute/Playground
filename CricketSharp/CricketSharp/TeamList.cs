@@ -42,5 +42,10 @@ namespace CricketSharp
         {
             teamList.Add(team);
         }
+
+        public Team GetTeam(string name)
+        {
+            return teamList.Find(item => (item.teamName == name));
+        }
     }
 }

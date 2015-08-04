@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="TeamListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GameTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CricketSharp\CricketSharp.csproj">
