@@ -46,5 +46,15 @@ namespace CricketSharp
         {
             ValidateStartGameButton();
         }
+
+        private void button_startGame_Click(object sender, EventArgs e)
+        {
+            listBox_battingFirstSide.Visible = false;
+            listBox_selectTossWinner.Visible = false;
+            textBox_selectNumberOfOvers.Visible = false;
+            textBox_selectSideBattingFirst.Visible = false;
+            textBox_selectTossWinner.Visible = false;
+            numericUpDown_oversSelector.Visible = false;
+        }
     }
 }

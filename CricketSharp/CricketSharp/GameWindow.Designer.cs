@@ -40,6 +40,7 @@
             // 
             // listBox_battingFirstSide
             // 
+            this.listBox_battingFirstSide.AccessibleName = "";
             this.listBox_battingFirstSide.FormattingEnabled = true;
             this.listBox_battingFirstSide.Location = new System.Drawing.Point(169, 74);
             this.listBox_battingFirstSide.Name = "listBox_battingFirstSide";
@@ -49,6 +50,7 @@
             // 
             // textBox_selectSideBattingFirst
             // 
+            this.textBox_selectSideBattingFirst.AccessibleName = "";
             this.textBox_selectSideBattingFirst.Location = new System.Drawing.Point(167, 51);
             this.textBox_selectSideBattingFirst.Multiline = true;
             this.textBox_selectSideBattingFirst.Name = "textBox_selectSideBattingFirst";
@@ -59,6 +61,7 @@
             // 
             // textBox_selectNumberOfOvers
             // 
+            this.textBox_selectNumberOfOvers.AccessibleName = "";
             this.textBox_selectNumberOfOvers.Location = new System.Drawing.Point(297, 51);
             this.textBox_selectNumberOfOvers.Multiline = true;
             this.textBox_selectNumberOfOvers.Name = "textBox_selectNumberOfOvers";
@@ -69,6 +72,7 @@
             // 
             // numericUpDown_oversSelector
             // 
+            this.numericUpDown_oversSelector.AccessibleName = "";
             this.numericUpDown_oversSelector.Location = new System.Drawing.Point(333, 74);
             this.numericUpDown_oversSelector.Maximum = new decimal(new int[] {
             50,
@@ -92,6 +96,7 @@
             // 
             // textBox_selectTossWinner
             // 
+            this.textBox_selectTossWinner.AccessibleName = "";
             this.textBox_selectTossWinner.Location = new System.Drawing.Point(41, 51);
             this.textBox_selectTossWinner.Multiline = true;
             this.textBox_selectTossWinner.Name = "textBox_selectTossWinner";
@@ -102,6 +107,7 @@
             // 
             // listBox_selectTossWinner
             // 
+            this.listBox_selectTossWinner.AccessibleName = "";
             this.listBox_selectTossWinner.FormattingEnabled = true;
             this.listBox_selectTossWinner.Location = new System.Drawing.Point(43, 74);
             this.listBox_selectTossWinner.Name = "listBox_selectTossWinner";
@@ -111,12 +117,14 @@
             // 
             // button_startGame
             // 
+            this.button_startGame.AccessibleName = "";
             this.button_startGame.Location = new System.Drawing.Point(169, 125);
             this.button_startGame.Name = "button_startGame";
             this.button_startGame.Size = new System.Drawing.Size(120, 23);
             this.button_startGame.TabIndex = 6;
             this.button_startGame.Text = "Start Game";
             this.button_startGame.UseVisualStyleBackColor = true;
+            this.button_startGame.Click += new System.EventHandler(this.button_startGame_Click);
             // 
             // GameWindow
             // 
