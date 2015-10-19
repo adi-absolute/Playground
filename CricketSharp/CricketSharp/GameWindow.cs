@@ -55,6 +55,7 @@ namespace CricketSharp
             textBox_selectSideBattingFirst.Visible = false;
             textBox_selectTossWinner.Visible = false;
             numericUpDown_oversSelector.Visible = false;
+            button_startGame.Visible = false;
         }
     }
 }
