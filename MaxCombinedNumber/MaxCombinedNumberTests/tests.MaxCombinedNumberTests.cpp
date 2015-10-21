@@ -13,7 +13,7 @@ as a string. For example
 
 given [50, 2, 1, 9] it returns "95021"    (9 + 50 + 2 + 1)
 given [5, 50, 56]   it returns "56550"    (56 + 5 + 50)
-given 420, 42, 423] it returns "42423420" (42 + 423 + 420)
+given [420, 42, 423] it returns "42423420" (42 + 423 + 420)
 
 Source [https://blog.svpino.com/about]
 */
@@ -52,6 +52,24 @@ TEST_F(TestMaxCombinedNumber, Actual_array)
    MaxCombinedNumber combiner(input);
 
    ASSERT_EQ(95021, combiner.MaxNumber());
+}
+
+TEST_F(TestMaxCombinedNumber, Actual_array2)
+{
+   std::vector<int> input = { 5, 50, 56 };
+
+   MaxCombinedNumber combiner(input);
+
+   ASSERT_EQ(56550, combiner.MaxNumber());
+}
+
+TEST_F(TestMaxCombinedNumber, Actual_array3)
+{
+   std::vector<int> input = { 420, 42, 423 };
+
+   MaxCombinedNumber combiner(input);
+
+   ASSERT_EQ(42423420, combiner.MaxNumber());
 }
 
 TEST_F(TestMaxCombinedNumber, Input_with_one_number_ten_times_other)
