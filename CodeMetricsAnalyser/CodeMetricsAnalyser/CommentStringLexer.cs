@@ -7,33 +7,7 @@ using System.IO;
 
 namespace CodeMetricsAnalyser
 {
-    
-    public enum TokenType
-    {
-       None,
-       Keyword,
-       Comment,
-       StringToken,
-    };
-
-    public class Token
-    {
-        public int Line;
-        public int Column;
-        public TokenType Type;
-        
-        public Token(int line, int column, TokenType type = TokenType.None)
-        {
-            Line = line;
-            Column = column;
-            Type = type;
-        }
-
-        public String Text;
-
-    }
-
-    public delegate bool IsDelimiter(Token t);
+    public delegate bool IsDelimiterDelegate(Token token);
 
     public class CommentStringLexer
     {
@@ -46,16 +20,12 @@ namespace CodeMetricsAnalyser
 
         void SetupGeneralDelimiters()
         {
-            var d = new DelimiterInfo("general", TokenType.StringToken, false, stringDelimiters);
-            d.IsDelimiter = AlwaysDelimiter;
-            generalScopeDelimiters.Add('\"', d);
+            generalScopeDelimiters.Add('\"', new DelimiterInfo("general", TokenType.StringToken, false, AlwaysDelimiter, stringDelimiters));
         }
 
         void SetupStringDelimiters()
         {
-            var d = new DelimiterInfo("string", TokenType.None, true, generalScopeDelimiters);
-            d.IsDelimiter = DoubleQuotesInStringDelimiter;
-            stringDelimiters.Add('\"', d);
+            stringDelimiters.Add('\"', new DelimiterInfo("string", TokenType.None, true, DoubleQuotesInStringDelimiter, generalScopeDelimiters));
         }
 
         public bool AlwaysDelimiter(Token t)
@@ -63,9 +33,9 @@ namespace CodeMetricsAnalyser
             return true;
         }
 
-        public bool DoubleQuotesInStringDelimiter(Token t)
+        public bool DoubleQuotesInStringDelimiter(Token token)
         {
-            return !t.Text.EndsWith("\\");
+            return !token.Text.EndsWith("\\");
         }
 
         public CommentStringLexer()

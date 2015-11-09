@@ -11,12 +11,8 @@ namespace CodeMetricsAnalyser
         public string Name;
         public TokenType Type;
         public bool AddToCurrentToken;
-        public IsDelimiter IsDelimiter;
-
-        //public bool IsDelimiter(Token currentToken, IsDelimiter d)
-        //{
-        //    return false;
-        //}
+        public IsDelimiterDelegate IsDelimiter;
+        public Dictionary<char, DelimiterInfo> NextLexer;
 
         public int TakeLastNCharsFromToken(Token currentToken)
         {
@@ -28,13 +24,13 @@ namespace CodeMetricsAnalyser
             return false;
         }
 
-        public Dictionary<char, DelimiterInfo> NextLexer;
 
-        public DelimiterInfo(string name, TokenType type, bool addToCurrent, Dictionary<char, DelimiterInfo> nextLexer)
+        public DelimiterInfo(string name, TokenType type, bool addToCurrent, IsDelimiterDelegate del, Dictionary<char, DelimiterInfo> nextLexer)
         {
             Name = name;
             Type = type;
             AddToCurrentToken = addToCurrent;
+            IsDelimiter = del;
             NextLexer = nextLexer;
         }
     }
