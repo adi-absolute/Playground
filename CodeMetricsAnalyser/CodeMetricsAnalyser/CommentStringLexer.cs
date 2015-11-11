@@ -30,19 +30,19 @@ namespace CodeMetricsAnalyser
         void SetupGeneralDelimiters()
         {
             generalScopeDelimiters.Add('\"', 
-                new DelimiterInfo("general", TokenType.StringToken, 
+                new DelimiterInfo(TokenType.StringToken, 
                     false, IsDelimiter.Always,
                     TakeCharsFromLastToken.DoubleQuotes,
                     IsMultiline.VerbatimString,
                     stringDelimiters));
             generalScopeDelimiters.Add('*', 
-                new DelimiterInfo("general", TokenType.Comment, 
+                new DelimiterInfo(TokenType.Comment, 
                     false, IsDelimiter.IfPreviousCharASlash,
                     TakeCharsFromLastToken.Comments,
                     IsMultiline.BlockComment,
                     blockCommentDelimiters));
             generalScopeDelimiters.Add('/',
-                new DelimiterInfo("general", TokenType.Comment,
+                new DelimiterInfo(TokenType.Comment,
                     false, IsDelimiter.IfPreviousCharASlash,
                     TakeCharsFromLastToken.Comments,
                     IsMultiline.No,
@@ -52,7 +52,7 @@ namespace CodeMetricsAnalyser
         void SetupStringDelimiters()
         {
             stringDelimiters.Add('\"', 
-                new DelimiterInfo("string", TokenType.None, 
+                new DelimiterInfo(TokenType.None, 
                     true, IsDelimiter.DoubleQuotes,
                     TakeCharsFromLastToken.Zero,
                     IsMultiline.No,
@@ -62,7 +62,7 @@ namespace CodeMetricsAnalyser
         void SetupBlockCommentDelimiters()
         {
             blockCommentDelimiters.Add('/',
-                new DelimiterInfo("blcomment", TokenType.None,
+                new DelimiterInfo(TokenType.None,
                     true, IsDelimiter.Slash,
                     TakeCharsFromLastToken.Zero,
                     IsMultiline.No,
@@ -72,7 +72,7 @@ namespace CodeMetricsAnalyser
         void SetupLineCommentDelimiters()
         {
             lineCommentDelimiters.Add('\\',
-                new DelimiterInfo("lncomment", TokenType.None,
+                new DelimiterInfo(TokenType.None,
                     true, IsDelimiter.Slash,
                     TakeCharsFromLastToken.Zero,
                     IsMultiline.No,
@@ -95,7 +95,7 @@ namespace CodeMetricsAnalyser
         
         bool IsPreviousCharABackslash()
         {
-            return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("\\")));
+            return currentToken.Text.EndsWith("\\");
         }
 
         void LexDelimiter(char character)

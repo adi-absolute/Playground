@@ -16,7 +16,7 @@ namespace CodeMetricsAnalyser
 
         public static bool IfPreviousCharASlash(Token currentToken)
         {
-            return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("/")));
+            return currentToken.Text.EndsWith("/");
         }
 
         public static bool DoubleQuotes(Token token)
@@ -50,7 +50,7 @@ namespace CodeMetricsAnalyser
 
         public static int DoubleQuotes(Token token)
         {
-            if ((token.Text.Length != 0) && (token.Text.EndsWith("R")))
+            if (token.Text.EndsWith("R"))
                 return 1;
 
             return 0;
@@ -74,7 +74,7 @@ namespace CodeMetricsAnalyser
 
         public static bool VerbatimString(Token token)
         {
-            if ((token.Text.Length != 0) && !token.Text.EndsWith("R"))
+            if (!token.Text.EndsWith("R"))
                 return true;
 
             return false;
