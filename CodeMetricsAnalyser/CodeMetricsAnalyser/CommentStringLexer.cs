@@ -20,6 +20,13 @@ namespace CodeMetricsAnalyser
         Dictionary<char, DelimiterInfo> blockCommentDelimiters;
         Dictionary<char, DelimiterInfo> lineCommentDelimiters;
 
+        int lineNumber = 0;
+        int columnNumber = 0;
+        Token currentToken;
+        bool multiLineLexer = false;
+
+        public int NumberOfLines = 0;
+
         void SetupGeneralDelimiters()
         {
             generalScopeDelimiters.Add('\"', 
@@ -129,13 +136,13 @@ namespace CodeMetricsAnalyser
             return false;
         }
 
-       bool IsNextStringLexerMultiLine(Token token)
-       {
-           if ((token.Text.Length != 0) && !token.Text.EndsWith("R"))
-               return true;
+        bool IsNextStringLexerMultiLine(Token token)
+        {
+            if ((token.Text.Length != 0) && !token.Text.EndsWith("R"))
+                return true;
 
-           return false;
-       }
+            return false;
+        }
 
         bool IsNextCommentLexerMultiLine(Token token)
         {
@@ -158,12 +165,6 @@ namespace CodeMetricsAnalyser
             SetupBlockCommentDelimiters();
             SetupLineCommentDelimiters();
         }
-
-        int lineNumber = 0;
-        int columnNumber = 0;
-        Token currentToken;
-        public int NumberOfLines = 0;
-        bool multiLineLexer = false;
         
         bool IsPreviousCharABackslash(Token currentToken)
         {
