@@ -31,21 +31,21 @@ namespace CodeMetricsAnalyser
         {
             generalScopeDelimiters.Add('\"', 
                 new DelimiterInfo("general", TokenType.StringToken, 
-                    false, AlwaysDelimiter,
-                    DoubleQuotesCharsFromLastToken,
-                    IsNextStringLexerMultiLine,
+                    false, IsDelimiter.Always,
+                    TakeCharsFromLastToken.DoubleQuotes,
+                    IsMultiline.VerbatimString,
                     stringDelimiters));
             generalScopeDelimiters.Add('*', 
                 new DelimiterInfo("general", TokenType.Comment, 
-                    false, IsPreviousCharASlash,
-                    CommentsTakeCharsFromToken,
-                    IsNextCommentLexerMultiLine,
+                    false, IsDelimiter.IfPreviousCharASlash,
+                    TakeCharsFromLastToken.Comments,
+                    IsMultiline.BlockComment,
                     blockCommentDelimiters));
             generalScopeDelimiters.Add('/',
                 new DelimiterInfo("general", TokenType.Comment,
-                    false, IsPreviousCharASlash,
-                    CommentsTakeCharsFromToken,
-                    NextLexerNotMultiLine,
+                    false, IsDelimiter.IfPreviousCharASlash,
+                    TakeCharsFromLastToken.Comments,
+                    IsMultiline.No,
                     lineCommentDelimiters));
         }
 
@@ -53,9 +53,9 @@ namespace CodeMetricsAnalyser
         {
             stringDelimiters.Add('\"', 
                 new DelimiterInfo("string", TokenType.None, 
-                    true, DoubleQuotesInStringDelimiter,
-                    TakeZeroCharsFromLastToken,
-                    NextLexerNotMultiLine,
+                    true, IsDelimiter.DoubleQuotes,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
                     generalScopeDelimiters));
         }
 
@@ -63,9 +63,9 @@ namespace CodeMetricsAnalyser
         {
             blockCommentDelimiters.Add('/',
                 new DelimiterInfo("blcomment", TokenType.None,
-                    true, IsSlashInCommentADelimiter,
-                    TakeZeroCharsFromLastToken,
-                    NextLexerNotMultiLine,
+                    true, IsDelimiter.Slash,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
                     generalScopeDelimiters));
         }
 
@@ -73,83 +73,10 @@ namespace CodeMetricsAnalyser
         {
             lineCommentDelimiters.Add('\\',
                 new DelimiterInfo("lncomment", TokenType.None,
-                    true, IsSlashInCommentADelimiter,
-                    TakeZeroCharsFromLastToken,
-                    NextLexerNotMultiLine,
+                    true, IsDelimiter.Slash,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
                     generalScopeDelimiters));
-        }
-
-        public bool AlwaysDelimiter(Token t)
-        {
-            return true;
-        }
-
-        public bool DoubleQuotesInStringDelimiter(Token token)
-        {
-            if (currentToken.Text.StartsWith("R"))
-            {
-                var openBracketPosition = currentToken.Text.IndexOf('(');
-                if (openBracketPosition == -1)
-                    return false;
-
-                string bookend = ")" + currentToken.Text.Substring(2, openBracketPosition - 2);
-
-                return currentToken.Text.EndsWith(bookend);
-            }
-
-            return !token.Text.EndsWith("\\");
-        }
-
-        bool IsSlashInCommentADelimiter(Token token)
-        {
-            return token.Text.EndsWith("*");
-        }
-        
-        bool IsPreviousCharASlash(Token currentToken)
-        {
-            return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("/")));
-        }
-
-        public int TakeZeroCharsFromLastToken(Token t)
-        {
-            return 0;
-        }
-
-        public int DoubleQuotesCharsFromLastToken(Token token)
-        {
-            if ((token.Text.Length != 0) && (token.Text.EndsWith("R")))
-                return 1;
-
-            return 0;
-        }
-
-        public int CommentsTakeCharsFromToken(Token token)
-        {
-            if (IsPreviousCharASlash(token))
-                return 1;
-
-            return 0;
-        }
-
-        bool NextLexerNotMultiLine(Token t)
-        {
-            return false;
-        }
-
-        bool IsNextStringLexerMultiLine(Token token)
-        {
-            if ((token.Text.Length != 0) && !token.Text.EndsWith("R"))
-                return true;
-
-            return false;
-        }
-
-        bool IsNextCommentLexerMultiLine(Token token)
-        {
-            if ((token.Text.Length > 1) && (token.Text.ElementAt(1) == '*'))
-                return true;
-
-            return false;
         }
 
         public CommentStringLexer()
@@ -166,7 +93,7 @@ namespace CodeMetricsAnalyser
             SetupLineCommentDelimiters();
         }
         
-        bool IsPreviousCharABackslash(Token currentToken)
+        bool IsPreviousCharABackslash()
         {
             return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("\\")));
         }
@@ -237,7 +164,7 @@ namespace CodeMetricsAnalyser
 
                 lineNumber++;
 
-                if ((multiLineLexer) || (IsPreviousCharABackslash(currentToken)))
+                if ((multiLineLexer) || (IsPreviousCharABackslash()))
                 {
                     currentToken.Text += '\n';
                 }

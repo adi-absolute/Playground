@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CommentStringLexerDelegates.cs" />
     <Compile Include="CommentStringLexer.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="CommentStringLexerTests.cs" />
