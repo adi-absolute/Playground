@@ -180,59 +180,56 @@ world"")bookend""";
             AssertTokensEqual(expectedToken, tokens[1]);
         }
 
-        //public void  Lexing_a_multi_line_global_block_comment)
-        //{
-        //   
-        //   const char expected[] = R"marker(/* Hello 
-        //world */)marker";
-        //   ss << expected;      
+        [TestMethod]
+        public void  Lexing_a_multi_line_global_block_comment()
+        {
+            string expected = @"/* Hello 
+        world */";
+            Stream ss = GenerateStreamFromString(expected);
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(1, tokens.Count);
 
-        //   AssertTokensEqual(1, tokens.Count);
+            Token expectedToken = new Token(0, 0, TokenType.Comment);
+            expectedToken.Text = expected;
+            AssertTokensEqual(expectedToken, tokens[0]);
+        }
 
-        //   Token expectedToken = new Token(0, 0, TokenType.Comment);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[0]);
-        //}
+        [TestMethod]
+        public void  Asterisk_as_multiplier_not_part_of_comment()
+        {
+            string expected = "int a = 5*6;";
+            Stream ss = GenerateStreamFromString(expected);
+           
+           var tokens = lexer.GenerateTokens(ss);
 
-        //public void  Asterisk_as_multiplier_not_part_of_comment)
-        //{
-        //   
-        //   const char expected[] = "int a = 5*6;";
-        //   ss << expected;
+           Assert.AreEqual(1, tokens.Count);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+           Token expectedToken = new Token(0, 0);
+           expectedToken.Text = expected;
+           AssertTokensEqual(expectedToken, tokens[0]);
+        }
 
-        //   AssertTokensEqual(1, tokens.Count);
+        [TestMethod]
+        public void  Slash_as_divider_not_part_of_comment()
+        {
+            string expected = "int a = 53/6;";
+            Stream ss = GenerateStreamFromString(expected);
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   Token expectedToken = new Token(0, 0);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[0]);
-        //}
+            Assert.AreEqual(1, tokens.Count);
 
-        //public void  Slash_as_divider_not_part_of_comment)
-        //{
-        //   
-        //   const char expected[] = "int a = 53/6;";
-        //   ss << expected;
-
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
-
-        //   AssertTokensEqual(1, tokens.Count);
-
-        //   Token expectedToken = new Token(0, 0);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[0]);
-        //}
+            Token expectedToken = new Token(0, 0);
+            expectedToken.Text = expected;
+            AssertTokensEqual(expectedToken, tokens[0]);
+        }
 
         //public void  Lexing_line_comments)
         //{
         //   
-        //   const char expected[] = @"//string s = "blah")";
+        //   string expected = @"//string s = "blah")";
         //   ss << expected;
 
         //   
@@ -248,7 +245,7 @@ world"")bookend""";
         //public void  Lexing_line_comment_after_valid_code)
         //{
         //   
-        //   const char expected[] = @"//string s = "blah")";
+        //   string expected = @"//string s = "blah")";
         //   Stream ss = GenerateStreamFromString(int a = 5; " << expected;
 
         //   
@@ -296,7 +293,7 @@ world"")bookend""";
         //public void  Lexing_block_comment_after_valid_code)
         //{
         //   
-        //   const char expected[] = @"/*something went wrong*/)";
+        //   string expected = @"/*something went wrong*/)";
         //   ss << @"cout << "Can't open file!" << endl; )" << expected;
 
         //   
