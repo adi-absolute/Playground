@@ -322,29 +322,27 @@ string a = ""text"";");
 
             AssertTokensEqual(expected, tokens[0]);
         }
+        
+        [TestMethod]
+        public void  Number_of_lines_in_single_line_file()
+        {
+            Stream ss = GenerateStreamFromString(@"cout << ""Just one line"" << endl;");
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //public void  Number_of_lines_in_single_line_file)
-        //{
-        //   
-        //   ss << @"cout << "Just one line" << endl; )";
+            Assert.AreEqual(1, lexer.NumberOfLines);
+        }
+        
+        [TestMethod]
+        public void  Number_of_lines_in_multi_line_file()
+        {
+            string expectedText = @"//string s = ""blah"" \
+        and some more blah";
+            Stream ss = GenerateStreamFromString(expectedText);
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
-
-        //   AssertTokensEqual(1, lexer.NumberOfLines());
-        //}
-
-        //public void  Number_of_lines_in_multi_line_file)
-        //{
-        //   
-        //   string expectedText = @"//string s = "blah" \
-        //and some more blah)";
-        //   ss << expectedText;
-
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
-
-        //   AssertTokensEqual(2, lexer.NumberOfLines());
-        //}
+            Assert.AreEqual(2, lexer.NumberOfLines);
+        }
     }
 }

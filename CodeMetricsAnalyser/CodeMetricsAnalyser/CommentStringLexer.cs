@@ -162,7 +162,7 @@ namespace CodeMetricsAnalyser
         int lineNumber = 0;
         int columnNumber = 0;
         Token currentToken;
-        int numberOfLines = 0;
+        public int NumberOfLines = 0;
         bool multiLineLexer = false;
         
         bool IsPreviousCharABackslash(Token currentToken)
@@ -252,7 +252,7 @@ namespace CodeMetricsAnalyser
                 }
             }
 
-        numberOfLines = lineNumber;
+        NumberOfLines = lineNumber;
 
         return tokens;
         }
