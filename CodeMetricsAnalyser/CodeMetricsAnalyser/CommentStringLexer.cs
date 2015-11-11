@@ -31,9 +31,15 @@ namespace CodeMetricsAnalyser
             generalScopeDelimiters.Add('*', 
                 new DelimiterInfo("general", TokenType.Comment, 
                     false, IsPreviousCharASlash,
-                    BlockCommentTakeCharsFromToken,
+                    CommentsTakeCharsFromToken,
                     IsNextCommentLexerMultiLine,
                     blockCommentDelimiters));
+            generalScopeDelimiters.Add('/',
+                new DelimiterInfo("general", TokenType.Comment,
+                    false, IsPreviousCharASlash,
+                    CommentsTakeCharsFromToken,
+                    NextLexerNotMultiLine,
+                    lineCommentDelimiters));
         }
 
         void SetupStringDelimiters()
@@ -50,6 +56,16 @@ namespace CodeMetricsAnalyser
         {
             blockCommentDelimiters.Add('/',
                 new DelimiterInfo("blcomment", TokenType.None,
+                    true, IsSlashInCommentADelimiter,
+                    TakeZeroCharsFromLastToken,
+                    NextLexerNotMultiLine,
+                    generalScopeDelimiters));
+        }
+
+        void SetupLineCommentDelimiters()
+        {
+            lineCommentDelimiters.Add('\\',
+                new DelimiterInfo("lncomment", TokenType.None,
                     true, IsSlashInCommentADelimiter,
                     TakeZeroCharsFromLastToken,
                     NextLexerNotMultiLine,
@@ -100,7 +116,7 @@ namespace CodeMetricsAnalyser
             return 0;
         }
 
-        public int BlockCommentTakeCharsFromToken(Token token)
+        public int CommentsTakeCharsFromToken(Token token)
         {
             if (IsPreviousCharASlash(token))
                 return 1;
@@ -140,6 +156,7 @@ namespace CodeMetricsAnalyser
             SetupGeneralDelimiters();
             SetupStringDelimiters();
             SetupBlockCommentDelimiters();
+            SetupLineCommentDelimiters();
         }
 
         int lineNumber = 0;

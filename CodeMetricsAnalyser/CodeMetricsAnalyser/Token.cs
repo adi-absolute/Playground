@@ -20,13 +20,14 @@ namespace CodeMetricsAnalyser
         public int Line;
         public int Column;
         public TokenType Type;
-        public String Text;
+        public string Text;
 
         public Token(int line, int column, TokenType type = TokenType.None)
         {
             Line = line;
             Column = column;
             Type = type;
+            Text = string.Empty;
         }
     }
 }

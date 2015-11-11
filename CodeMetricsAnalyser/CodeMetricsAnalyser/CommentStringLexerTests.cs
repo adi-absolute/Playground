@@ -226,37 +226,35 @@ world"")bookend""";
             AssertTokensEqual(expectedToken, tokens[0]);
         }
 
-        //public void  Lexing_line_comments)
-        //{
-        //   
-        //   string expected = @"//string s = "blah")";
-        //   ss << expected;
+        [TestMethod]
+        public void  Lexing_line_comments()
+        {
+            string expected = @"//string s = ""blah""";
+            Stream ss = GenerateStreamFromString(expected);
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(1, tokens.Count);
 
-        //   AssertTokensEqual(1, tokens.Count);
+            Token expectedToken = new Token(0, 0, TokenType.Comment);
+            expectedToken.Text = expected;
+            AssertTokensEqual(expectedToken, tokens[0]);
+        }
 
-        //   Token expectedToken = new Token(0, 0, TokenType.Comment);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[0]);
-        //}
+        [TestMethod]
+        public void  Lexing_line_comment_after_valid_code()
+        {
+            string expected = @"//string s = ""blah""";
+            Stream ss = GenerateStreamFromString("int a = 5; " + expected);
 
-        //public void  Lexing_line_comment_after_valid_code)
-        //{
-        //   
-        //   string expected = @"//string s = "blah")";
-        //   Stream ss = GenerateStreamFromString(int a = 5; " << expected;
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(2, tokens.Count);
 
-        //   AssertTokensEqual(2, tokens.Count);
-
-        //   Token expectedToken = new Token(0, 11, TokenType.Comment);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[1]);
-        //}
+            Token expectedToken = new Token(0, 11, TokenType.Comment);
+            expectedToken.Text = expected;
+            AssertTokensEqual(expectedToken, tokens[1]);
+        }
 
         //public void  Slash_asterisk_comment_in_the_middle_of_valid_code)
         //{
