@@ -12,6 +12,7 @@ namespace TestsForCodeMetricsAnalyser
         {
             Assert.AreEqual(t1.Column, t2.Column);
             Assert.AreEqual(t1.Line, t2.Line);
+            t1.Text = t1.Text.Replace("\r", "");
             Assert.AreEqual(t1.Text, t2.Text); 
             Assert.AreEqual(t1.Type, t2.Type);
         }
@@ -117,39 +118,37 @@ namespace TestsForCodeMetricsAnalyser
            AssertTokensEqual(expectedToken, tokens[1]);
         }
 
+        [TestMethod]
+        public void  Lexing_a_global_cpp11_string_variable_definition()
+        {
+           const string expected = @"R""bookend(""world"")bookend""";
+           Stream ss = GenerateStreamFromString("string s = " + expected + ";");
+           
+           var tokens = lexer.GenerateTokens(ss);
 
-        //public void  Lexing_a_global_cpp11_string_variable_definition)
-        //{
-        //   
-        //   const char expected[] = R"marker(R"bookend("world")bookend")marker";
-        //   Stream ss = GenerateStreamFromString(string s = " << expected << ";";
+           Assert.AreEqual(3, tokens.Count);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+           Token expectedToken = new Token(0, 11, TokenType.StringToken);
+           expectedToken.Text = expected;
+           AssertTokensEqual(expectedToken, tokens[1]);
+        }
 
-        //   AssertTokensEqual(3, tokens.Count);
+        [TestMethod]
+        public void  Lexing_a_global_multi_line_cpp11_string_variable_definition()
+        {
+           string expected = @"R""bookend(""Hello
+world"")bookend""";
+           Stream ss = GenerateStreamFromString("string s = " + expected + ";");
 
-        //   Token expectedToken = new Token(0, 11, TokenType.StringToken);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[1]);
-        //}
+           
+           var tokens = lexer.GenerateTokens(ss);
 
-        //public void  Lexing_a_global_multi_line_cpp11_string_variable_definition)
-        //{
-        //   
-        //   const char expected[] = R"marker(R"bookend("Hello 
-        //world")bookend")marker";
-        //   Stream ss = GenerateStreamFromString(string s = " << expected << ";";
+           Assert.AreEqual(3, tokens.Count);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
-
-        //   AssertTokensEqual(3, tokens.Count);
-
-        //   Token expectedToken = new Token(0, 11, TokenType.StringToken);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[1]);
-        //}
+           Token expectedToken = new Token(0, 11, TokenType.StringToken);
+           expectedToken.Text = expected;
+           AssertTokensEqual(expectedToken, tokens[1]);
+        }
 
         //public void  Lexing_a_single_line_global_block_comment)
         //{

@@ -8,6 +8,8 @@ using System.IO;
 namespace CodeMetricsAnalyser
 {
     public delegate bool IsDelimiterDelegate(Token token);
+    public delegate int TakeNCharsFromLastTokenDelegate(Token token);
+    public delegate bool NextLexerMultiLineDelegate(Token token);
 
     public class CommentStringLexer
     {
@@ -20,12 +22,22 @@ namespace CodeMetricsAnalyser
 
         void SetupGeneralDelimiters()
         {
-            generalScopeDelimiters.Add('\"', new DelimiterInfo("general", TokenType.StringToken, false, AlwaysDelimiter, stringDelimiters));
+            generalScopeDelimiters.Add('\"', 
+                new DelimiterInfo("general", TokenType.StringToken, 
+                    false, AlwaysDelimiter,
+                    DoubleQuotesCharsFromLastToken,
+                    IsNextStringLexerMultiLine,
+                    stringDelimiters));
         }
 
         void SetupStringDelimiters()
         {
-            stringDelimiters.Add('\"', new DelimiterInfo("string", TokenType.None, true, DoubleQuotesInStringDelimiter, generalScopeDelimiters));
+            stringDelimiters.Add('\"', 
+                new DelimiterInfo("string", TokenType.None, 
+                    true, DoubleQuotesInStringDelimiter,
+                    TakeZeroCharsFromLastToken,
+                    NextLexerNotMultiLine,
+                    generalScopeDelimiters));
         }
 
         public bool AlwaysDelimiter(Token t)
@@ -35,8 +47,45 @@ namespace CodeMetricsAnalyser
 
         public bool DoubleQuotesInStringDelimiter(Token token)
         {
+            if (currentToken.Text.StartsWith("R"))
+            {
+                var openBracketPosition = currentToken.Text.IndexOf('(');
+                if (openBracketPosition == -1)
+                    return false;
+
+                string bookend = ")" + currentToken.Text.Substring(2, openBracketPosition - 2);
+
+                return currentToken.Text.EndsWith(bookend);
+            }
+
             return !token.Text.EndsWith("\\");
         }
+
+        public int TakeZeroCharsFromLastToken(Token t)
+        {
+            return 0;
+        }
+
+        public int DoubleQuotesCharsFromLastToken(Token token)
+        {
+            if ((token.Text.Length != 0) && (token.Text.EndsWith("R")))
+                return 1;
+
+            return 0;
+        }
+
+        bool NextLexerNotMultiLine(Token t)
+        {
+            return false;
+        }
+
+       bool IsNextStringLexerMultiLine(Token token)
+       {
+           if ((token.Text.Length != 0) && !token.Text.EndsWith("R"))
+               return true;
+
+           return false;
+       }
 
         public CommentStringLexer()
         {
@@ -67,10 +116,11 @@ namespace CodeMetricsAnalyser
            var nextTokenText = String.Empty;
            int nextTokenColNumber = columnNumber;
 
-           int charsFromLastToken = delimiter.TakeLastNCharsFromToken(currentToken);
+           int charsFromLastToken = delimiter.TakeNCharsFromLastToken(currentToken);
            if (charsFromLastToken != 0)
            {
-               currentToken.Text.Remove(charsFromLastToken);
+               nextTokenText = currentToken.Text.Substring(currentToken.Text.Length - charsFromLastToken);
+               currentToken.Text = currentToken.Text.Remove(currentToken.Text.Length - charsFromLastToken);
            }
 
            if (delimiter.AddToCurrentToken)
@@ -91,7 +141,7 @@ namespace CodeMetricsAnalyser
               currentToken.Text += character;
    
            lexer = delimiter.NextLexer;
-           multiLineLexer = delimiter.isNextLexerMultiLine(currentToken);
+           multiLineLexer = delimiter.NextLexerMultiLine(currentToken);
         }
 
         public List<Token> GenerateTokens(Stream stream)
