@@ -51,6 +51,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CommentStringLexer.cs" />
+    <Compile Include="SecondPassLexer.cs" />
+    <Compile Include="SecondPassLexerTests.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="CommentStringLexerTests.cs" />
     <Compile Include="DelimiterInfo.cs" />
