@@ -256,75 +256,72 @@ world"")bookend""";
             AssertTokensEqual(expectedToken, tokens[1]);
         }
 
-        //public void  Slash_asterisk_comment_in_the_middle_of_valid_code)
-        //{
-        //   
-        //   Stream ss = GenerateStreamFromString(int a = /*comment*/ 53/6;";
+        [TestMethod]
+        public void  Slash_asterisk_comment_in_the_middle_of_valid_code()
+        {
+            Stream ss = GenerateStreamFromString("int a = /*comment*/ 53/6;");
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(3, tokens.Count);
 
-        //   AssertTokensEqual(3, tokens.Count);
+            Token expectedToken = new Token(0, 8, TokenType.Comment);
+            expectedToken.Text = "/*comment*/";
+            AssertTokensEqual(expectedToken, tokens[1]);
+        }
 
-        //   Token expectedToken = new Token(0, 8, TokenType.Comment);
-        //   expectedToken.Text = "/*comment*/";
-        //   AssertTokensEqual(expectedToken, tokens[1]);
-        //}
+        [TestMethod]
+        public void  Lexing_valid_code_after_double_slash_comment()
+        {
+            Stream ss = GenerateStreamFromString(@"//string s = ""blah""
+string a = ""text"";");
 
-        //public void  Lexing_valid_code_after_double_slash_comment)
-        //{
-        //   
-        //   ss << @"//string s = "blah"
-        //string a = "text";)";
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(4, tokens.Count);
 
-        //   AssertTokensEqual(4, tokens.Count);
+            Token expected = new Token(1, 0);
+            expected.Text = "string a = ";
 
-        //   Token expected = new Token(1, 0);
-        //   expected.Text = "string a = ";
+            AssertTokensEqual(expected, tokens[1]);
+        }
 
-        //   AssertTokensEqual(expected, tokens[1]);
-        //}
+        [TestMethod]
+        public void  Lexing_block_comment_after_valid_code()
+        {
+           
+            string expected = @"/*something went wrong*/";
+            Stream ss = GenerateStreamFromString(@"cout << ""Can't open file!"" << endl;" + expected);
 
-        //public void  Lexing_block_comment_after_valid_code)
-        //{
-        //   
-        //   string expected = @"/*something went wrong*/)";
-        //   ss << @"cout << "Can't open file!" << endl; )" << expected;
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(4, tokens.Count);
 
-        //   AssertTokensEqual(4, tokens.Count);
+            Token expectedToken3 = new Token(0, 26);
+            expectedToken3.Text = " << endl;";
+            AssertTokensEqual(expectedToken3, tokens[2]);
 
-        //   Token expectedToken3(0, 26);
-        //   expectedToken3.Text = " << endl; ";
-        //   AssertTokensEqual(expectedToken3, tokens[2]);
+            Token expectedToken4 = new Token(0, 35, TokenType.Comment);
+            expectedToken4.Text = expected;
+            AssertTokensEqual(expectedToken4, tokens[3]);
+        }
 
-        //   Token expectedToken4(0, 36, TokenType.Comment);
-        //   expectedToken4.Text = expected;
-        //   AssertTokensEqual(expectedToken4, tokens[3]);
-        //}
+        [TestMethod]
+        public void  Lexing_multiline_line_comment()
+        {
+            string expectedText = @"//string s = ""blah"" \
+        and some more blah";
+            Stream ss = GenerateStreamFromString(expectedText);
 
-        //public void  Lexing_multiline_line_comment)
-        //{
-        //   
-        //   string expectedText = @"//string s = "blah" \
-        //and some more blah)";
-        //   ss << expectedText;
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(1, tokens.Count);
 
-        //   AssertTokensEqual(1, tokens.Count);
+            Token expected = new Token(0, 0, TokenType.Comment);
+            expected.Text = expectedText;
 
-        //   Token expected = new Token(0, 0, TokenType.Comment);
-        //   expected.Text = expectedText;
-
-        //   AssertTokensEqual(expected, tokens[0]);
-        //}
+            AssertTokensEqual(expected, tokens[0]);
+        }
 
         //public void  Number_of_lines_in_single_line_file)
         //{
