@@ -28,6 +28,12 @@ namespace CodeMetricsAnalyser
                     DoubleQuotesCharsFromLastToken,
                     IsNextStringLexerMultiLine,
                     stringDelimiters));
+            generalScopeDelimiters.Add('*', 
+                new DelimiterInfo("general", TokenType.Comment, 
+                    false, IsPreviousCharASlash,
+                    BlockCommentTakeCharsFromToken,
+                    IsNextCommentLexerMultiLine,
+                    blockCommentDelimiters));
         }
 
         void SetupStringDelimiters()
@@ -35,6 +41,16 @@ namespace CodeMetricsAnalyser
             stringDelimiters.Add('\"', 
                 new DelimiterInfo("string", TokenType.None, 
                     true, DoubleQuotesInStringDelimiter,
+                    TakeZeroCharsFromLastToken,
+                    NextLexerNotMultiLine,
+                    generalScopeDelimiters));
+        }
+
+        void SetupBlockCommentDelimiters()
+        {
+            blockCommentDelimiters.Add('/',
+                new DelimiterInfo("blcomment", TokenType.None,
+                    true, IsSlashInCommentADelimiter,
                     TakeZeroCharsFromLastToken,
                     NextLexerNotMultiLine,
                     generalScopeDelimiters));
@@ -61,6 +77,16 @@ namespace CodeMetricsAnalyser
             return !token.Text.EndsWith("\\");
         }
 
+        bool IsSlashInCommentADelimiter(Token token)
+        {
+            return token.Text.EndsWith("*");
+        }
+        
+        bool IsPreviousCharASlash(Token currentToken)
+        {
+            return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("/")));
+        }
+
         public int TakeZeroCharsFromLastToken(Token t)
         {
             return 0;
@@ -69,6 +95,14 @@ namespace CodeMetricsAnalyser
         public int DoubleQuotesCharsFromLastToken(Token token)
         {
             if ((token.Text.Length != 0) && (token.Text.EndsWith("R")))
+                return 1;
+
+            return 0;
+        }
+
+        public int BlockCommentTakeCharsFromToken(Token token)
+        {
+            if (IsPreviousCharASlash(token))
                 return 1;
 
             return 0;
@@ -87,6 +121,14 @@ namespace CodeMetricsAnalyser
            return false;
        }
 
+        bool IsNextCommentLexerMultiLine(Token token)
+        {
+            if ((token.Text.Length > 1) && (token.Text.ElementAt(1) == '*'))
+                return true;
+
+            return false;
+        }
+
         public CommentStringLexer()
         {
             tokens = new List<Token>();
@@ -97,6 +139,7 @@ namespace CodeMetricsAnalyser
 
             SetupGeneralDelimiters();
             SetupStringDelimiters();
+            SetupBlockCommentDelimiters();
         }
 
         int lineNumber = 0;

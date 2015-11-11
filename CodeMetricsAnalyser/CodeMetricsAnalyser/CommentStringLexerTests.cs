@@ -150,40 +150,35 @@ world"")bookend""";
            AssertTokensEqual(expectedToken, tokens[1]);
         }
 
-        //public void  Lexing_a_single_line_global_block_comment)
-        //{
-        //   
-        //   const char expected[] ="/* Hello World */
-        //";
-        //   ss << expected;
+        [TestMethod]
+        public void  Lexing_a_single_line_global_block_comment()
+        {
+            string expected ="/* Hello World */";
+            Stream ss = GenerateStreamFromString(expected);
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
+            Assert.AreEqual(1, tokens.Count);
+            Token expectedToken = new Token(0, 0, TokenType.Comment);
+            expectedToken.Text = expected;
+            AssertTokensEqual(expectedToken, tokens[0]);
+        }
 
-        //   AssertTokensEqual(1, tokens.Count);
+        [TestMethod]
+        public void  Lex_valid_code_line_after_block_comment()
+        {
+            string expectedText = "int a = 10;";
+            
+            Stream ss = GenerateStreamFromString("/*comment*/\n" + expectedText);
+           
+            var tokens = lexer.GenerateTokens(ss);
 
-        //   Token expectedToken = new Token(0, 0, TokenType::Comment);
-        //   expectedToken.Text = expected;
-        //   AssertTokensEqual(expectedToken, tokens[0]);
-        //}
+            Assert.AreEqual(2, tokens.Count);
 
-        //public void  Lex_valid_code_line_after_block_comment)
-        //{
-        //   
-
-        //   Stream ss = GenerateStreamFromString(/*comment*/" << endl;
-        //   char expectedText[] = "int a = 10;";
-        //   ss << expectedText;
-
-        //   
-        //   var tokens = lexer.GenerateTokens(ss);
-
-        //   AssertTokensEqual(2, tokens.Count);
-
-        //   Token expectedToken = new Token(1, 0);
-        //   expectedToken.Text = expectedText;
-        //   AssertTokensEqual(expectedToken, tokens[1]);
-        //}
+            Token expectedToken = new Token(1, 0);
+            expectedToken.Text = expectedText;
+            AssertTokensEqual(expectedToken, tokens[1]);
+        }
 
         //public void  Lexing_a_multi_line_global_block_comment)
         //{
@@ -197,7 +192,7 @@ world"")bookend""";
 
         //   AssertTokensEqual(1, tokens.Count);
 
-        //   Token expectedToken = new Token(0, 0, TokenType::Comment);
+        //   Token expectedToken = new Token(0, 0, TokenType.Comment);
         //   expectedToken.Text = expected;
         //   AssertTokensEqual(expectedToken, tokens[0]);
         //}
@@ -245,7 +240,7 @@ world"")bookend""";
 
         //   AssertTokensEqual(1, tokens.Count);
 
-        //   Token expectedToken = new Token(0, 0, TokenType::Comment);
+        //   Token expectedToken = new Token(0, 0, TokenType.Comment);
         //   expectedToken.Text = expected;
         //   AssertTokensEqual(expectedToken, tokens[0]);
         //}
@@ -261,7 +256,7 @@ world"")bookend""";
 
         //   AssertTokensEqual(2, tokens.Count);
 
-        //   Token expectedToken = new Token(0, 11, TokenType::Comment);
+        //   Token expectedToken = new Token(0, 11, TokenType.Comment);
         //   expectedToken.Text = expected;
         //   AssertTokensEqual(expectedToken, tokens[1]);
         //}
@@ -276,7 +271,7 @@ world"")bookend""";
 
         //   AssertTokensEqual(3, tokens.Count);
 
-        //   Token expectedToken = new Token(0, 8, TokenType::Comment);
+        //   Token expectedToken = new Token(0, 8, TokenType.Comment);
         //   expectedToken.Text = "/*comment*/";
         //   AssertTokensEqual(expectedToken, tokens[1]);
         //}
@@ -313,7 +308,7 @@ world"")bookend""";
         //   expectedToken3.Text = " << endl; ";
         //   AssertTokensEqual(expectedToken3, tokens[2]);
 
-        //   Token expectedToken4(0, 36, TokenType::Comment);
+        //   Token expectedToken4(0, 36, TokenType.Comment);
         //   expectedToken4.Text = expected;
         //   AssertTokensEqual(expectedToken4, tokens[3]);
         //}
@@ -330,7 +325,7 @@ world"")bookend""";
 
         //   AssertTokensEqual(1, tokens.Count);
 
-        //   Token expected = new Token(0, 0, TokenType::Comment);
+        //   Token expected = new Token(0, 0, TokenType.Comment);
         //   expected.Text = expectedText;
 
         //   AssertTokensEqual(expected, tokens[0]);
