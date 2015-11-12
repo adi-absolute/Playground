@@ -27,7 +27,7 @@ namespace TestsForCodeMetricsAnalyser
             Token expected = new Token(0, 0);
             expected.Text = "int a;";
 
-            Compare.Tokens(expected, tokens[0]); 
+            Compare.TokensEqual(expected, tokens[0]); 
         }
 
         [TestMethod]
@@ -40,11 +40,11 @@ namespace TestsForCodeMetricsAnalyser
 
             Token expected1 = new Token(0, 0);
             expected1.Text = "int a;";
-            Compare.Tokens(expected1, tokens[0]);
+            Compare.TokensEqual(expected1, tokens[0]);
 
             Token expected2 = new Token(1, 0);
             expected2.Text = "    float b;";
-            Compare.Tokens(expected2, tokens[1]);
+            Compare.TokensEqual(expected2, tokens[1]);
         }
 
         [TestMethod]
@@ -58,15 +58,15 @@ namespace TestsForCodeMetricsAnalyser
 
             Token expected0 = new Token(0, 0);
             expected0.Text = "string s = ";
-            Compare.Tokens(expected0, tokens[0]);
+            Compare.TokensEqual(expected0, tokens[0]);
 
             Token expected1 = new Token(0, 11, TokenType.StringToken);
             expected1.Text = "\"Hello World\"";
-            Compare.Tokens(expected1, tokens[1]);
+            Compare.TokensEqual(expected1, tokens[1]);
 
             Token expected2 = new Token(0, 24);
             expected2.Text = ";";
-            Compare.Tokens(expected2, tokens[2]);
+            Compare.TokensEqual(expected2, tokens[2]);
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace TestsForCodeMetricsAnalyser
 
            Token expectedToken = new Token(1, 0);
            expectedToken.Text = "int a = 10;";
-           Compare.Tokens(expectedToken, tokens[3]);
+           Compare.TokensEqual(expectedToken, tokens[3]);
         }
         
         [TestMethod]
@@ -96,7 +96,7 @@ namespace TestsForCodeMetricsAnalyser
 
            Token expectedToken = new Token(0, 11, TokenType.StringToken);
            expectedToken.Text = expectedText;
-           Compare.Tokens(expectedToken, tokens[1]);
+           Compare.TokensEqual(expectedToken, tokens[1]);
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace TestsForCodeMetricsAnalyser
 
            Token expectedToken = new Token(0, 11, TokenType.StringToken);
            expectedToken.Text = expected;
-           Compare.Tokens(expectedToken, tokens[1]);
+           Compare.TokensEqual(expectedToken, tokens[1]);
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@ world"")bookend""";
 
            Token expectedToken = new Token(0, 11, TokenType.StringToken);
            expectedToken.Text = expected;
-           Compare.Tokens(expectedToken, tokens[1]);
+           Compare.TokensEqual(expectedToken, tokens[1]);
         }
 
         [TestMethod]
@@ -142,7 +142,7 @@ world"")bookend""";
             Assert.AreEqual(1, tokens.Count);
             Token expectedToken = new Token(0, 0, TokenType.Comment);
             expectedToken.Text = expected;
-            Compare.Tokens(expectedToken, tokens[0]);
+            Compare.TokensEqual(expectedToken, tokens[0]);
         }
 
         [TestMethod]
@@ -158,7 +158,7 @@ world"")bookend""";
 
             Token expectedToken = new Token(1, 0);
             expectedToken.Text = expectedText;
-            Compare.Tokens(expectedToken, tokens[1]);
+            Compare.TokensEqual(expectedToken, tokens[1]);
         }
 
         [TestMethod]
@@ -174,7 +174,7 @@ world"")bookend""";
 
             Token expectedToken = new Token(0, 0, TokenType.Comment);
             expectedToken.Text = expected;
-            Compare.Tokens(expectedToken, tokens[0]);
+            Compare.TokensEqual(expectedToken, tokens[0]);
         }
 
         [TestMethod]
@@ -189,7 +189,7 @@ world"")bookend""";
 
            Token expectedToken = new Token(0, 0);
            expectedToken.Text = expected;
-           Compare.Tokens(expectedToken, tokens[0]);
+           Compare.TokensEqual(expectedToken, tokens[0]);
         }
 
         [TestMethod]
@@ -204,7 +204,7 @@ world"")bookend""";
 
             Token expectedToken = new Token(0, 0);
             expectedToken.Text = expected;
-            Compare.Tokens(expectedToken, tokens[0]);
+            Compare.TokensEqual(expectedToken, tokens[0]);
         }
 
         [TestMethod]
@@ -219,7 +219,7 @@ world"")bookend""";
 
             Token expectedToken = new Token(0, 0, TokenType.Comment);
             expectedToken.Text = expected;
-            Compare.Tokens(expectedToken, tokens[0]);
+            Compare.TokensEqual(expectedToken, tokens[0]);
         }
 
         [TestMethod]
@@ -234,7 +234,7 @@ world"")bookend""";
 
             Token expectedToken = new Token(0, 11, TokenType.Comment);
             expectedToken.Text = expected;
-            Compare.Tokens(expectedToken, tokens[1]);
+            Compare.TokensEqual(expectedToken, tokens[1]);
         }
 
         [TestMethod]
@@ -248,7 +248,7 @@ world"")bookend""";
 
             Token expectedToken = new Token(0, 8, TokenType.Comment);
             expectedToken.Text = "/*comment*/";
-            Compare.Tokens(expectedToken, tokens[1]);
+            Compare.TokensEqual(expectedToken, tokens[1]);
         }
 
         [TestMethod]
@@ -264,7 +264,7 @@ string a = ""text"";");
             Token expected = new Token(1, 0);
             expected.Text = "string a = ";
 
-            Compare.Tokens(expected, tokens[1]);
+            Compare.TokensEqual(expected, tokens[1]);
         }
 
         [TestMethod]
@@ -280,11 +280,11 @@ string a = ""text"";");
 
             Token expectedToken3 = new Token(0, 26);
             expectedToken3.Text = " << endl;";
-            Compare.Tokens(expectedToken3, tokens[2]);
+            Compare.TokensEqual(expectedToken3, tokens[2]);
 
             Token expectedToken4 = new Token(0, 35, TokenType.Comment);
             expectedToken4.Text = expected;
-            Compare.Tokens(expectedToken4, tokens[3]);
+            Compare.TokensEqual(expectedToken4, tokens[3]);
         }
 
         [TestMethod]
@@ -301,7 +301,7 @@ string a = ""text"";");
             Token expected = new Token(0, 0, TokenType.Comment);
             expected.Text = expectedText;
 
-            Compare.Tokens(expected, tokens[0]);
+            Compare.TokensEqual(expected, tokens[0]);
         }
         
         [TestMethod]
