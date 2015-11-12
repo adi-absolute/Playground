@@ -8,7 +8,6 @@ namespace CodeMetricsAnalyser
 {
     public class DelimiterInfo
     {
-        public string Name;
         public TokenType Type;
         public bool AddToCurrentToken;
         public IsDelimiterDelegate IsDelimiter;
@@ -16,13 +15,12 @@ namespace CodeMetricsAnalyser
         public NextLexerMultiLineDelegate NextLexerMultiLine;
         public Dictionary<char, DelimiterInfo> NextLexer;
 
-        public DelimiterInfo(string name, TokenType type, 
+        public DelimiterInfo(TokenType type, 
             bool addToCurrent, IsDelimiterDelegate del, 
             TakeNCharsFromLastTokenDelegate takeNChars,
             NextLexerMultiLineDelegate nextLexerMultiLine,
             Dictionary<char, DelimiterInfo> nextLexer)
         {
-            Name = name;
             Type = type;
             AddToCurrentToken = addToCurrent;
             TakeNCharsFromLastToken = takeNChars;

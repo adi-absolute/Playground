@@ -30,126 +30,53 @@ namespace CodeMetricsAnalyser
         void SetupGeneralDelimiters()
         {
             generalScopeDelimiters.Add('\"', 
-                new DelimiterInfo("general", TokenType.StringToken, 
-                    false, AlwaysDelimiter,
-                    DoubleQuotesCharsFromLastToken,
-                    IsNextStringLexerMultiLine,
+                new DelimiterInfo(TokenType.StringToken, 
+                    false, IsDelimiter.Always,
+                    TakeCharsFromLastToken.DoubleQuotes,
+                    IsMultiline.VerbatimString,
                     stringDelimiters));
             generalScopeDelimiters.Add('*', 
-                new DelimiterInfo("general", TokenType.Comment, 
-                    false, IsPreviousCharASlash,
-                    CommentsTakeCharsFromToken,
-                    IsNextCommentLexerMultiLine,
+                new DelimiterInfo(TokenType.Comment, 
+                    false, IsDelimiter.IfPreviousCharASlash,
+                    TakeCharsFromLastToken.Comments,
+                    IsMultiline.BlockComment,
                     blockCommentDelimiters));
             generalScopeDelimiters.Add('/',
-                new DelimiterInfo("general", TokenType.Comment,
-                    false, IsPreviousCharASlash,
-                    CommentsTakeCharsFromToken,
-                    NextLexerNotMultiLine,
+                new DelimiterInfo(TokenType.Comment,
+                    false, IsDelimiter.IfPreviousCharASlash,
+                    TakeCharsFromLastToken.Comments,
+                    IsMultiline.No,
                     lineCommentDelimiters));
         }
 
         void SetupStringDelimiters()
         {
             stringDelimiters.Add('\"', 
-                new DelimiterInfo("string", TokenType.None, 
-                    true, DoubleQuotesInStringDelimiter,
-                    TakeZeroCharsFromLastToken,
-                    NextLexerNotMultiLine,
+                new DelimiterInfo(TokenType.None, 
+                    true, IsDelimiter.DoubleQuotes,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
                     generalScopeDelimiters));
         }
 
         void SetupBlockCommentDelimiters()
         {
             blockCommentDelimiters.Add('/',
-                new DelimiterInfo("blcomment", TokenType.None,
-                    true, IsSlashInCommentADelimiter,
-                    TakeZeroCharsFromLastToken,
-                    NextLexerNotMultiLine,
+                new DelimiterInfo(TokenType.None,
+                    true, IsDelimiter.Slash,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
                     generalScopeDelimiters));
         }
 
         void SetupLineCommentDelimiters()
         {
             lineCommentDelimiters.Add('\\',
-                new DelimiterInfo("lncomment", TokenType.None,
-                    true, IsSlashInCommentADelimiter,
-                    TakeZeroCharsFromLastToken,
-                    NextLexerNotMultiLine,
+                new DelimiterInfo(TokenType.None,
+                    true, IsDelimiter.Slash,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
                     generalScopeDelimiters));
-        }
-
-        public bool AlwaysDelimiter(Token t)
-        {
-            return true;
-        }
-
-        public bool DoubleQuotesInStringDelimiter(Token token)
-        {
-            if (currentToken.Text.StartsWith("R"))
-            {
-                var openBracketPosition = currentToken.Text.IndexOf('(');
-                if (openBracketPosition == -1)
-                    return false;
-
-                string bookend = ")" + currentToken.Text.Substring(2, openBracketPosition - 2);
-
-                return currentToken.Text.EndsWith(bookend);
-            }
-
-            return !token.Text.EndsWith("\\");
-        }
-
-        bool IsSlashInCommentADelimiter(Token token)
-        {
-            return token.Text.EndsWith("*");
-        }
-        
-        bool IsPreviousCharASlash(Token currentToken)
-        {
-            return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("/")));
-        }
-
-        public int TakeZeroCharsFromLastToken(Token t)
-        {
-            return 0;
-        }
-
-        public int DoubleQuotesCharsFromLastToken(Token token)
-        {
-            if ((token.Text.Length != 0) && (token.Text.EndsWith("R")))
-                return 1;
-
-            return 0;
-        }
-
-        public int CommentsTakeCharsFromToken(Token token)
-        {
-            if (IsPreviousCharASlash(token))
-                return 1;
-
-            return 0;
-        }
-
-        bool NextLexerNotMultiLine(Token t)
-        {
-            return false;
-        }
-
-        bool IsNextStringLexerMultiLine(Token token)
-        {
-            if ((token.Text.Length != 0) && !token.Text.EndsWith("R"))
-                return true;
-
-            return false;
-        }
-
-        bool IsNextCommentLexerMultiLine(Token token)
-        {
-            if ((token.Text.Length > 1) && (token.Text.ElementAt(1) == '*'))
-                return true;
-
-            return false;
         }
 
         public CommentStringLexer()
@@ -166,43 +93,43 @@ namespace CodeMetricsAnalyser
             SetupLineCommentDelimiters();
         }
         
-        bool IsPreviousCharABackslash(Token currentToken)
+        bool IsPreviousCharABackslash()
         {
-            return ((currentToken.Text.Length != 0) && (currentToken.Text.EndsWith("\\")));
+            return currentToken.Text.EndsWith("\\");
         }
 
         void LexDelimiter(char character)
         {
-           var delimiter = lexer[character];
-           var nextTokenText = String.Empty;
-           int nextTokenColNumber = columnNumber;
+            var delimiter = lexer[character];
+            var nextTokenText = String.Empty;
+            int nextTokenColNumber = columnNumber;
 
-           int charsFromLastToken = delimiter.TakeNCharsFromLastToken(currentToken);
-           if (charsFromLastToken != 0)
-           {
-               nextTokenText = currentToken.Text.Substring(currentToken.Text.Length - charsFromLastToken);
-               currentToken.Text = currentToken.Text.Remove(currentToken.Text.Length - charsFromLastToken);
-           }
+            int charsFromLastToken = delimiter.TakeNCharsFromLastToken(currentToken);
+            if (charsFromLastToken != 0)
+            {
+                nextTokenText = currentToken.Text.Substring(currentToken.Text.Length - charsFromLastToken);
+                currentToken.Text = currentToken.Text.Remove(currentToken.Text.Length - charsFromLastToken);
+            }
 
-           if (delimiter.AddToCurrentToken)
-           {
-              currentToken.Text += character;
-              nextTokenColNumber++;
-           }
+            if (delimiter.AddToCurrentToken)
+            {
+                currentToken.Text += character;
+                nextTokenColNumber++;
+            }
    
-           if (currentToken.Text.Length != 0)
-           {
-              tokens.Add(currentToken);
-           }
+            if (currentToken.Text.Length != 0)
+            {
+                tokens.Add(currentToken);
+            }
 
-           currentToken = new Token(lineNumber, nextTokenColNumber - nextTokenText.Length, delimiter.Type);
-           currentToken.Text += nextTokenText;
+            currentToken = new Token(lineNumber, nextTokenColNumber - nextTokenText.Length, delimiter.Type);
+            currentToken.Text += nextTokenText;
       
-           if (!delimiter.AddToCurrentToken)
-              currentToken.Text += character;
+            if (!delimiter.AddToCurrentToken)
+                currentToken.Text += character;
    
-           lexer = delimiter.NextLexer;
-           multiLineLexer = delimiter.NextLexerMultiLine(currentToken);
+            lexer = delimiter.NextLexer;
+            multiLineLexer = delimiter.NextLexerMultiLine(currentToken);
         }
 
         public List<Token> GenerateTokens(Stream stream)
@@ -237,7 +164,7 @@ namespace CodeMetricsAnalyser
 
                 lineNumber++;
 
-                if ((multiLineLexer) || (IsPreviousCharABackslash(currentToken)))
+                if ((multiLineLexer) || (IsPreviousCharABackslash()))
                 {
                     currentToken.Text += '\n';
                 }
@@ -253,9 +180,9 @@ namespace CodeMetricsAnalyser
                 }
             }
 
-        NumberOfLines = lineNumber;
+            NumberOfLines = lineNumber;
 
-        return tokens;
+            return tokens;
         }
     }
 }
