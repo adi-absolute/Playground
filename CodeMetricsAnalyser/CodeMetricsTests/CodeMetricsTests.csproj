@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E1895A86-38CC-4DA8-8FF8-333DEF91B739}</ProjectGuid>
+    <ProjectGuid>{779DD906-5362-40CE-A267-510D770041EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeMetricsAnalyser</RootNamespace>
-    <AssemblyName>CodeMetricsAnalyser</AssemblyName>
+    <RootNamespace>CodeMetricsTests</RootNamespace>
+    <AssemblyName>CodeMetricsTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,12 +50,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CommentStringLexerDelegates.cs" />
-    <Compile Include="CommentStringLexer.cs" />
-    <Compile Include="SecondPassLexer.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="DelimiterInfo.cs" />
+    <Compile Include="CommentStringLexerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecondPassLexerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeMetricsAnalyser\CodeMetricsAnalyser.csproj">
+      <Project>{e1895a86-38cc-4da8-8ff8-333def91b739}</Project>
+      <Name>CodeMetricsAnalyser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
