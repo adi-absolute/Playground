@@ -100,36 +100,36 @@ namespace CodeMetricsAnalyser
 
         void LexDelimiter(char character)
         {
-           var delimiter = lexer[character];
-           var nextTokenText = String.Empty;
-           int nextTokenColNumber = columnNumber;
+            var delimiter = lexer[character];
+            var nextTokenText = String.Empty;
+            int nextTokenColNumber = columnNumber;
 
-           int charsFromLastToken = delimiter.TakeNCharsFromLastToken(currentToken);
-           if (charsFromLastToken != 0)
-           {
-               nextTokenText = currentToken.Text.Substring(currentToken.Text.Length - charsFromLastToken);
-               currentToken.Text = currentToken.Text.Remove(currentToken.Text.Length - charsFromLastToken);
-           }
+            int charsFromLastToken = delimiter.TakeNCharsFromLastToken(currentToken);
+            if (charsFromLastToken != 0)
+            {
+                nextTokenText = currentToken.Text.Substring(currentToken.Text.Length - charsFromLastToken);
+                currentToken.Text = currentToken.Text.Remove(currentToken.Text.Length - charsFromLastToken);
+            }
 
-           if (delimiter.AddToCurrentToken)
-           {
-              currentToken.Text += character;
-              nextTokenColNumber++;
-           }
+            if (delimiter.AddToCurrentToken)
+            {
+                currentToken.Text += character;
+                nextTokenColNumber++;
+            }
    
-           if (currentToken.Text.Length != 0)
-           {
-              tokens.Add(currentToken);
-           }
+            if (currentToken.Text.Length != 0)
+            {
+                tokens.Add(currentToken);
+            }
 
-           currentToken = new Token(lineNumber, nextTokenColNumber - nextTokenText.Length, delimiter.Type);
-           currentToken.Text += nextTokenText;
+            currentToken = new Token(lineNumber, nextTokenColNumber - nextTokenText.Length, delimiter.Type);
+            currentToken.Text += nextTokenText;
       
-           if (!delimiter.AddToCurrentToken)
-              currentToken.Text += character;
+            if (!delimiter.AddToCurrentToken)
+                currentToken.Text += character;
    
-           lexer = delimiter.NextLexer;
-           multiLineLexer = delimiter.NextLexerMultiLine(currentToken);
+            lexer = delimiter.NextLexer;
+            multiLineLexer = delimiter.NextLexerMultiLine(currentToken);
         }
 
         public List<Token> GenerateTokens(Stream stream)
@@ -180,9 +180,9 @@ namespace CodeMetricsAnalyser
                 }
             }
 
-        NumberOfLines = lineNumber;
+            NumberOfLines = lineNumber;
 
-        return tokens;
+            return tokens;
         }
     }
 }

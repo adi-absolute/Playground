@@ -50,18 +50,12 @@ namespace CodeMetricsAnalyser
 
         public static int DoubleQuotes(Token token)
         {
-            if (token.Text.EndsWith("R"))
-                return 1;
-
-            return 0;
+            return token.Text.EndsWith("R") ? 1 : 0;
         }
 
         public static int Comments(Token token)
         {
-            if (IsDelimiter.IfPreviousCharASlash(token))
-                return 1;
-
-            return 0;
+            return IsDelimiter.IfPreviousCharASlash(token) ? 1 : 0;
         }
     }
 
@@ -74,18 +68,12 @@ namespace CodeMetricsAnalyser
 
         public static bool VerbatimString(Token token)
         {
-            if (!token.Text.EndsWith("R"))
-                return true;
-
-            return false;
+            return !token.Text.EndsWith("R");
         }
 
         public static bool BlockComment(Token token)
         {
-            if ((token.Text.Length > 1) && (token.Text.ElementAt(1) == '*'))
-                return true;
-
-            return false;
+            return ((token.Text.Length > 1) && (token.Text.ElementAt(1) == '*'));
         }
     }
 }
