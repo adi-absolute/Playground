@@ -180,17 +180,18 @@ string s = R""(20)"";";
            Compare.TokenListsEqual(expectedOutput, actualOutput);
         }
 
+        [TestMethod]
         public void Lexing_strings_with_curly_brace_in_them()
         {
             string ss = @"int a = 10;
-string s = R""{"";";
+string s = R""({)"";";
 
             List<Token> input = Generate.TokenListFromString(ss);
 
             List <TD> expectedTokens = new List<TD>
             {
                 new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
-                new TD(1, 0, "string"), new TD(1, 7, "s"), new TD(1, 9, "="), new TD(1, 11, @"R""{""", TokenType.StringToken), new TD(1, 17, ";"),
+                new TD(1, 0, "string"), new TD(1, 7, "s"), new TD(1, 9, "="), new TD(1, 11, @"R""({)""", TokenType.StringToken), new TD(1, 17, ";"),
             };
 
             List<Token> expectedOutput = PackageTokens(expectedTokens);
@@ -200,44 +201,44 @@ string s = R""{"";";
             Compare.TokenListsEqual(expectedOutput, actualOutput);
         }
 
-        //public void Lex_open_brace_on_same_line()
-        //{
-        //   
-        //   string ss = "void f(){";
+        [TestMethod]
+        public void Lex_open_brace_on_same_line()
+        {
+           string ss = "void f(){";
+           List<Token> input = Generate.TokenListFromString(ss);
 
-        //   List<Token> input = Generate.TokenListFromString(ss);
+           List <TD> expectedTokens = new List<TD>
+           {
+              new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"), new TD(0, 8, "{")
+           };
 
-        //   List <TD> expectedTokens = new List<TD>
-        //   {
-        //      new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"), new TD(0, 8, "{" }
-        //   };
+           List<Token> expectedOutput = PackageTokens(expectedTokens);
 
-        //   List<Token> expectedOutput = PackageTokens(expectedTokens);
+           List<Token> actualOutput = lexer.SplitTokens(input);
 
-        //   List<Token> actualOutput = lexer.SplitTokens(input);
+           Compare.TokenListsEqual(expectedOutput, actualOutput);
+        }
 
-        //   Compare.TokenListsEqual(expectedOutput, actualOutput);
-        //}
+        [TestMethod]
+        public void Lex_closing_brace_with_code_following_brace()
+        {
+           
+           string ss = "void f(){}blah();";
 
-        //public void Lex_closing_brace_with_code_following_brace()
-        //{
-        //   
-        //   string ss = "void f(){}blah();";
-
-        //   List<Token> input = Generate.TokenListFromString(ss);
+           List<Token> input = Generate.TokenListFromString(ss);
    
-        //   List <TD> expectedTokens = new List<TD>
-        //   {
-        //      new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"), 
-        //      new TD(0, 8, "{"), new TD(0, 9, "}"), new TD(0, 10, "blah"), new TD(0, 14, "("), new TD(0, 15, ")"), new TD(0, 16, ";" }
-        //   };
+           List <TD> expectedTokens = new List<TD>
+           {
+              new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"), 
+              new TD(0, 8, "{"), new TD(0, 9, "}"), new TD(0, 10, "blah"), new TD(0, 14, "("), new TD(0, 15, ")"), new TD(0, 16, ";")
+           };
 
-        //   List<Token> expectedOutput = PackageTokens(expectedTokens);
+           List<Token> expectedOutput = PackageTokens(expectedTokens);
 
-        //   List<Token> actualOutput = lexer.SplitTokens(input);
+           List<Token> actualOutput = lexer.SplitTokens(input);
 
-        //   Compare.TokenListsEqual(expectedOutput, actualOutput);
-        //}
+           Compare.TokenListsEqual(expectedOutput, actualOutput);
+        }
 
         //public void Lexer_block_of_code()
         //{
