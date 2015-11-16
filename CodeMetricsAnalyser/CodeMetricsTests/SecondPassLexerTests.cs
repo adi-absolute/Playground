@@ -240,64 +240,64 @@ string s = R""({)"";";
            Compare.TokenListsEqual(expectedOutput, actualOutput);
         }
 
-        //public void Lexer_block_of_code()
-        //{
-        //   
-        //   string ss = @"(void f()
-        //{
-        //   int b = 20;
-        //// comment
-        //})";
+        [TestMethod]
+        public void Lexer_block_of_code()
+        {
+           string ss = @"void f()
+{
+   int b = 20;
+// comment
+}";
 
-        //   List<Token> input = Generate.TokenListFromString(ss);
+           List<Token> input = Generate.TokenListFromString(ss);
 
-        //   List <TD> expectedTokens = new List<TD>
-        //   {
-        //      new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"),
-        //      new TD(1, 0, "{"),
-        //      new TD(2, 3, "int"), new TD(2, 7, "b"), new TD(2, 9, "="), new TD(2, 11, "20"), new TD(2, 13, ";"),
-        //      { 4, 0, "}"),
-        //   };
+           List <TD> expectedTokens = new List<TD>
+           {
+              new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"),
+              new TD(1, 0, "{"),
+              new TD(2, 3, "int"), new TD(2, 7, "b"), new TD(2, 9, "="), new TD(2, 11, "20"), new TD(2, 13, ";"),
+              new TD(4, 0, "}"),
+           };
 
-        //   List<Token> expectedOutput = PackageTokens(expectedTokens);
+           List<Token> expectedOutput = PackageTokens(expectedTokens);
 
-        //   List<Token> actualOutput = lexer.SplitTokens(input);
+           List<Token> actualOutput = lexer.SplitTokens(input);
 
-        //   Compare.TokenListsEqual(expectedOutput, actualOutput);
-        //}
+           Compare.TokenListsEqual(expectedOutput, actualOutput);
+        }
 
-        //public void Lexer_block_of_code_with_multiple_braces()
-        //{
-        //   
-        //   string ss = @"(void f()
-        //{
-        //   int b = 20;
-        //   if (b == 35)
-        //   {
-        //      break;
-        //   }
-        //// comment
-        //})";
+        [TestMethod]
+        public void Lexer_block_of_code_with_multiple_braces()
+        {
+           string ss = @"void f()
+{
+   int b = 20;
+   if (b == 35)
+   {
+      break;
+   }
+// comment
+}";
 
-        //   List<Token> input = Generate.TokenListFromString(ss);
+           List<Token> input = Generate.TokenListFromString(ss);
 
-        //   List <TD> expectedTokens = new List<TD>
-        //   {
-        //      new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"),
-        //      new TD(1, 0, "{"),
-        //      new TD(2, 3, "int"), new TD(2, 7, "b"), new TD(2, 9, "="), new TD(2, 11, "20"), new TD(2, 13, ";"),
-        //      { 3, 3, "if"), { 3, 6, "("), { 3, 7, "b"), { 3, 9, "=="), { 3, 12, "35"), { 3, 14, ")"),
-        //      { 4, 3, "{"),
-        //      { 5, 6, "break"), { 5, 11, ";"),
-        //      { 6, 3, "}"),
-        //      { 8, 0, "}"),
-        //   };
+           List <TD> expectedTokens = new List<TD>
+           {
+              new TD(0, 0, "void"), new TD(0, 5, "f"), new TD(0, 6, "("), new TD(0, 7, ")"),
+              new TD(1, 0, "{"),
+              new TD(2, 3, "int"), new TD(2, 7, "b"), new TD(2, 9, "="), new TD(2, 11, "20"), new TD(2, 13, ";"),
+              new TD(3, 3, "if"), new TD(3, 6, "("), new TD(3, 7, "b"), new TD(3, 9, "=="), new TD(3, 12, "35"), new TD(3, 14, ")"),
+              new TD(4, 3, "{"),
+              new TD(5, 6, "break"), new TD(5, 11, ";"),
+              new TD(6, 3, "}"),
+              new TD(8, 0, "}"),
+           };
 
-        //   List<Token> expectedOutput = PackageTokens(expectedTokens);
+           List<Token> expectedOutput = PackageTokens(expectedTokens);
 
-        //   List<Token> actualOutput = lexer.SplitTokens(input);
+           List<Token> actualOutput = lexer.SplitTokens(input);
 
-        //   Compare.TokenListsEqual(expectedOutput, actualOutput);
-        //}
+           Compare.TokenListsEqual(expectedOutput, actualOutput);
+        }
     }
 }
