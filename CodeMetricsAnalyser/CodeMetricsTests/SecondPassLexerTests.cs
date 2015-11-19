@@ -9,7 +9,7 @@ namespace TestsForCodeMetricsAnalyser
     [TestClass]
     public class SecondPassLexerTests
     {
-        struct TD
+        struct TD // Token Descriptor. Name kept short to reduce page width
         {
             public int line;
             public int column;
@@ -36,20 +36,12 @@ namespace TestsForCodeMetricsAnalyser
            return output;
         }
 
-
-
         SecondPassLexer lexer = new SecondPassLexer();
 
         [TestMethod]
         public void Lex_simple_hash_include_token()
         {            
-            string expectedText = "#include";
-            var ss = Generate.StringStream(expectedText);
-
-            Token expected = new Token(0, 0);
-            expected.Text = expectedText;
-            var input = new List<Token>();
-            input.Add(expected);
+            List<Token> input = Generate.TokenListFromString("#include");
 
             var output = lexer.SplitTokens(input);
 
@@ -59,12 +51,8 @@ namespace TestsForCodeMetricsAnalyser
         [TestMethod]
         public void Lex_global_variable_declaration()
         {
-            var input = new List<Token>();
-            Token expected = new Token(0, 0);
-            expected.Text = "int a = 10;";
-            input.Add(expected);
-            int[] a = new int[2] { 1, 2 };
-
+            List<Token> input = Generate.TokenListFromString("int a = 10;");
+            
             List <TD> expectedTokens = new List<TD>
             {
                 new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
@@ -80,11 +68,8 @@ namespace TestsForCodeMetricsAnalyser
         [TestMethod]
         public void Lex_code_with_tabs_instead_of_spaces()
         {
-            List<Token> input = new List<Token>();
-            Token expected = new Token(0, 0);
-            expected.Text = "int\ta\t=\t10;";
-            input.Add(expected);
-
+            List<Token> input = Generate.TokenListFromString("int\ta\t=\t10;");
+            
             List <TD> expectedTokens = new List<TD>
             {
                 new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
@@ -100,22 +85,18 @@ namespace TestsForCodeMetricsAnalyser
         [TestMethod]
         public void Lex_two_global_variable_declarations_on_same_line()
         {
-            List<Token> input = new List<Token>();
-           Token expected = new Token(0, 0);
-           expected.Text = "int a = 10;int b = 20;";
-           input.Add(expected);
+            List<Token> input = Generate.TokenListFromString("int a = 10;int b = 20;");
+            List <TD> expectedTokens = new List<TD>
+            {
+                new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
+                new TD(0, 11, "int"), new TD(0, 15, "b"), new TD(0, 17, "="), new TD(0, 19, "20"), new TD(0, 21, ";"),
+            };
 
-           List <TD> expectedTokens = new List<TD>
-           {
-              new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
-              new TD(0, 11, "int"), new TD(0, 15, "b"), new TD(0, 17, "="), new TD(0, 19, "20"), new TD(0, 21, ";"),
-           };
+            List<Token> expectedOutput = PackageTokens(expectedTokens);
 
-           List<Token> expectedOutput = PackageTokens(expectedTokens);
+            List<Token> actualOutput = lexer.SplitTokens(input);
 
-           List<Token> actualOutput = lexer.SplitTokens(input);
-
-           Compare.TokenListsEqual(expectedOutput, actualOutput);
+            Compare.TokenListsEqual(expectedOutput, actualOutput);
         }
 
         [TestMethod]
