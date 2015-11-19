@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMetricsAnalyser", "Code
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMetricsTests", "CodeMetricsTests\CodeMetricsTests.csproj", "{779DD906-5362-40CE-A267-510D770041EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{932AAE45-CC1B-44FF-91D8-B1C35C73A3BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{779DD906-5362-40CE-A267-510D770041EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{779DD906-5362-40CE-A267-510D770041EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{779DD906-5362-40CE-A267-510D770041EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932AAE45-CC1B-44FF-91D8-B1C35C73A3BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932AAE45-CC1B-44FF-91D8-B1C35C73A3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932AAE45-CC1B-44FF-91D8-B1C35C73A3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932AAE45-CC1B-44FF-91D8-B1C35C73A3BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
