@@ -16,21 +16,50 @@ namespace GUI
     {
         CommentStringLexer commentStringLexer;
         SecondPassLexer secondPassLexer;
-        public int lines = 0;
+        int lines = 0;
+        long commentChars = 0;
+        long totalChars = 0;
+        long maxLength = 0;
 
-        private void UpdateNumberOfLines()
+        private void UpdateFields()
         {
-            label_numberOfLines.Text = lines.ToString();
+            label_FnumberOfLines.Text = lines.ToString();
+            label_FlongestLineLength.Text = maxLength.ToString() + " chars";
+            if (totalChars == 0)
+                return;
+            long percentage = commentChars*100/totalChars;
+            label_FcommentPercent.Text = percentage.ToString("F02") + " %";
         }
 
         public Form1()
         {
             InitializeComponent();
 
-            UpdateNumberOfLines();
+            UpdateFields();
 
             commentStringLexer = new CommentStringLexer();
             secondPassLexer = new SecondPassLexer();
+        }
+
+        void CalculateCommentPercentage(List<Token> tokens)
+        {
+            //int tokenCounter = 0;            
+            
+            foreach (Token t in tokens)
+            {
+                long charCount = t.Text.Length;
+
+                if (charCount > maxLength)
+                    maxLength = charCount;
+
+                totalChars += charCount;
+
+                if (t.Type == TokenType.Comment)
+                    commentChars += charCount;
+
+                //cout << "*" << setw(2) << tokenCounter <<  "* " << token.text << endl;
+                //tokenCounter++;  // Random comment \ with multiple slashes \
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,7 +68,7 @@ namespace GUI
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             // Set filter options and filter index.
-            openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog1.Filter = "C/C++ Source Files |*.c; *cpp|All Files (*.*)|*.*";
             openFileDialog1.FilterIndex = 1;
 
             openFileDialog1.Multiselect = true;
@@ -58,7 +87,8 @@ namespace GUI
 
                 lines = commentStringLexer.NumberOfLines;
 
-                UpdateNumberOfLines();
+                CalculateCommentPercentage(c);
+                UpdateFields();
                 
                 fileStream.Close();
             }
