@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using CodeMetricsAnalyser;
 
@@ -21,8 +22,11 @@ namespace GUI
         long totalChars = 0;
         long maxLength = 0;
 
-        private void UpdateFields()
+        private void UpdateFields(string fileName)
         {
+            groupBox1.Visible = true;
+            groupBox1.Text = fileName;
+
             label_FnumberOfLines.Text = lines.ToString();
             label_FlongestLineLength.Text = maxLength.ToString() + " chars";
             if (totalChars == 0)
@@ -34,8 +38,6 @@ namespace GUI
         public Form1()
         {
             InitializeComponent();
-
-            UpdateFields();
 
             commentStringLexer = new CommentStringLexer();
             secondPassLexer = new SecondPassLexer();
@@ -64,22 +66,17 @@ namespace GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Create an instance of the open file dialog box.
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            // Set filter options and filter index.
             openFileDialog1.Filter = "C/C++ Source Files |*.c; *cpp|All Files (*.*)|*.*";
             openFileDialog1.FilterIndex = 1;
 
-            openFileDialog1.Multiselect = true;
+            openFileDialog1.Multiselect = false;
 
-            // Call the ShowDialog method to show the dialog box.
             var userClickedOK = openFileDialog1.ShowDialog();
 
-            // Process input if the user clicked OK.
             if (userClickedOK == DialogResult.OK)
             {
-                // Open the selected file to read.
                 System.IO.Stream fileStream = openFileDialog1.OpenFile();
 
                 var c = commentStringLexer.GenerateTokens(fileStream);
@@ -88,7 +85,7 @@ namespace GUI
                 lines = commentStringLexer.NumberOfLines;
 
                 CalculateCommentPercentage(c);
-                UpdateFields();
+                UpdateFields(Path.GetFileName(openFileDialog1.FileName));
                 
                 fileStream.Close();
             }

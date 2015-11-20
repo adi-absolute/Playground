@@ -35,6 +35,8 @@
             this.label_FcommentPercent = new System.Windows.Forms.Label();
             this.label_LlongestLineLength = new System.Windows.Forms.Label();
             this.label_FlongestLineLength = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1_Analyse
@@ -50,7 +52,7 @@
             // label_FnumberOfLines
             // 
             this.label_FnumberOfLines.AutoSize = true;
-            this.label_FnumberOfLines.Location = new System.Drawing.Point(148, 150);
+            this.label_FnumberOfLines.Location = new System.Drawing.Point(130, 22);
             this.label_FnumberOfLines.Name = "label_FnumberOfLines";
             this.label_FnumberOfLines.Size = new System.Drawing.Size(29, 13);
             this.label_FnumberOfLines.TabIndex = 1;
@@ -59,7 +61,7 @@
             // label_LnumberOfLines
             // 
             this.label_LnumberOfLines.AutoSize = true;
-            this.label_LnumberOfLines.Location = new System.Drawing.Point(24, 150);
+            this.label_LnumberOfLines.Location = new System.Drawing.Point(6, 22);
             this.label_LnumberOfLines.Name = "label_LnumberOfLines";
             this.label_LnumberOfLines.Size = new System.Drawing.Size(87, 13);
             this.label_LnumberOfLines.TabIndex = 2;
@@ -68,7 +70,7 @@
             // label_LcommentPercent
             // 
             this.label_LcommentPercent.AutoSize = true;
-            this.label_LcommentPercent.Location = new System.Drawing.Point(24, 176);
+            this.label_LcommentPercent.Location = new System.Drawing.Point(6, 48);
             this.label_LcommentPercent.Name = "label_LcommentPercent";
             this.label_LcommentPercent.Size = new System.Drawing.Size(117, 13);
             this.label_LcommentPercent.TabIndex = 3;
@@ -77,7 +79,7 @@
             // label_FcommentPercent
             // 
             this.label_FcommentPercent.AutoSize = true;
-            this.label_FcommentPercent.Location = new System.Drawing.Point(148, 176);
+            this.label_FcommentPercent.Location = new System.Drawing.Point(130, 48);
             this.label_FcommentPercent.Name = "label_FcommentPercent";
             this.label_FcommentPercent.Size = new System.Drawing.Size(27, 13);
             this.label_FcommentPercent.TabIndex = 4;
@@ -86,7 +88,7 @@
             // label_LlongestLineLength
             // 
             this.label_LlongestLineLength.AutoSize = true;
-            this.label_LlongestLineLength.Location = new System.Drawing.Point(24, 163);
+            this.label_LlongestLineLength.Location = new System.Drawing.Point(6, 35);
             this.label_LlongestLineLength.Name = "label_LlongestLineLength";
             this.label_LlongestLineLength.Size = new System.Drawing.Size(107, 13);
             this.label_LlongestLineLength.TabIndex = 5;
@@ -95,28 +97,40 @@
             // label_FlongestLineLength
             // 
             this.label_FlongestLineLength.AutoSize = true;
-            this.label_FlongestLineLength.Location = new System.Drawing.Point(148, 163);
+            this.label_FlongestLineLength.Location = new System.Drawing.Point(130, 35);
             this.label_FlongestLineLength.Name = "label_FlongestLineLength";
             this.label_FlongestLineLength.Size = new System.Drawing.Size(35, 13);
             this.label_FlongestLineLength.TabIndex = 6;
             this.label_FlongestLineLength.Text = "label2";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label_FlongestLineLength);
+            this.groupBox1.Controls.Add(this.label_LlongestLineLength);
+            this.groupBox1.Controls.Add(this.label_FcommentPercent);
+            this.groupBox1.Controls.Add(this.label_LcommentPercent);
+            this.groupBox1.Controls.Add(this.label_LnumberOfLines);
+            this.groupBox1.Controls.Add(this.label_FnumberOfLines);
+            this.groupBox1.Location = new System.Drawing.Point(18, 128);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(186, 80);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.label_FlongestLineLength);
-            this.Controls.Add(this.label_LlongestLineLength);
-            this.Controls.Add(this.label_FcommentPercent);
-            this.Controls.Add(this.label_LcommentPercent);
-            this.Controls.Add(this.label_LnumberOfLines);
-            this.Controls.Add(this.label_FnumberOfLines);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1_Analyse);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -129,6 +143,7 @@
         private System.Windows.Forms.Label label_FcommentPercent;
         private System.Windows.Forms.Label label_LlongestLineLength;
         private System.Windows.Forms.Label label_FlongestLineLength;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
