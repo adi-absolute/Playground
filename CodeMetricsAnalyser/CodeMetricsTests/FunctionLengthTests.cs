@@ -2,6 +2,7 @@
 using CodeMetricsAnalyser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TestsForCodeMetricsAnalyser
 {
@@ -293,81 +294,72 @@ namespace TestsForCodeMetricsAnalyser
 
             Assert.AreEqual(2, calculator.NumberOfFunctions);
         }
-    /*
-public void Save_first_token_of_single_function)
-{
+
+        private List<Token> CreateFunctionRange(List<Token> input, 
+            string first, string last,
+            int start, out int end)
+        {
+            var index1 = input.FindIndex(start, t => t.Text == first);
+            var index2 = input.FindIndex(index1, t => t.Text == last);
+            end = index2;
+            
+            return input.GetRange(index1, (index2 - index1));
+        }
+
+        [TestMethod]
+        public void Save_function_tokens()
+        {   
+            string ss = @"
+        #include ""test.h""
+
+        void f() { blah(); }
+        )";
+
+            var lexedOutput = Generate.SecondPassListFromStream(ss);
+
+            int endSearch;
+            var functionTokens = CreateFunctionRange(lexedOutput, "{", "}", 0, out endSearch);
+            var expFunctionRangeSet = new List<List<Token>>();
+            expFunctionRangeSet.Add(functionTokens);
+
+            calculator = new FunctionLengthCalculator(lexedOutput);
+
+            var actualRangeSet = calculator.FunctionRangeSet();
+
+            Assert.AreEqual(1, actualRangeSet.Count);
+            Assert.AreEqual(expFunctionRangeSet[0][0].Text, actualRangeSet[0][0].Text);
+
+        }
+
+        [TestMethod]
+        public void Save_tokens_from_multiple_functions()
+        {
    
-   string ss = @"
-#include ""test.h""
+            string ss = @"
+        #include ""test.h""
 
-void f() { blah(); }
-)";
+        void f() { blah(); }
+        void g() { blah2(); }
+        )";
 
-   var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            
+            var expFunctionRangeSet = new List<List<Token>>();
 
-   var firstTokenIterator = find_if(lexedOutput.begin(), lexedOutput.end(), 
-      [](Token token) { return token.text == "{"; });
+            int endSearch;
+            var functionTokens = CreateFunctionRange(lexedOutput, "{", "}", 0, out endSearch);
+            expFunctionRangeSet.Add(functionTokens);
+            functionTokens = CreateFunctionRange(lexedOutput, "{", "}", endSearch, out endSearch);
+            expFunctionRangeSet.Add(functionTokens);
 
-   calculator = new FunctionLengthCalculator(lexedOutput);
+            calculator = new FunctionLengthCalculator(lexedOutput);
 
-   var rangeSet = calculator.FunctionRangeSet();
-   
-   Assert.AreEqual(1, rangeSet.size());
+            var actualRangeSet = calculator.FunctionRangeSet();
 
-   Assert.AreEqual(*firstTokenIterator, *(rangeSet[0].first));
-}
-
-public void Save_last_token_of_single_function)
-{
-   
-   string ss = @"
-#include ""test.h""
-
-void f() { blah(); }
-)";
-
-   var lexedOutput = Generate.SecondPassListFromStream(ss);
-
-   var lastTokenIterator = find_if(lexedOutput.begin(), lexedOutput.end(),
-      [](Token token) { return token.text == "}"; });
-
-   calculator = new FunctionLengthCalculator(lexedOutput);
-
-   var rangeSet = calculator.FunctionRangeSet();
-
-   Assert.AreEqual(1, rangeSet.size());
-
-   Assert.AreEqual(*lastTokenIterator, *(rangeSet[0].second));
-}
-
-public void Save_tokens_from_multiple_functions)
-{
-   
-   string ss = @"
-#include ""test.h""
-
-void f() { blah(); }
-void g() { blah2(); }
-)";
-
-   var lexedOutput = Generate.SecondPassListFromStream(ss);
-
-   var firstOpenBraceTokenIterator = find_if(lexedOutput.begin(), lexedOutput.end(),
-      [](Token token) { return token.text == "{"; });
-   var secondOpenBraceTokenIterator = find_if(firstOpenBraceTokenIterator + 1, lexedOutput.end(),
-      [](Token token) { return token.text == "{"; });
-   var lastTokenIterator = find_if(secondOpenBraceTokenIterator, lexedOutput.end(),
-      [](Token token) { return token.text == "}"; });
-
-   calculator = new FunctionLengthCalculator(lexedOutput);
-
-   var rangeSet = calculator.FunctionRangeSet();
-
-   Assert.AreEqual(2, rangeSet.size());
-
-   Assert.AreEqual(*secondOpenBraceTokenIterator, *(rangeSet[1].first));
-   Assert.AreEqual(*lastTokenIterator, *(rangeSet[1].second));
-}
-         */
+            Assert.AreEqual(2, actualRangeSet.Count);
+            
+            Assert.AreEqual(expFunctionRangeSet[0][0].Text, actualRangeSet[0][0].Text);
+            Assert.AreEqual(expFunctionRangeSet[1][0].Text, actualRangeSet[1][0].Text);
+        }
     }
 }

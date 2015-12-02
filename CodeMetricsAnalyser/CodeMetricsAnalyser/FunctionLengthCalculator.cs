@@ -15,8 +15,12 @@ namespace CodeMetricsAnalyser
         int previousLineNumber = 0;
         bool previousWordWasUsing = false;
         bool isEmptyFunction = false;
+        
+        bool functionStart = false;
+        bool functionEnd = false;
 
         List<int> lengths;
+        List<List<Token>> functionRangeSet;
 
         public int MaxLength
         {
@@ -49,10 +53,25 @@ namespace CodeMetricsAnalyser
         public FunctionLengthCalculator(List<Token> tokens)
         {
             lengths = new List<int>();
+            functionRangeSet = new List<List<Token>>();
+            var functionTokenList = new List<Token>();
 
             foreach (Token t in tokens)
             {
                 Analyse(t);
+
+                if (functionStart)
+                {
+                    functionTokenList.Add(t);
+                }
+
+                if (functionEnd)
+                {
+                    functionEnd = false;
+                    functionStart = false;
+                    functionRangeSet.Add(functionTokenList);
+                    functionTokenList = new List<Token>();
+                }
             }
         }
 
@@ -68,7 +87,7 @@ namespace CodeMetricsAnalyser
                 {
                     firstOpenCurlyBraceFound = true;
                     functionBeingProcessed = true;
-                    //saveFirstIterator = true;
+                    functionStart = true;
                     return;
                 }
             }
@@ -108,7 +127,7 @@ namespace CodeMetricsAnalyser
                 if (openCurlyBraces == 0)
                 {
                     lengths.Add(FunctionLength());
-                    //saveSecondIterator = true;
+                    functionEnd = true;
                     functionBeingProcessed = false;
                 }
             }
@@ -136,6 +155,11 @@ namespace CodeMetricsAnalyser
                 previousWordWasUsing = true;
             else
                 previousWordWasUsing = false;
+        }
+
+        public List<List<Token>> FunctionRangeSet()
+        {
+            return functionRangeSet;
         }
     }
 }
