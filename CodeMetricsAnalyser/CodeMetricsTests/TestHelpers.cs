@@ -46,7 +46,7 @@ namespace TestsForCodeMetricsAnalyser
             return commentStringLexer.GenerateTokens(StringStream(s));
         }
 
-        public static List<Token> SecondPassListFromStream(string input)
+        public static List<Token> SecondPassListFromString(string input)
         {
             var commentStringLexer = new CommentStringLexer();
             var secondPassLexer = new SecondPassLexer();
