@@ -36,12 +36,18 @@
             this.label_LlongestLineLength = new System.Windows.Forms.Label();
             this.label_FlongestLineLength = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label_LNumberOfFunctions = new System.Windows.Forms.Label();
+            this.label_FNumberOfFunctions = new System.Windows.Forms.Label();
+            this.label_LAvgLenOfFunctions = new System.Windows.Forms.Label();
+            this.label_FAvgLenOfFunctions = new System.Windows.Forms.Label();
+            this.label_LMaxLenOfFunctions = new System.Windows.Forms.Label();
+            this.label_FMaxLenOfFunctions = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1_Analyse
             // 
-            this.button1_Analyse.Location = new System.Drawing.Point(102, 89);
+            this.button1_Analyse.Location = new System.Drawing.Point(142, 45);
             this.button1_Analyse.Name = "button1_Analyse";
             this.button1_Analyse.Size = new System.Drawing.Size(75, 23);
             this.button1_Analyse.TabIndex = 0;
@@ -52,7 +58,7 @@
             // label_FnumberOfLines
             // 
             this.label_FnumberOfLines.AutoSize = true;
-            this.label_FnumberOfLines.Location = new System.Drawing.Point(130, 22);
+            this.label_FnumberOfLines.Location = new System.Drawing.Point(144, 22);
             this.label_FnumberOfLines.Name = "label_FnumberOfLines";
             this.label_FnumberOfLines.Size = new System.Drawing.Size(29, 13);
             this.label_FnumberOfLines.TabIndex = 1;
@@ -79,7 +85,7 @@
             // label_FcommentPercent
             // 
             this.label_FcommentPercent.AutoSize = true;
-            this.label_FcommentPercent.Location = new System.Drawing.Point(130, 48);
+            this.label_FcommentPercent.Location = new System.Drawing.Point(144, 48);
             this.label_FcommentPercent.Name = "label_FcommentPercent";
             this.label_FcommentPercent.Size = new System.Drawing.Size(27, 13);
             this.label_FcommentPercent.TabIndex = 4;
@@ -97,7 +103,7 @@
             // label_FlongestLineLength
             // 
             this.label_FlongestLineLength.AutoSize = true;
-            this.label_FlongestLineLength.Location = new System.Drawing.Point(130, 35);
+            this.label_FlongestLineLength.Location = new System.Drawing.Point(144, 35);
             this.label_FlongestLineLength.Name = "label_FlongestLineLength";
             this.label_FlongestLineLength.Size = new System.Drawing.Size(35, 13);
             this.label_FlongestLineLength.TabIndex = 6;
@@ -105,25 +111,85 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label_FMaxLenOfFunctions);
+            this.groupBox1.Controls.Add(this.label_LMaxLenOfFunctions);
+            this.groupBox1.Controls.Add(this.label_FAvgLenOfFunctions);
+            this.groupBox1.Controls.Add(this.label_LAvgLenOfFunctions);
+            this.groupBox1.Controls.Add(this.label_FNumberOfFunctions);
+            this.groupBox1.Controls.Add(this.label_LNumberOfFunctions);
             this.groupBox1.Controls.Add(this.label_FlongestLineLength);
             this.groupBox1.Controls.Add(this.label_LlongestLineLength);
             this.groupBox1.Controls.Add(this.label_FcommentPercent);
             this.groupBox1.Controls.Add(this.label_LcommentPercent);
             this.groupBox1.Controls.Add(this.label_LnumberOfLines);
             this.groupBox1.Controls.Add(this.label_FnumberOfLines);
-            this.groupBox1.Location = new System.Drawing.Point(18, 128);
+            this.groupBox1.Location = new System.Drawing.Point(72, 84);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(186, 80);
+            this.groupBox1.Size = new System.Drawing.Size(220, 203);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             this.groupBox1.Visible = false;
             // 
+            // label_LNumberOfFunctions
+            // 
+            this.label_LNumberOfFunctions.AutoSize = true;
+            this.label_LNumberOfFunctions.Location = new System.Drawing.Point(6, 61);
+            this.label_LNumberOfFunctions.Name = "label_LNumberOfFunctions";
+            this.label_LNumberOfFunctions.Size = new System.Drawing.Size(105, 13);
+            this.label_LNumberOfFunctions.TabIndex = 7;
+            this.label_LNumberOfFunctions.Text = "Number of Functions";
+            // 
+            // label_FNumberOfFunctions
+            // 
+            this.label_FNumberOfFunctions.AutoSize = true;
+            this.label_FNumberOfFunctions.Location = new System.Drawing.Point(144, 61);
+            this.label_FNumberOfFunctions.Name = "label_FNumberOfFunctions";
+            this.label_FNumberOfFunctions.Size = new System.Drawing.Size(35, 13);
+            this.label_FNumberOfFunctions.TabIndex = 8;
+            this.label_FNumberOfFunctions.Text = "label2";
+            // 
+            // label_LAvgLenOfFunctions
+            // 
+            this.label_LAvgLenOfFunctions.AutoSize = true;
+            this.label_LAvgLenOfFunctions.Location = new System.Drawing.Point(6, 74);
+            this.label_LAvgLenOfFunctions.Name = "label_LAvgLenOfFunctions";
+            this.label_LAvgLenOfFunctions.Size = new System.Drawing.Size(106, 13);
+            this.label_LAvgLenOfFunctions.TabIndex = 9;
+            this.label_LAvgLenOfFunctions.Text = "Avg Function Length";
+            // 
+            // label_FAvgLenOfFunctions
+            // 
+            this.label_FAvgLenOfFunctions.AutoSize = true;
+            this.label_FAvgLenOfFunctions.Location = new System.Drawing.Point(144, 74);
+            this.label_FAvgLenOfFunctions.Name = "label_FAvgLenOfFunctions";
+            this.label_FAvgLenOfFunctions.Size = new System.Drawing.Size(35, 13);
+            this.label_FAvgLenOfFunctions.TabIndex = 10;
+            this.label_FAvgLenOfFunctions.Text = "label4";
+            // 
+            // label_LMaxLenOfFunctions
+            // 
+            this.label_LMaxLenOfFunctions.AutoSize = true;
+            this.label_LMaxLenOfFunctions.Location = new System.Drawing.Point(6, 87);
+            this.label_LMaxLenOfFunctions.Name = "label_LMaxLenOfFunctions";
+            this.label_LMaxLenOfFunctions.Size = new System.Drawing.Size(107, 13);
+            this.label_LMaxLenOfFunctions.TabIndex = 11;
+            this.label_LMaxLenOfFunctions.Text = "Max Function Length";
+            // 
+            // label_FMaxLenOfFunctions
+            // 
+            this.label_FMaxLenOfFunctions.AutoSize = true;
+            this.label_FMaxLenOfFunctions.Location = new System.Drawing.Point(144, 87);
+            this.label_FMaxLenOfFunctions.Name = "label_FMaxLenOfFunctions";
+            this.label_FMaxLenOfFunctions.Size = new System.Drawing.Size(35, 13);
+            this.label_FMaxLenOfFunctions.TabIndex = 12;
+            this.label_FMaxLenOfFunctions.Text = "label6";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(380, 369);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1_Analyse);
             this.Name = "Form1";
@@ -144,6 +210,12 @@
         private System.Windows.Forms.Label label_LlongestLineLength;
         private System.Windows.Forms.Label label_FlongestLineLength;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label_FMaxLenOfFunctions;
+        private System.Windows.Forms.Label label_LMaxLenOfFunctions;
+        private System.Windows.Forms.Label label_FAvgLenOfFunctions;
+        private System.Windows.Forms.Label label_LAvgLenOfFunctions;
+        private System.Windows.Forms.Label label_FNumberOfFunctions;
+        private System.Windows.Forms.Label label_LNumberOfFunctions;
     }
 }
 

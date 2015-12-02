@@ -21,6 +21,9 @@ namespace GUI
         long commentChars = 0;
         long totalChars = 0;
         long maxLength = 0;
+        int noOfFuncs = 0;
+        int maxFuncLen = 0;
+        decimal avgFuncLen = 0m;
 
         private void UpdateFields(string fileName)
         {
@@ -29,10 +32,16 @@ namespace GUI
 
             label_FnumberOfLines.Text = lines.ToString();
             label_FlongestLineLength.Text = maxLength.ToString() + " chars";
+            
             if (totalChars == 0)
                 return;
+            
             long percentage = commentChars*100/totalChars;
             label_FcommentPercent.Text = percentage.ToString("F02") + " %";
+
+            label_FNumberOfFunctions.Text = noOfFuncs.ToString();
+            label_FAvgLenOfFunctions.Text = avgFuncLen.ToString("F02");
+            label_FMaxLenOfFunctions.Text = maxFuncLen.ToString();
         }
 
         public Form1()
@@ -85,6 +94,12 @@ namespace GUI
                 lines = commentStringLexer.NumberOfLines;
 
                 CalculateCommentPercentage(c);
+
+                var flCalc = new FunctionLengthCalculator(s);
+                noOfFuncs = flCalc.NumberOfFunctions;
+                maxFuncLen = flCalc.MaxLength;
+                avgFuncLen = flCalc.AverageLength;
+
                 UpdateFields(Path.GetFileName(openFileDialog1.FileName));
                 
                 fileStream.Close();
