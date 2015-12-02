@@ -54,5 +54,13 @@ namespace TestsForCodeMetricsAnalyser
             var firstPass = commentStringLexer.GenerateTokens(StringStream(input));
             return secondPassLexer.SplitTokens(firstPass);
         }
+
+        public static List<List<Token>> FunctionListFromString(string ss, out List<Token> secondPassList)
+        {
+            secondPassList = Generate.SecondPassListFromString(ss);
+            var funcLenCal = new FunctionLengthCalculator(secondPassList);
+
+            return funcLenCal.FunctionRangeSet();
+        }
     }
 }

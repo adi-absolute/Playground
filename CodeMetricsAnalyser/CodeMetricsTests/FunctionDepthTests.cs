@@ -9,15 +9,12 @@ namespace TestsForCodeMetricsAnalyser
     [TestClass]
     public class FunctionDepthTests
     {
-        List<Token> secondPassList;
+        List<Token> secondPassList; // Function Range is a Shallow Copy
         FunctionDepthCalculator calculator;
 
-        private List<List<Token>> GenerateFunctionRangeFromStream(string s)
+        private List<List<Token>> GenerateFunctionRangeFromString(string input)
         {
-            secondPassList = Generate.SecondPassListFromString(s);
-            var funcLenCal = new FunctionLengthCalculator(secondPassList);
-
-            return funcLenCal.FunctionRangeSet();
+            return Generate.FunctionListFromString(input, out secondPassList);
         }
 
         [TestMethod]
@@ -38,7 +35,7 @@ namespace TestsForCodeMetricsAnalyser
         /*more comments*/
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(0, calculator.MaxDepth);
@@ -51,7 +48,7 @@ namespace TestsForCodeMetricsAnalyser
 
         void f() { })";
    
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(1, calculator.MaxDepth);
@@ -71,7 +68,7 @@ namespace TestsForCodeMetricsAnalyser
             }
         })";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -92,7 +89,7 @@ namespace TestsForCodeMetricsAnalyser
             }
         })";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -108,7 +105,7 @@ namespace TestsForCodeMetricsAnalyser
         void g() { }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(1, calculator.MaxDepth);
@@ -124,7 +121,7 @@ namespace TestsForCodeMetricsAnalyser
         void g() { }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -139,7 +136,7 @@ namespace TestsForCodeMetricsAnalyser
         void f() { string s = ""{""; }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(1, calculator.MaxDepth);
@@ -154,7 +151,7 @@ namespace TestsForCodeMetricsAnalyser
         void f() { if (true) break; }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -176,7 +173,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(3, calculator.MaxDepth);
@@ -197,7 +194,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -218,7 +215,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -241,7 +238,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -264,7 +261,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -290,7 +287,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(3, calculator.MaxDepth);
@@ -307,7 +304,7 @@ namespace TestsForCodeMetricsAnalyser
             while (true) break; 
         })";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -324,7 +321,7 @@ namespace TestsForCodeMetricsAnalyser
             for (;;) break; 
         })";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -341,7 +338,7 @@ namespace TestsForCodeMetricsAnalyser
             do break; while (1);
         })";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(2, calculator.MaxDepth);
@@ -369,7 +366,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(3, calculator.MaxDepth);
@@ -385,7 +382,7 @@ namespace TestsForCodeMetricsAnalyser
         void g() { }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(1, calculator.AvgDepth);
@@ -401,7 +398,7 @@ namespace TestsForCodeMetricsAnalyser
         void g() { }
         )";
 
-            var functionRangeSet = GenerateFunctionRangeFromStream(ss);
+            var functionRangeSet = GenerateFunctionRangeFromString(ss);
             calculator = new FunctionDepthCalculator(functionRangeSet);
 
             Assert.AreEqual(1.5m, calculator.AvgDepth);
