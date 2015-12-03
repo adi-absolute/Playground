@@ -32,7 +32,7 @@ namespace TestsForCodeMetricsAnalyser
         /*more comments*/
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(0, calculator.MaxLength);
@@ -46,7 +46,7 @@ namespace TestsForCodeMetricsAnalyser
         void f() {  }
         )";
 
-           var lexedOutput = Generate.SecondPassListFromStream(ss);
+           var lexedOutput = Generate.SecondPassListFromString(ss);
            calculator = new FunctionLengthCalculator(lexedOutput);
 
            Assert.AreEqual(0, calculator.MaxLength);
@@ -60,7 +60,7 @@ namespace TestsForCodeMetricsAnalyser
         void f() { blah(); }
         )";
 
-           var lexedOutput = Generate.SecondPassListFromStream(ss);
+           var lexedOutput = Generate.SecondPassListFromString(ss);
            calculator = new FunctionLengthCalculator(lexedOutput);
 
            Assert.AreEqual(1, calculator.MaxLength);
@@ -75,7 +75,7 @@ namespace TestsForCodeMetricsAnalyser
         blah2(); }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(2, calculator.MaxLength);
@@ -96,7 +96,7 @@ namespace TestsForCodeMetricsAnalyser
 
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(2, calculator.MaxLength);
@@ -118,7 +118,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(6, calculator.MaxLength);
@@ -132,7 +132,7 @@ namespace TestsForCodeMetricsAnalyser
         int someArray[] = { 1, 2, 3 };
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(0, calculator.MaxLength);
@@ -149,7 +149,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(1, calculator.MaxLength);
@@ -163,7 +163,7 @@ namespace TestsForCodeMetricsAnalyser
         void f()  const;
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(0, calculator.MaxLength);
@@ -184,7 +184,7 @@ namespace TestsForCodeMetricsAnalyser
 
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(1.5m, calculator.AverageLength);
@@ -204,7 +204,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(1, calculator.MaxLength);
@@ -226,7 +226,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(1, calculator.MaxLength);
@@ -247,7 +247,7 @@ namespace TestsForCodeMetricsAnalyser
         }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(1, calculator.MaxLength);
@@ -267,7 +267,7 @@ namespace TestsForCodeMetricsAnalyser
 
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(1, calculator.MaxLength);
@@ -289,7 +289,7 @@ namespace TestsForCodeMetricsAnalyser
 
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             calculator = new FunctionLengthCalculator(lexedOutput);
 
             Assert.AreEqual(2, calculator.NumberOfFunctions);
@@ -315,7 +315,7 @@ namespace TestsForCodeMetricsAnalyser
         void f() { blah(); }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
 
             int endSearch;
             var functionTokens = CreateFunctionRange(lexedOutput, "{", "}", 0, out endSearch);
@@ -342,7 +342,7 @@ namespace TestsForCodeMetricsAnalyser
         void g() { blah2(); }
         )";
 
-            var lexedOutput = Generate.SecondPassListFromStream(ss);
+            var lexedOutput = Generate.SecondPassListFromString(ss);
             
             var expFunctionRangeSet = new List<List<Token>>();
 

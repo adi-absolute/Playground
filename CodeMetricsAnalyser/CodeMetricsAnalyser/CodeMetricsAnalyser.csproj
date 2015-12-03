@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="CommentStringLexerDelegates.cs" />
     <Compile Include="CommentStringLexer.cs" />
+    <Compile Include="FunctionComplexityCalculator.cs" />
+    <Compile Include="FunctionDepthCalculator.cs" />
     <Compile Include="FunctionLengthCalculator.cs" />
     <Compile Include="SecondPassLexer.cs" />
     <Compile Include="Token.cs" />
