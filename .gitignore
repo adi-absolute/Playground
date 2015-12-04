@@ -16,4 +16,8 @@
 Debug
 Objects
 Output
+obj
+Packages
+Fody*
+*.config
 gtest-1.7.0
