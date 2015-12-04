@@ -7,7 +7,18 @@ using System.IO;
 
 namespace GUI
 {
-    public delegate void FileSelectHandler(string filename, Stream s);
+    public struct FileInfo
+    {
+        public string Name;
+        public Stream Data;
+
+        public FileInfo(string n, Stream s)
+        {
+            Name = n; Data = s;
+        }
+    }
+
+    public delegate void FileSelectHandler(List<FileInfo> files);
 
     public interface IView
     {

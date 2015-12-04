@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button_Analyse = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tableMetrics = new System.Windows.Forms.TableLayoutPanel();
             this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberOfLinesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commentPercentageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +46,7 @@
             this.maxFunctionComplexityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avgFunctionComplexityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fileMetricsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button_clearWindow = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileMetricsBindingSource)).BeginInit();
@@ -52,7 +54,7 @@
             // 
             // button_Analyse
             // 
-            this.button_Analyse.Location = new System.Drawing.Point(425, 12);
+            this.button_Analyse.Location = new System.Drawing.Point(434, 22);
             this.button_Analyse.Name = "button_Analyse";
             this.button_Analyse.Size = new System.Drawing.Size(89, 33);
             this.button_Analyse.TabIndex = 0;
@@ -63,19 +65,28 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Controls.Add(this.tableMetrics);
-            this.groupBox1.Location = new System.Drawing.Point(25, 61);
+            this.groupBox1.Location = new System.Drawing.Point(12, 61);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(906, 387);
+            this.groupBox1.Size = new System.Drawing.Size(972, 387);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             this.groupBox1.Visible = false;
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Filename,
@@ -90,33 +101,24 @@
             this.maxFunctionComplexityDataGridViewTextBoxColumn,
             this.avgFunctionComplexityDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.fileMetricsBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(39, 138);
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(1, 1, 3, 3);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(846, 182);
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView1.Size = new System.Drawing.Size(966, 368);
             this.dataGridView1.TabIndex = 1;
-            // 
-            // tableMetrics
-            // 
-            this.tableMetrics.ColumnCount = 11;
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.tableMetrics.Location = new System.Drawing.Point(31, 32);
-            this.tableMetrics.Name = "tableMetrics";
-            this.tableMetrics.RowCount = 2;
-            this.tableMetrics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableMetrics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableMetrics.Size = new System.Drawing.Size(474, 100);
-            this.tableMetrics.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Filename
             // 
@@ -124,6 +126,7 @@
             this.Filename.HeaderText = "File";
             this.Filename.Name = "Filename";
             this.Filename.ReadOnly = true;
+            this.Filename.Width = 250;
             // 
             // numberOfLinesDataGridViewTextBoxColumn
             // 
@@ -131,7 +134,7 @@
             this.numberOfLinesDataGridViewTextBoxColumn.HeaderText = "Number Of Lines";
             this.numberOfLinesDataGridViewTextBoxColumn.Name = "numberOfLinesDataGridViewTextBoxColumn";
             this.numberOfLinesDataGridViewTextBoxColumn.ReadOnly = true;
-            this.numberOfLinesDataGridViewTextBoxColumn.Width = 70;
+            this.numberOfLinesDataGridViewTextBoxColumn.Width = 65;
             // 
             // commentPercentageDataGridViewTextBoxColumn
             // 
@@ -139,7 +142,7 @@
             this.commentPercentageDataGridViewTextBoxColumn.HeaderText = "Comment Percentage";
             this.commentPercentageDataGridViewTextBoxColumn.Name = "commentPercentageDataGridViewTextBoxColumn";
             this.commentPercentageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.commentPercentageDataGridViewTextBoxColumn.Width = 70;
+            this.commentPercentageDataGridViewTextBoxColumn.Width = 65;
             // 
             // maxWidthDataGridViewTextBoxColumn
             // 
@@ -147,7 +150,7 @@
             this.maxWidthDataGridViewTextBoxColumn.HeaderText = "Max Width";
             this.maxWidthDataGridViewTextBoxColumn.Name = "maxWidthDataGridViewTextBoxColumn";
             this.maxWidthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxWidthDataGridViewTextBoxColumn.Width = 70;
+            this.maxWidthDataGridViewTextBoxColumn.Width = 65;
             // 
             // numberOfFunctionsDataGridViewTextBoxColumn
             // 
@@ -155,7 +158,7 @@
             this.numberOfFunctionsDataGridViewTextBoxColumn.HeaderText = "Number Of Functions";
             this.numberOfFunctionsDataGridViewTextBoxColumn.Name = "numberOfFunctionsDataGridViewTextBoxColumn";
             this.numberOfFunctionsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.numberOfFunctionsDataGridViewTextBoxColumn.Width = 70;
+            this.numberOfFunctionsDataGridViewTextBoxColumn.Width = 65;
             // 
             // maxFunctionLengthDataGridViewTextBoxColumn
             // 
@@ -163,7 +166,7 @@
             this.maxFunctionLengthDataGridViewTextBoxColumn.HeaderText = "Max Function Length";
             this.maxFunctionLengthDataGridViewTextBoxColumn.Name = "maxFunctionLengthDataGridViewTextBoxColumn";
             this.maxFunctionLengthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxFunctionLengthDataGridViewTextBoxColumn.Width = 70;
+            this.maxFunctionLengthDataGridViewTextBoxColumn.Width = 65;
             // 
             // avgFunctionLengthDataGridViewTextBoxColumn
             // 
@@ -171,7 +174,7 @@
             this.avgFunctionLengthDataGridViewTextBoxColumn.HeaderText = "Avg Function Length";
             this.avgFunctionLengthDataGridViewTextBoxColumn.Name = "avgFunctionLengthDataGridViewTextBoxColumn";
             this.avgFunctionLengthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avgFunctionLengthDataGridViewTextBoxColumn.Width = 70;
+            this.avgFunctionLengthDataGridViewTextBoxColumn.Width = 65;
             // 
             // maxFunctionDepthDataGridViewTextBoxColumn
             // 
@@ -179,7 +182,7 @@
             this.maxFunctionDepthDataGridViewTextBoxColumn.HeaderText = "Max Function Depth";
             this.maxFunctionDepthDataGridViewTextBoxColumn.Name = "maxFunctionDepthDataGridViewTextBoxColumn";
             this.maxFunctionDepthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxFunctionDepthDataGridViewTextBoxColumn.Width = 70;
+            this.maxFunctionDepthDataGridViewTextBoxColumn.Width = 65;
             // 
             // avgFunctionDepthDataGridViewTextBoxColumn
             // 
@@ -187,7 +190,7 @@
             this.avgFunctionDepthDataGridViewTextBoxColumn.HeaderText = "Avg Function Depth";
             this.avgFunctionDepthDataGridViewTextBoxColumn.Name = "avgFunctionDepthDataGridViewTextBoxColumn";
             this.avgFunctionDepthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avgFunctionDepthDataGridViewTextBoxColumn.Width = 70;
+            this.avgFunctionDepthDataGridViewTextBoxColumn.Width = 65;
             // 
             // maxFunctionComplexityDataGridViewTextBoxColumn
             // 
@@ -195,7 +198,7 @@
             this.maxFunctionComplexityDataGridViewTextBoxColumn.HeaderText = "Max Complexity";
             this.maxFunctionComplexityDataGridViewTextBoxColumn.Name = "maxFunctionComplexityDataGridViewTextBoxColumn";
             this.maxFunctionComplexityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxFunctionComplexityDataGridViewTextBoxColumn.Width = 70;
+            this.maxFunctionComplexityDataGridViewTextBoxColumn.Width = 65;
             // 
             // avgFunctionComplexityDataGridViewTextBoxColumn
             // 
@@ -203,17 +206,29 @@
             this.avgFunctionComplexityDataGridViewTextBoxColumn.HeaderText = "Avg Complexity";
             this.avgFunctionComplexityDataGridViewTextBoxColumn.Name = "avgFunctionComplexityDataGridViewTextBoxColumn";
             this.avgFunctionComplexityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avgFunctionComplexityDataGridViewTextBoxColumn.Width = 70;
+            this.avgFunctionComplexityDataGridViewTextBoxColumn.Width = 65;
             // 
             // fileMetricsBindingSource
             // 
             this.fileMetricsBindingSource.DataSource = typeof(GUI.FileMetrics);
             // 
+            // button_clearWindow
+            // 
+            this.button_clearWindow.Location = new System.Drawing.Point(859, 22);
+            this.button_clearWindow.Name = "button_clearWindow";
+            this.button_clearWindow.Size = new System.Drawing.Size(122, 33);
+            this.button_clearWindow.TabIndex = 2;
+            this.button_clearWindow.Text = "Clear Window";
+            this.button_clearWindow.UseVisualStyleBackColor = true;
+            this.button_clearWindow.Visible = false;
+            this.button_clearWindow.Click += new System.EventHandler(this.button_clearWindow_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 469);
+            this.ClientSize = new System.Drawing.Size(998, 469);
+            this.Controls.Add(this.button_clearWindow);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_Analyse);
             this.Name = "Form2";
@@ -229,7 +244,6 @@
 
         private System.Windows.Forms.Button button_Analyse;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableMetrics;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource fileMetricsBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
@@ -243,5 +257,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn avgFunctionDepthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxFunctionComplexityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgFunctionComplexityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button_clearWindow;
     }
 }

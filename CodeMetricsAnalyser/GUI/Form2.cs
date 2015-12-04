@@ -13,8 +13,26 @@ namespace GUI
 {
     public partial class Form2 : Form, IView
     {
+        enum Headers
+        {
+            FileName,
+            NoOfLines,
+            CommentPercent,
+            MaxWidth,
+            NoOfFunctions,
+            MaxFuncLen,
+            AvgFuncLen,
+            MaxFuncDepth,
+            AvgFuncDepth,
+            MaxComplexity,
+            AvgComplexity
+        }
+
         private Form2Presenter _presenter;
-        private List<FileMetrics> metricsList;
+        private List<FileMetrics> _metricsList;
+
+        private int _numberOfRows = 1;
+        private const int c_maxRows = 10;
 
         public event FileSelectHandler FilesSelected;
 
@@ -27,7 +45,8 @@ namespace GUI
 
         private void InitialiseTable()
         {
-            dataGridView1.DataSource = metricsList;
+            dataGridView1.DataSource = _metricsList;
+            dataGridView1.Columns["Filename"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
         public void SetVisibility(bool visible)
@@ -37,21 +56,37 @@ namespace GUI
 
         public void SetData(List<FileMetrics> fileMetrics)
         {
-            metricsList = fileMetrics;
+            _metricsList = fileMetrics;
         }
 
         private void ClearTable()
         {
+            dataGridView1.Rows.Clear();            
 
+            _metricsList = new List<FileMetrics>();
+            
         }
 
         public void UpdateDisplay()
         {
-            ClearTable();
-            int n = dataGridView1.Rows.Add();
+            foreach (FileMetrics file in _metricsList)
+            {
+                int n = dataGridView1.Rows.Add();
 
-            dataGridView1.Rows[n].Cells[0].Value = metricsList[0].Filename;
-            dataGridView1.Rows[n].Cells[1].Value = metricsList[0].NumberOfLines;
+                dataGridView1.Rows[n].Cells[(int)Headers.FileName].Value = file.Name;
+                dataGridView1.Rows[n].Cells[(int)Headers.NoOfLines].Value = file.NumberOfLines;
+                dataGridView1.Rows[n].Cells[(int)Headers.CommentPercent].Value = file.CommentPercentage.ToString("F02") + " %";
+                dataGridView1.Rows[n].Cells[(int)Headers.MaxWidth].Value = file.MaxWidth;
+                dataGridView1.Rows[n].Cells[(int)Headers.NoOfFunctions].Value = file.NumberOfFunctions;
+                dataGridView1.Rows[n].Cells[(int)Headers.MaxFuncLen].Value = file.MaxFunctionLength;
+                dataGridView1.Rows[n].Cells[(int)Headers.AvgFuncLen].Value = file.AvgFunctionLength.ToString("F02");
+                dataGridView1.Rows[n].Cells[(int)Headers.MaxFuncDepth].Value = file.MaxFunctionDepth;
+                dataGridView1.Rows[n].Cells[(int)Headers.AvgFuncDepth].Value = file.AvgFunctionDepth.ToString("F02");
+                dataGridView1.Rows[n].Cells[(int)Headers.MaxComplexity].Value = file.MaxFunctionComplexity;
+                dataGridView1.Rows[n].Cells[(int)Headers.AvgComplexity].Value = file.AvgFunctionComplexity.ToString("F02");
+            }
+
+            button_clearWindow.Visible = true;
         }
 
         private void button_Analyse_Click(object sender, EventArgs e)
@@ -61,7 +96,7 @@ namespace GUI
             openFileDialog1.Filter = "C/C++ Source Files |*.c; *cpp|All Files (*.*)|*.*";
             openFileDialog1.FilterIndex = 1;
 
-            openFileDialog1.Multiselect = false;
+            openFileDialog1.Multiselect = true;
 
             var userClickedOK = openFileDialog1.ShowDialog();
 
@@ -70,9 +105,35 @@ namespace GUI
                 return;
             }
 
-            Stream fileStream = openFileDialog1.OpenFile();
-            FilesSelected(Path.GetFileName(openFileDialog1.FileName), fileStream);
-            fileStream.Close();
+            var fileNames = openFileDialog1.FileNames;
+            _numberOfRows = fileNames.Length;
+
+            if (_numberOfRows == 0)
+                return;
+
+            List<FileInfo> files = new List<FileInfo>();
+
+            foreach (string path in fileNames)
+            {
+                var reader = new StreamReader(path);
+                var fileStream = reader.BaseStream;
+
+                var fileInfo = new FileInfo(Path.GetFileName(path), fileStream);
+                files.Add(fileInfo);
+            }
+
+            FilesSelected(files);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button_clearWindow_Click(object sender, EventArgs e)
+        {
+            ClearTable();
+            button_clearWindow.Visible = false;
         }
     }
 }

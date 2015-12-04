@@ -18,38 +18,41 @@ namespace GUI
             _view.FilesSelected += new FileSelectHandler(Analyse);
         }
 
-        private void Analyse(string filename, Stream fileStream)
+        private void Analyse(List<FileInfo> files)
         {
             var info = new List<FileMetrics>();
 
-            var metrics = new FileMetrics();
-            metrics.Filename = filename;
+            foreach (FileInfo file in files)
+            {
+                var metrics = new FileMetrics();
+                metrics.Name = file.Name;
 
-            var commentStringLexer = new CommentStringLexer();
-            var secondPassLexer = new SecondPassLexer();
-            var c = commentStringLexer.GenerateTokens(fileStream);
-            var s = secondPassLexer.SplitTokens(c);
+                var commentStringLexer = new CommentStringLexer();
+                var secondPassLexer = new SecondPassLexer();
+                var c = commentStringLexer.GenerateTokens(file.Data);
+                var s = secondPassLexer.SplitTokens(c);
 
-            metrics.NumberOfLines = commentStringLexer.NumberOfLines;
-            int maxWidth;
-            metrics.CommentPercentage = CalculateCommentPercentage(c, out maxWidth);
-            metrics.MaxWidth = maxWidth;
+                metrics.NumberOfLines = commentStringLexer.NumberOfLines;
+                int maxWidth;
+                metrics.CommentPercentage = CalculateCommentPercentage(c, out maxWidth);
+                metrics.MaxWidth = maxWidth;
 
-            if (maxWidth == 0)
-                return;
+                if (maxWidth == 0)
+                    return;
 
-            var flCalc = new FunctionLengthCalculator(s);
-            metrics.NumberOfFunctions = flCalc.NumberOfFunctions;
-            metrics.MaxFunctionLength = flCalc.MaxLength;
-            metrics.AvgFunctionLength = flCalc.AverageLength;
+                var flCalc = new FunctionLengthCalculator(s);
+                metrics.NumberOfFunctions = flCalc.NumberOfFunctions;
+                metrics.MaxFunctionLength = flCalc.MaxLength;
+                metrics.AvgFunctionLength = flCalc.AverageLength;
 
-            var depthCalc = new FunctionDepthCalculator(flCalc.FunctionRangeSet());
-            metrics.MaxFunctionDepth = depthCalc.MaxDepth;
-            metrics.AvgFunctionDepth = depthCalc.AvgDepth;
-            var complexityCalc = new FunctionComplexityCalculator(flCalc.FunctionRangeSet());
-            metrics.MaxFunctionComplexity = complexityCalc.MaxComplexity;
-            metrics.AvgFunctionComplexity = complexityCalc.AvgComplexity;
-            info.Add(metrics);
+                var depthCalc = new FunctionDepthCalculator(flCalc.FunctionRangeSet());
+                metrics.MaxFunctionDepth = depthCalc.MaxDepth;
+                metrics.AvgFunctionDepth = depthCalc.AvgDepth;
+                var complexityCalc = new FunctionComplexityCalculator(flCalc.FunctionRangeSet());
+                metrics.MaxFunctionComplexity = complexityCalc.MaxComplexity;
+                metrics.AvgFunctionComplexity = complexityCalc.AvgComplexity;
+                info.Add(metrics);
+            }
 
             _view.SetData(info);
             _view.SetVisibility(true);

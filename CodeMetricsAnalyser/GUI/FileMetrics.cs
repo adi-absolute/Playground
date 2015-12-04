@@ -8,7 +8,7 @@ namespace GUI
 {
     public class FileMetrics
     {
-        public string Filename { get; set; }
+        public string Name { get; set; }
         public int NumberOfLines { get; set; }
         public decimal CommentPercentage { get; set; }
         public int MaxWidth { get; set; }
