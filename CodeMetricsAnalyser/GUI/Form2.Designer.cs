@@ -32,10 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button_Analyse = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_clearWindow = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button_clearWindow = new System.Windows.Forms.Button();
             this.numberOfLinesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commentPercentageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maxWidthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,14 +46,13 @@
             this.maxFunctionComplexityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avgFunctionComplexityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fileMetricsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileMetricsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button_Analyse
             // 
-            this.button_Analyse.Location = new System.Drawing.Point(434, 22);
+            this.button_Analyse.Location = new System.Drawing.Point(401, 22);
             this.button_Analyse.Name = "button_Analyse";
             this.button_Analyse.Size = new System.Drawing.Size(89, 33);
             this.button_Analyse.TabIndex = 0;
@@ -62,22 +60,23 @@
             this.button_Analyse.UseVisualStyleBackColor = true;
             this.button_Analyse.Click += new System.EventHandler(this.button_Analyse_Click);
             // 
-            // groupBox1
+            // button_clearWindow
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 61);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(972, 387);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Visible = false;
+            this.button_clearWindow.Location = new System.Drawing.Point(799, 22);
+            this.button_clearWindow.Name = "button_clearWindow";
+            this.button_clearWindow.Size = new System.Drawing.Size(122, 33);
+            this.button_clearWindow.TabIndex = 2;
+            this.button_clearWindow.Text = "Clear Window";
+            this.button_clearWindow.UseVisualStyleBackColor = true;
+            this.button_clearWindow.Visible = false;
+            this.button_clearWindow.Click += new System.EventHandler(this.button_clearWindow_Click);
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.Purple;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -109,15 +108,16 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView1.Location = new System.Drawing.Point(18, 78);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(1, 1, 3, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(966, 368);
+            this.dataGridView1.Size = new System.Drawing.Size(920, 368);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Filename
@@ -127,17 +127,6 @@
             this.Filename.Name = "Filename";
             this.Filename.ReadOnly = true;
             this.Filename.Width = 250;
-            // 
-            // button_clearWindow
-            // 
-            this.button_clearWindow.Location = new System.Drawing.Point(859, 22);
-            this.button_clearWindow.Name = "button_clearWindow";
-            this.button_clearWindow.Size = new System.Drawing.Size(122, 33);
-            this.button_clearWindow.TabIndex = 2;
-            this.button_clearWindow.Text = "Clear Window";
-            this.button_clearWindow.UseVisualStyleBackColor = true;
-            this.button_clearWindow.Visible = false;
-            this.button_clearWindow.Click += new System.EventHandler(this.button_clearWindow_Click);
             // 
             // numberOfLinesDataGridViewTextBoxColumn
             // 
@@ -227,13 +216,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 469);
+            this.BackColor = System.Drawing.Color.Purple;
+            this.ClientSize = new System.Drawing.Size(957, 469);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button_clearWindow);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_Analyse);
             this.Name = "Form2";
             this.Text = "Code Metrics Analyser";
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileMetricsBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -243,9 +232,9 @@
         #endregion
 
         private System.Windows.Forms.Button button_Analyse;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource fileMetricsBindingSource;
+        private System.Windows.Forms.Button button_clearWindow;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberOfLinesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentPercentageDataGridViewTextBoxColumn;
@@ -257,6 +246,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn avgFunctionDepthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxFunctionComplexityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgFunctionComplexityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button button_clearWindow;
     }
 }

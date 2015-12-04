@@ -33,12 +33,12 @@ namespace GUI
                 var s = secondPassLexer.SplitTokens(c);
 
                 metrics.NumberOfLines = commentStringLexer.NumberOfLines;
-                int maxWidth;
-                metrics.CommentPercentage = CalculateCommentPercentage(c, out maxWidth);
-                metrics.MaxWidth = maxWidth;
+                metrics.MaxWidth = commentStringLexer.MaxWidth;
 
-                if (maxWidth == 0)
+                if (metrics.MaxWidth == 0)
                     return;
+
+                metrics.CommentPercentage = CalculateCommentPercentage(c);
 
                 var flCalc = new FunctionLengthCalculator(s);
                 metrics.NumberOfFunctions = flCalc.NumberOfFunctions;
@@ -48,6 +48,7 @@ namespace GUI
                 var depthCalc = new FunctionDepthCalculator(flCalc.FunctionRangeSet());
                 metrics.MaxFunctionDepth = depthCalc.MaxDepth;
                 metrics.AvgFunctionDepth = depthCalc.AvgDepth;
+
                 var complexityCalc = new FunctionComplexityCalculator(flCalc.FunctionRangeSet());
                 metrics.MaxFunctionComplexity = complexityCalc.MaxComplexity;
                 metrics.AvgFunctionComplexity = complexityCalc.AvgComplexity;
@@ -59,7 +60,7 @@ namespace GUI
             _view.UpdateDisplay();
         }
 
-        private decimal CalculateCommentPercentage(List<Token> tokens, out int longestLineLength)
+        private decimal CalculateCommentPercentage(List<Token> tokens)
         {
             //int tokenCounter = 0;
             int maxLength = 0;
@@ -82,9 +83,7 @@ namespace GUI
                 //tokenCounter++;  // Random comment \ with multiple slashes \
             }
 
-            longestLineLength = maxLength;
-
-            return (decimal)(commentChars * 100 / totalChars);
+            return (decimal)(commentChars * 100m / totalChars);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace GUI
 
         public void SetVisibility(bool visible)
         {
-            groupBox1.Visible = visible;
+            dataGridView1.Visible = visible;
         }
 
         public void SetData(List<FileMetrics> fileMetrics)
