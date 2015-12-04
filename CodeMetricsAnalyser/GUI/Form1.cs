@@ -13,6 +13,13 @@ using CodeMetricsAnalyser;
 
 namespace GUI
 {
+    public class FileArgs : EventArgs
+    {
+        public List<Stream> files;
+    }
+
+    public delegate void FilesSelected(object sender, FileArgs info);
+
     public partial class Form1 : Form
     {
         CommentStringLexer commentStringLexer;
@@ -24,6 +31,8 @@ namespace GUI
         int noOfFuncs = 0;
         int maxFuncLen = 0;
         decimal avgFuncLen = 0m;
+
+        public FilesSelected filesSelectedEvent;
 
         private void UpdateFields(string fileName)
         {
@@ -86,7 +95,7 @@ namespace GUI
 
             if (userClickedOK == DialogResult.OK)
             {
-                System.IO.Stream fileStream = openFileDialog1.OpenFile();
+                Stream fileStream = openFileDialog1.OpenFile();
 
                 var c = commentStringLexer.GenerateTokens(fileStream);
                 var s = secondPassLexer.SplitTokens(c);

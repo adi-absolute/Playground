@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using CodeMetricsAnalyser;
+
+namespace GUI
+{
+    public class Form2Presenter
+    {
+        private IView _view;
+
+        public Form2Presenter(IView rename)
+        {
+            _view = rename;
+            _view.FilesSelected += new FileSelectHandler(Analyse);
+        }
+
+        private void Analyse(string filename, Stream fileStream)
+        {
+            var info = new List<FileMetrics>();
+
+            var metrics = new FileMetrics();
+            metrics.Filename = filename;
+
+            var commentStringLexer = new CommentStringLexer();
+            var secondPassLexer = new SecondPassLexer();
+            var c = commentStringLexer.GenerateTokens(fileStream);
+            var s = secondPassLexer.SplitTokens(c);
+
+            metrics.NumberOfLines = commentStringLexer.NumberOfLines;
+            int maxWidth;
+            metrics.CommentPercentage = CalculateCommentPercentage(c, out maxWidth);
+            metrics.MaxWidth = maxWidth;
+
+            if (maxWidth == 0)
+                return;
+
+            var flCalc = new FunctionLengthCalculator(s);
+            metrics.NumberOfFunctions = flCalc.NumberOfFunctions;
+            metrics.MaxFunctionLength = flCalc.MaxLength;
+            metrics.AvgFunctionLength = flCalc.AverageLength;
+
+            var depthCalc = new FunctionDepthCalculator(flCalc.FunctionRangeSet());
+            metrics.MaxFunctionDepth = depthCalc.MaxDepth;
+            metrics.AvgFunctionDepth = depthCalc.AvgDepth;
+            var complexityCalc = new FunctionComplexityCalculator(flCalc.FunctionRangeSet());
+            metrics.MaxFunctionComplexity = complexityCalc.MaxComplexity;
+            metrics.AvgFunctionComplexity = complexityCalc.AvgComplexity;
+            info.Add(metrics);
+
+            _view.SetData(info);
+            _view.SetVisibility(true);
+            _view.UpdateDisplay();
+        }
+
+        private decimal CalculateCommentPercentage(List<Token> tokens, out int longestLineLength)
+        {
+            //int tokenCounter = 0;
+            int maxLength = 0;
+            int totalChars = 0;
+            int commentChars = 0;
+
+            foreach (Token t in tokens)
+            {
+                int charCount = t.Text.Length;
+
+                if (charCount > maxLength)
+                    maxLength = charCount;
+
+                totalChars += charCount;
+
+                if (t.Type == TokenType.Comment)
+                    commentChars += charCount;
+
+                //cout << "*" << setw(2) << tokenCounter <<  "* " << token.text << endl;
+                //tokenCounter++;  // Random comment \ with multiple slashes \
+            }
+
+            longestLineLength = maxLength;
+
+            return (decimal)(commentChars * 100 / totalChars);
+        }
+    }
+}
