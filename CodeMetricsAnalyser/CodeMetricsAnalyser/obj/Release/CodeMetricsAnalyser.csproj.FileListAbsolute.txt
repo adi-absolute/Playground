@@ -1,0 +1,5 @@
+C:\Work\Playground\CodeMetricsAnalyser\CodeMetricsAnalyser\bin\Release\CodeMetricsAnalyser.dll
+C:\Work\Playground\CodeMetricsAnalyser\CodeMetricsAnalyser\bin\Release\CodeMetricsAnalyser.pdb
+C:\Work\Playground\CodeMetricsAnalyser\CodeMetricsAnalyser\obj\Release\CodeMetricsAnalyser.csprojResolveAssemblyReference.cache
+C:\Work\Playground\CodeMetricsAnalyser\CodeMetricsAnalyser\obj\Release\CodeMetricsAnalyser.dll
+C:\Work\Playground\CodeMetricsAnalyser\CodeMetricsAnalyser\obj\Release\CodeMetricsAnalyser.pdb
