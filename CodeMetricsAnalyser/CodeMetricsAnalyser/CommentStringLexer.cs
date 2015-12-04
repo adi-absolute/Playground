@@ -27,6 +27,8 @@ namespace CodeMetricsAnalyser
 
         public int NumberOfLines = 0;
 
+        public int MaxWidth = 0;
+
         void SetupGeneralDelimiters()
         {
             generalScopeDelimiters.Add('\"', 
@@ -146,6 +148,9 @@ namespace CodeMetricsAnalyser
             while (!reader.EndOfStream)
             {
                 line = reader.ReadLine();
+                if (line.Length > MaxWidth)
+                    MaxWidth = line.Length;
+
                 columnNumber = 0;
 
                 foreach (char character in line)

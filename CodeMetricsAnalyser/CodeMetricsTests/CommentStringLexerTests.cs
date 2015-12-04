@@ -325,5 +325,19 @@ string a = ""text"";");
 
             Assert.AreEqual(2, lexer.NumberOfLines);
         }
+
+        [TestMethod]
+        public void Max_width_of_file()
+        {
+            Stream ss = Generate.StringStream(@"
+/*
+123456
+*/
+");
+
+            var tokens = lexer.GenerateTokens(ss);
+
+            Assert.AreEqual(6, lexer.MaxWidth);
+        }
     }
 }
