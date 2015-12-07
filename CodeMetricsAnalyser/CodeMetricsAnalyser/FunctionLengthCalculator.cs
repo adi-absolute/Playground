@@ -101,7 +101,18 @@ namespace CodeMetricsAnalyser
             }
 
             if (functionBeingProcessed)
+            {
                 ProcessToken(token);
+            }
+            else if (token.Text == "}")
+            {
+                openCurlyBraces--;
+                if (openCurlyBraces == 0)
+                {
+                    functionEnd = false;
+                    functionStart = false;
+                }
+            }
 
             CheckFunctionBeingDefined(text);
             CheckKeyword(text);

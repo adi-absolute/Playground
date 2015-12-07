@@ -393,5 +393,36 @@ typedef enum
             Assert.AreEqual(0, actualRangeSet.Count);
             //Assert.AreEqual(expFunctionRangeSet[0][0].Text, actualRangeSet[0][0].Text);
         }
+
+        [TestMethod]
+        public void Multiple_struct_definitions_causing_errors()
+        {
+
+            string ss = @"
+        #include ""test.h""
+
+struct s1 
+{
+    int a;
+};
+
+struct s2
+{
+    int b;
+};
+
+void f() 
+{
+    blah();
+}
+        ";
+
+            var lexedOutput = Generate.SecondPassListFromString(ss);
+
+            calculator = new FunctionLengthCalculator(lexedOutput);
+
+            Assert.AreEqual(1, calculator.NumberOfFunctions);
+            Assert.AreEqual(1, calculator.MaxLength);
+        }
     }
 }
