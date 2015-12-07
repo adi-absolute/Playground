@@ -49,6 +49,12 @@ namespace CodeMetricsAnalyser
                     TakeCharsFromLastToken.Comments,
                     IsMultiline.No,
                     lineCommentDelimiters));
+            generalScopeDelimiters.Add('#',
+                new DelimiterInfo(TokenType.Hash,
+                    false, IsDelimiter.Always,
+                    TakeCharsFromLastToken.Zero,
+                    IsMultiline.No,
+                    lineCommentDelimiters));
         }
 
         void SetupStringDelimiters()
