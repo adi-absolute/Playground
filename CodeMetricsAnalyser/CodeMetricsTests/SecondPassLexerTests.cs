@@ -39,16 +39,6 @@ namespace TestsForCodeMetricsAnalyser
         SecondPassLexer lexer = new SecondPassLexer();
 
         [TestMethod]
-        public void Lex_simple_hash_include_token()
-        {            
-            List<Token> input = Generate.TokenListFromString("#include");
-
-            var output = lexer.SplitTokens(input);
-
-            Compare.TokenListsEqual(input, output);
-        }
-
-        [TestMethod]
         public void Lex_global_variable_declaration()
         {
             List<Token> input = Generate.TokenListFromString("int a = 10;");
@@ -128,6 +118,29 @@ int b = 20;";
             List<Token> input = Generate.TokenListFromString(ss);
 
             List <TD> expectedTokens = new List<TD>
+            {
+                new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
+                new TD(2, 0, "int"), new TD(2, 4, "b"), new TD(2, 6, "="), new TD(2, 8, "20"), new TD(2, 10, ";"),
+            };
+
+            List<Token> expectedOutput = PackageTokens(expectedTokens);
+
+            List<Token> actualOutput = lexer.SplitTokens(input);
+
+            Compare.TokenListsEqual(expectedOutput, actualOutput);
+        }
+
+        [TestMethod]
+        public void Lexer_ignores_hash_tokens()
+        {
+
+            string ss = @"int a = 10;
+#define x 42
+int b = 20;";
+
+            List<Token> input = Generate.TokenListFromString(ss);
+
+            List<TD> expectedTokens = new List<TD>
             {
                 new TD(0, 0, "int"), new TD(0, 4, "a"), new TD(0, 6, "="), new TD(0, 8, "10"), new TD(0, 10, ";"),
                 new TD(2, 0, "int"), new TD(2, 4, "b"), new TD(2, 6, "="), new TD(2, 8, "20"), new TD(2, 10, ";"),

@@ -339,5 +339,37 @@ string a = ""text"";");
 
             Assert.AreEqual(6, lexer.MaxWidth);
         }
+
+        [TestMethod]
+        public void Lexing_hash_statement()
+        {
+            string expected = @"#define x 42";
+            Stream ss = Generate.StringStream(expected);
+
+            var tokens = lexer.GenerateTokens(ss);
+
+            Assert.AreEqual(1, tokens.Count);
+
+            Token expectedToken = new Token(0, 0, TokenType.Hash);
+            expectedToken.Text = expected;
+            Compare.TokensEqual(expectedToken, tokens[0]);
+        }
+
+        [TestMethod]
+        public void Lexing_multiline_hash_statement()
+        {
+            string expectedText = @"#define x 42 \
+        *43";
+            Stream ss = Generate.StringStream(expectedText);
+
+            var tokens = lexer.GenerateTokens(ss);
+
+            Assert.AreEqual(1, tokens.Count);
+
+            Token expected = new Token(0, 0, TokenType.Hash);
+            expected.Text = expectedText;
+
+            Compare.TokensEqual(expected, tokens[0]);
+        }
     }
 }

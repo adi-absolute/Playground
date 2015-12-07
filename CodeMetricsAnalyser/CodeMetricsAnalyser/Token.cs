@@ -13,6 +13,7 @@ namespace CodeMetricsAnalyser
         Keyword,
         Comment,
         StringToken,
+        Hash
     };
 
     public class Token

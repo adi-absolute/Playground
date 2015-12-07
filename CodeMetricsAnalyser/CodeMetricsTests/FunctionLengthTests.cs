@@ -328,7 +328,6 @@ namespace TestsForCodeMetricsAnalyser
 
             Assert.AreEqual(1, actualRangeSet.Count);
             Assert.AreEqual(expFunctionRangeSet[0][0].Text, actualRangeSet[0][0].Text);
-
         }
 
         [TestMethod]
@@ -360,6 +359,39 @@ namespace TestsForCodeMetricsAnalyser
             
             Assert.AreEqual(expFunctionRangeSet[0][0].Text, actualRangeSet[0][0].Text);
             Assert.AreEqual(expFunctionRangeSet[1][0].Text, actualRangeSet[1][0].Text);
+        }
+
+        [TestMethod]
+        public void Hash_if_followed_by_struct_is_not_function()
+        {
+            string ss = @"
+#if( configUSE_PREEMPTION == 0 )
+	#define taskYIELD_IF_USING_PREEMPTION()
+#else
+	#define taskYIELD_IF_USING_PREEMPTION() portYIELD_WITHIN_API()
+#endif
+
+typedef enum
+{
+	eNotWaitingNotification = 0,
+	eWaitingNotification,
+	eNotified
+} eN
+        )";
+
+            var lexedOutput = Generate.SecondPassListFromString(ss);
+
+            int endSearch;
+            var functionTokens = CreateFunctionRange(lexedOutput, "{", "}", 0, out endSearch);
+            var expFunctionRangeSet = new List<List<Token>>();
+            expFunctionRangeSet.Add(functionTokens);
+
+            calculator = new FunctionLengthCalculator(lexedOutput);
+
+            var actualRangeSet = calculator.FunctionRangeSet();
+
+            Assert.AreEqual(0, actualRangeSet.Count);
+            //Assert.AreEqual(expFunctionRangeSet[0][0].Text, actualRangeSet[0][0].Text);
         }
     }
 }

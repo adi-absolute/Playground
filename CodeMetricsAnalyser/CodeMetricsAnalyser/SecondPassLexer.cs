@@ -49,7 +49,7 @@ namespace CodeMetricsAnalyser
 
             foreach (Token token in tokens)
             {
-                if (token.Type == TokenType.Comment)
+                if ((token.Type == TokenType.Comment) || (token.Type == TokenType.Hash))
                 {
                     continue;
                 }
