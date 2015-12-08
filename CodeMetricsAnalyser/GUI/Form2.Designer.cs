@@ -35,16 +35,16 @@
             this.button_clearWindow = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberOfLinesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentPercentageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxWidthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberOfFunctionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxFunctionLengthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avgFunctionLengthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxFunctionDepthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avgFunctionDepthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxFunctionComplexityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avgFunctionComplexityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfLines = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentPerecent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaxWidth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfFunctions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaxFuncLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AvgFuncLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaxFuncDepth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AvgFuncDepth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaxComplexity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AvgComplexity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fileMetricsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileMetricsBindingSource)).BeginInit();
@@ -75,9 +75,7 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Indigo;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,17 +87,16 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Filename,
-            this.numberOfLinesDataGridViewTextBoxColumn,
-            this.commentPercentageDataGridViewTextBoxColumn,
-            this.maxWidthDataGridViewTextBoxColumn,
-            this.numberOfFunctionsDataGridViewTextBoxColumn,
-            this.maxFunctionLengthDataGridViewTextBoxColumn,
-            this.avgFunctionLengthDataGridViewTextBoxColumn,
-            this.maxFunctionDepthDataGridViewTextBoxColumn,
-            this.avgFunctionDepthDataGridViewTextBoxColumn,
-            this.maxFunctionComplexityDataGridViewTextBoxColumn,
-            this.avgFunctionComplexityDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.fileMetricsBindingSource;
+            this.NoOfLines,
+            this.CommentPerecent,
+            this.MaxWidth,
+            this.NoOfFunctions,
+            this.MaxFuncLen,
+            this.AvgFuncLen,
+            this.MaxFuncDepth,
+            this.AvgFuncDepth,
+            this.MaxComplexity,
+            this.AvgComplexity});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -108,105 +105,91 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(18, 78);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(1, 1, 3, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(23, 73);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(920, 368);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.Size = new System.Drawing.Size(898, 354);
+            this.dataGridView1.TabIndex = 3;
             this.dataGridView1.Visible = false;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Filename
             // 
-            this.Filename.DataPropertyName = "NumberOfLines";
-            this.Filename.HeaderText = "File";
+            this.Filename.HeaderText = "File Name";
             this.Filename.Name = "Filename";
             this.Filename.ReadOnly = true;
-            this.Filename.Width = 250;
+            this.Filename.Width = 230;
             // 
-            // numberOfLinesDataGridViewTextBoxColumn
+            // NoOfLines
             // 
-            this.numberOfLinesDataGridViewTextBoxColumn.DataPropertyName = "NumberOfLines";
-            this.numberOfLinesDataGridViewTextBoxColumn.HeaderText = "Number Of Lines";
-            this.numberOfLinesDataGridViewTextBoxColumn.Name = "numberOfLinesDataGridViewTextBoxColumn";
-            this.numberOfLinesDataGridViewTextBoxColumn.ReadOnly = true;
-            this.numberOfLinesDataGridViewTextBoxColumn.Width = 65;
+            this.NoOfLines.HeaderText = "Number of Lines";
+            this.NoOfLines.Name = "NoOfLines";
+            this.NoOfLines.ReadOnly = true;
+            this.NoOfLines.Width = 65;
             // 
-            // commentPercentageDataGridViewTextBoxColumn
+            // CommentPerecent
             // 
-            this.commentPercentageDataGridViewTextBoxColumn.DataPropertyName = "CommentPercentage";
-            this.commentPercentageDataGridViewTextBoxColumn.HeaderText = "Comment Percentage";
-            this.commentPercentageDataGridViewTextBoxColumn.Name = "commentPercentageDataGridViewTextBoxColumn";
-            this.commentPercentageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.commentPercentageDataGridViewTextBoxColumn.Width = 65;
+            this.CommentPerecent.HeaderText = "Comment Percentage";
+            this.CommentPerecent.Name = "CommentPerecent";
+            this.CommentPerecent.ReadOnly = true;
+            this.CommentPerecent.Width = 65;
             // 
-            // maxWidthDataGridViewTextBoxColumn
+            // MaxWidth
             // 
-            this.maxWidthDataGridViewTextBoxColumn.DataPropertyName = "MaxWidth";
-            this.maxWidthDataGridViewTextBoxColumn.HeaderText = "Max Width";
-            this.maxWidthDataGridViewTextBoxColumn.Name = "maxWidthDataGridViewTextBoxColumn";
-            this.maxWidthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxWidthDataGridViewTextBoxColumn.Width = 65;
+            this.MaxWidth.HeaderText = "Widest Line Width";
+            this.MaxWidth.Name = "MaxWidth";
+            this.MaxWidth.ReadOnly = true;
+            this.MaxWidth.Width = 65;
             // 
-            // numberOfFunctionsDataGridViewTextBoxColumn
+            // NoOfFunctions
             // 
-            this.numberOfFunctionsDataGridViewTextBoxColumn.DataPropertyName = "NumberOfFunctions";
-            this.numberOfFunctionsDataGridViewTextBoxColumn.HeaderText = "Number Of Functions";
-            this.numberOfFunctionsDataGridViewTextBoxColumn.Name = "numberOfFunctionsDataGridViewTextBoxColumn";
-            this.numberOfFunctionsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.numberOfFunctionsDataGridViewTextBoxColumn.Width = 65;
+            this.NoOfFunctions.HeaderText = "Number Of Functions";
+            this.NoOfFunctions.Name = "NoOfFunctions";
+            this.NoOfFunctions.ReadOnly = true;
+            this.NoOfFunctions.Width = 65;
             // 
-            // maxFunctionLengthDataGridViewTextBoxColumn
+            // MaxFuncLen
             // 
-            this.maxFunctionLengthDataGridViewTextBoxColumn.DataPropertyName = "MaxFunctionLength";
-            this.maxFunctionLengthDataGridViewTextBoxColumn.HeaderText = "Max Function Length";
-            this.maxFunctionLengthDataGridViewTextBoxColumn.Name = "maxFunctionLengthDataGridViewTextBoxColumn";
-            this.maxFunctionLengthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxFunctionLengthDataGridViewTextBoxColumn.Width = 65;
+            this.MaxFuncLen.HeaderText = "Max Function Length";
+            this.MaxFuncLen.Name = "MaxFuncLen";
+            this.MaxFuncLen.ReadOnly = true;
+            this.MaxFuncLen.Width = 65;
             // 
-            // avgFunctionLengthDataGridViewTextBoxColumn
+            // AvgFuncLen
             // 
-            this.avgFunctionLengthDataGridViewTextBoxColumn.DataPropertyName = "AvgFunctionLength";
-            this.avgFunctionLengthDataGridViewTextBoxColumn.HeaderText = "Avg Function Length";
-            this.avgFunctionLengthDataGridViewTextBoxColumn.Name = "avgFunctionLengthDataGridViewTextBoxColumn";
-            this.avgFunctionLengthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avgFunctionLengthDataGridViewTextBoxColumn.Width = 65;
+            this.AvgFuncLen.HeaderText = "Average Function Length";
+            this.AvgFuncLen.Name = "AvgFuncLen";
+            this.AvgFuncLen.ReadOnly = true;
+            this.AvgFuncLen.Width = 65;
             // 
-            // maxFunctionDepthDataGridViewTextBoxColumn
+            // MaxFuncDepth
             // 
-            this.maxFunctionDepthDataGridViewTextBoxColumn.DataPropertyName = "MaxFunctionDepth";
-            this.maxFunctionDepthDataGridViewTextBoxColumn.HeaderText = "Max Function Depth";
-            this.maxFunctionDepthDataGridViewTextBoxColumn.Name = "maxFunctionDepthDataGridViewTextBoxColumn";
-            this.maxFunctionDepthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxFunctionDepthDataGridViewTextBoxColumn.Width = 65;
+            this.MaxFuncDepth.HeaderText = "Max Function Depth";
+            this.MaxFuncDepth.Name = "MaxFuncDepth";
+            this.MaxFuncDepth.ReadOnly = true;
+            this.MaxFuncDepth.Width = 65;
             // 
-            // avgFunctionDepthDataGridViewTextBoxColumn
+            // AvgFuncDepth
             // 
-            this.avgFunctionDepthDataGridViewTextBoxColumn.DataPropertyName = "AvgFunctionDepth";
-            this.avgFunctionDepthDataGridViewTextBoxColumn.HeaderText = "Avg Function Depth";
-            this.avgFunctionDepthDataGridViewTextBoxColumn.Name = "avgFunctionDepthDataGridViewTextBoxColumn";
-            this.avgFunctionDepthDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avgFunctionDepthDataGridViewTextBoxColumn.Width = 65;
+            this.AvgFuncDepth.HeaderText = "Average Function Depth";
+            this.AvgFuncDepth.Name = "AvgFuncDepth";
+            this.AvgFuncDepth.ReadOnly = true;
+            this.AvgFuncDepth.Width = 65;
             // 
-            // maxFunctionComplexityDataGridViewTextBoxColumn
+            // MaxComplexity
             // 
-            this.maxFunctionComplexityDataGridViewTextBoxColumn.DataPropertyName = "MaxFunctionComplexity";
-            this.maxFunctionComplexityDataGridViewTextBoxColumn.HeaderText = "Max Complexity";
-            this.maxFunctionComplexityDataGridViewTextBoxColumn.Name = "maxFunctionComplexityDataGridViewTextBoxColumn";
-            this.maxFunctionComplexityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxFunctionComplexityDataGridViewTextBoxColumn.Width = 65;
+            this.MaxComplexity.HeaderText = "Max Complexity";
+            this.MaxComplexity.Name = "MaxComplexity";
+            this.MaxComplexity.ReadOnly = true;
+            this.MaxComplexity.Width = 65;
             // 
-            // avgFunctionComplexityDataGridViewTextBoxColumn
+            // AvgComplexity
             // 
-            this.avgFunctionComplexityDataGridViewTextBoxColumn.DataPropertyName = "AvgFunctionComplexity";
-            this.avgFunctionComplexityDataGridViewTextBoxColumn.HeaderText = "Avg Complexity";
-            this.avgFunctionComplexityDataGridViewTextBoxColumn.Name = "avgFunctionComplexityDataGridViewTextBoxColumn";
-            this.avgFunctionComplexityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avgFunctionComplexityDataGridViewTextBoxColumn.Width = 65;
+            this.AvgComplexity.HeaderText = "Average Complexity";
+            this.AvgComplexity.Name = "AvgComplexity";
+            this.AvgComplexity.ReadOnly = true;
+            this.AvgComplexity.Width = 65;
             // 
             // fileMetricsBindingSource
             // 
@@ -234,8 +217,6 @@
         private System.Windows.Forms.Button button_Analyse;
         private System.Windows.Forms.BindingSource fileMetricsBindingSource;
         private System.Windows.Forms.Button button_clearWindow;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberOfLinesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentPercentageDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxWidthDataGridViewTextBoxColumn;
@@ -246,5 +227,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn avgFunctionDepthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxFunctionComplexityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgFunctionComplexityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoOfLines;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentPerecent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxWidth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoOfFunctions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxFuncLen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AvgFuncLen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxFuncDepth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AvgFuncDepth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxComplexity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AvgComplexity;
     }
 }

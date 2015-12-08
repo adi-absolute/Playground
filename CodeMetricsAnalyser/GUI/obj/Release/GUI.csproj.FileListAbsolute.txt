@@ -4,7 +4,6 @@ C:\Work\Playground\CodeMetricsAnalyser\GUI\bin\Release\GUI.pdb
 C:\Work\Playground\CodeMetricsAnalyser\GUI\bin\Release\CodeMetricsAnalyser.dll
 C:\Work\Playground\CodeMetricsAnalyser\GUI\bin\Release\CodeMetricsAnalyser.pdb
 C:\Work\Playground\CodeMetricsAnalyser\GUI\obj\Release\GUI.csprojResolveAssemblyReference.cache
-C:\Work\Playground\CodeMetricsAnalyser\GUI\obj\Release\GUI.FileArgs.resources
 C:\Work\Playground\CodeMetricsAnalyser\GUI\obj\Release\GUI.Form2.resources
 C:\Work\Playground\CodeMetricsAnalyser\GUI\obj\Release\GUI.Properties.Resources.resources
 C:\Work\Playground\CodeMetricsAnalyser\GUI\obj\Release\GUI.csproj.GenerateResource.Cache

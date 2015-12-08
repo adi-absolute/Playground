@@ -13,21 +13,6 @@ namespace GUI
 {
     public partial class Form2 : Form, IView
     {
-        enum Headers
-        {
-            FileName,
-            NoOfLines,
-            CommentPercent,
-            MaxWidth,
-            NoOfFunctions,
-            MaxFuncLen,
-            AvgFuncLen,
-            MaxFuncDepth,
-            AvgFuncDepth,
-            MaxComplexity,
-            AvgComplexity
-        }
-
         private Form2Presenter _presenter;
         private List<FileMetrics> _metricsList;
 
@@ -45,7 +30,6 @@ namespace GUI
 
         private void InitialiseTable()
         {
-            dataGridView1.DataSource = _metricsList;
             dataGridView1.Columns["Filename"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
@@ -73,17 +57,27 @@ namespace GUI
             {
                 int n = dataGridView1.Rows.Add();
 
-                dataGridView1.Rows[n].Cells[(int)Headers.FileName].Value = file.Name;
-                dataGridView1.Rows[n].Cells[(int)Headers.NoOfLines].Value = file.NumberOfLines;
-                dataGridView1.Rows[n].Cells[(int)Headers.CommentPercent].Value = file.CommentPercentage.ToString("F02") + " %";
-                dataGridView1.Rows[n].Cells[(int)Headers.MaxWidth].Value = file.MaxWidth;
-                dataGridView1.Rows[n].Cells[(int)Headers.NoOfFunctions].Value = file.NumberOfFunctions;
-                dataGridView1.Rows[n].Cells[(int)Headers.MaxFuncLen].Value = file.MaxFunctionLength;
-                dataGridView1.Rows[n].Cells[(int)Headers.AvgFuncLen].Value = file.AvgFunctionLength.ToString("F02");
-                dataGridView1.Rows[n].Cells[(int)Headers.MaxFuncDepth].Value = file.MaxFunctionDepth;
-                dataGridView1.Rows[n].Cells[(int)Headers.AvgFuncDepth].Value = file.AvgFunctionDepth.ToString("F02");
-                dataGridView1.Rows[n].Cells[(int)Headers.MaxComplexity].Value = file.MaxFunctionComplexity;
-                dataGridView1.Rows[n].Cells[(int)Headers.AvgComplexity].Value = file.AvgFunctionComplexity.ToString("F02");
+                dataGridView1.Rows[n].Cells[0].Value = file.Name;
+
+                for (int i = 0; i < (int)Metric.NoOfMetrics; i++)
+                {
+                    switch ((Metric)i)
+                    {
+                        case Metric.CommentPercent:
+                            dataGridView1.Rows[n].Cells[i + 1].Value = file.Met[i].ToString("F02") + " %";
+                            break;
+                        case Metric.AvgFuncLen:
+                        case Metric.AvgFuncDepth:
+                        case Metric.AvgComplexity:
+                            dataGridView1.Rows[n].Cells[i + 1].Value = file.Met[i].ToString("F02");
+                            break;
+                        case Metric.NoOfMetrics:
+                            throw new Exception();
+                        default:
+                            dataGridView1.Rows[n].Cells[i + 1].Value = file.Met[i];
+                            break;
+                    }
+                }
             }
 
             button_clearWindow.Visible = true;

@@ -24,35 +24,35 @@ namespace GUI
 
             foreach (FileInfo file in files)
             {
-                var metrics = new FileMetrics();
-                metrics.Name = file.Name;
+                var fileInfo = new FileMetrics();
+                fileInfo.Name = file.Name;
 
                 var commentStringLexer = new CommentStringLexer();
                 var secondPassLexer = new SecondPassLexer();
                 var c = commentStringLexer.GenerateTokens(file.Data);
                 var s = secondPassLexer.SplitTokens(c);
 
-                metrics.NumberOfLines = commentStringLexer.NumberOfLines;
-                metrics.MaxWidth = commentStringLexer.MaxWidth;
-
-                if (metrics.MaxWidth == 0)
+                if (commentStringLexer.MaxWidth == 0)
                     return;
 
-                metrics.CommentPercentage = CalculateCommentPercentage(c);
+                fileInfo.Met[(int)Metric.NoOfLines] = commentStringLexer.NumberOfLines;
+                fileInfo.Met[(int)Metric.CommentPercent] = CalculateCommentPercentage(c);
+                fileInfo.Met[(int)Metric.MaxWidth] = commentStringLexer.MaxWidth;
 
+                
                 var flCalc = new FunctionLengthCalculator(s);
-                metrics.NumberOfFunctions = flCalc.NumberOfFunctions;
-                metrics.MaxFunctionLength = flCalc.MaxLength;
-                metrics.AvgFunctionLength = flCalc.AverageLength;
+                fileInfo.Met[(int)Metric.NoOfFunctions] = flCalc.NumberOfFunctions;
+                fileInfo.Met[(int)Metric.MaxFuncLen] = flCalc.MaxLength;
+                fileInfo.Met[(int)Metric.AvgFuncLen] = flCalc.AverageLength;
 
                 var depthCalc = new FunctionDepthCalculator(flCalc.FunctionRangeSet());
-                metrics.MaxFunctionDepth = depthCalc.MaxDepth;
-                metrics.AvgFunctionDepth = depthCalc.AvgDepth;
+                fileInfo.Met[(int)Metric.MaxFuncDepth] = depthCalc.MaxDepth;
+                fileInfo.Met[(int)Metric.AvgFuncDepth] = depthCalc.AvgDepth;
 
                 var complexityCalc = new FunctionComplexityCalculator(flCalc.FunctionRangeSet());
-                metrics.MaxFunctionComplexity = complexityCalc.MaxComplexity;
-                metrics.AvgFunctionComplexity = complexityCalc.AvgComplexity;
-                info.Add(metrics);
+                fileInfo.Met[(int)Metric.MaxComplexity] = complexityCalc.MaxComplexity;
+                fileInfo.Met[(int)Metric.AvgComplexity] = complexityCalc.AvgComplexity;
+                info.Add(fileInfo);
             }
 
             _view.SetData(info);

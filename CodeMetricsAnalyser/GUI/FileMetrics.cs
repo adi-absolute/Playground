@@ -6,18 +6,36 @@ using System.Threading.Tasks;
 
 namespace GUI
 {
+    enum Metric
+    {
+        NoOfLines,
+        CommentPercent,
+        MaxWidth,
+        NoOfFunctions,
+        MaxFuncLen,
+        AvgFuncLen,
+        MaxFuncDepth,
+        AvgFuncDepth,
+        MaxComplexity,
+        AvgComplexity,
+        NoOfMetrics
+    }
+
     public class FileMetrics
     {
+        private decimal[] _metrics;
+
+        public FileMetrics()
+        {
+            _metrics = new decimal[(int)Metric.NoOfMetrics];
+        }
+
         public string Name { get; set; }
-        public int NumberOfLines { get; set; }
-        public decimal CommentPercentage { get; set; }
-        public int MaxWidth { get; set; }
-        public int NumberOfFunctions { get; set; }
-        public int MaxFunctionLength { get; set; }
-        public decimal AvgFunctionLength { get; set; }
-        public int MaxFunctionDepth { get; set; }
-        public decimal AvgFunctionDepth { get; set; }
-        public int MaxFunctionComplexity { get; set; }
-        public decimal AvgFunctionComplexity { get; set; }
+
+        public decimal[] Met 
+        {
+            get { return _metrics; }
+            set { _metrics = value; }
+        }
     }
 }
