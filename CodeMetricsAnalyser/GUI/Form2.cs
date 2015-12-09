@@ -51,6 +51,28 @@ namespace GUI
             
         }
 
+        private string FormatCellText(Metric metric, decimal value)
+        {
+            string formattedText; 
+            switch (metric)
+            {
+                case Metric.CommentPercent:
+                    formattedText = value.ToString("F02") + " %";
+                    break;
+                case Metric.AvgFuncLen:
+                case Metric.AvgFuncDepth:
+                case Metric.AvgComplexity:
+                    formattedText = value.ToString("F02");
+                    break;
+                case Metric.NoOfMetrics:
+                    throw new Exception();
+                default:
+                    formattedText = value.ToString();
+                    break;
+            }
+            return formattedText;
+        }
+
         public void UpdateDisplay()
         {
             foreach (FileMetrics file in _metricsList)
@@ -59,34 +81,31 @@ namespace GUI
 
                 dataGridView1.Rows[n].Cells[0].Value = file.Name;
 
-                for (int i = 0; i < (int)Metric.NoOfMetrics; i++)
+                foreach (Metric foo in Enum.GetValues(typeof(Metric)))
                 {
-                    decimal value = file.MetricValue[i];
-                    switch ((Metric)i)
-                    {
-                        case Metric.CommentPercent:
-                            dataGridView1.Rows[n].Cells[i + 1].Value = value.ToString("F02") + " %";
-                            break;
-                        case Metric.AvgFuncLen:
-                        case Metric.AvgFuncDepth:
-                        case Metric.AvgComplexity:
-                            dataGridView1.Rows[n].Cells[i + 1].Value = value.ToString("F02");
-                            break;
-                        case Metric.NoOfMetrics:
-                            throw new Exception();
-                        default:
-                            dataGridView1.Rows[n].Cells[i + 1].Value = value;
-                            break;
-                    }
+                    if (foo == Metric.NoOfMetrics)
+                        break;
 
-                    if (file.GetMetricLevel((Metric)i) == Level.Warning)
-                        dataGridView1.Rows[n].Cells[i + 1].Style.BackColor = Color.Orange;
-                    else if (file.GetMetricLevel((Metric)i) == Level.Danger)
-                        dataGridView1.Rows[n].Cells[i + 1].Style.BackColor = Color.Red;
+                    decimal value = file.MetricValue[(int)foo];
+                    var cell = dataGridView1.Rows[n].Cells[(int)foo + 1];
+
+                    cell.Value = FormatCellText(foo, value);
+
+                    if (file.GetMetricLevel(foo) == Level.Warning)
+                    {
+                        cell.Style.BackColor = Color.Orange;
+                        cell.ToolTipText = "Greater than " + FormatCellText(foo, file.WarningLevel(foo));
+                    }
+                    else if (file.GetMetricLevel(foo) == Level.Danger)
+                    {
+                        cell.Style.BackColor = Color.Red;
+                        cell.ToolTipText = "Greater than " + FormatCellText(foo, file.DangerLevel(foo));
+                    }
                 }
             }
 
             button_clearWindow.Visible = true;
+            panel1.Visible = true;
         }
 
         private void button_Analyse_Click(object sender, EventArgs e)
@@ -134,6 +153,11 @@ namespace GUI
         {
             ClearTable();
             button_clearWindow.Visible = false;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

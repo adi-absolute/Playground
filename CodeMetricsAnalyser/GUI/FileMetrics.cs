@@ -58,6 +58,8 @@ namespace GUI
 
         private void SetupMetricLevels()
         {
+            _levels[(int)Metric.CommentPercent] = new MetricLevels(true, 10m, 20m);
+            _levels[(int)Metric.MaxWidth] = new MetricLevels(true, 200m, 300m);
             _levels[(int)Metric.MaxFuncDepth] = new MetricLevels(true, 4m, 7m);
             _levels[(int)Metric.AvgFuncDepth] = new MetricLevels(true, 4m, 7m);
             _levels[(int)Metric.MaxFuncLen] = new MetricLevels(true, 50m, 100m);
@@ -92,6 +94,16 @@ namespace GUI
             }
 
             return lvl;
+        }
+
+        public decimal WarningLevel(Metric metric)
+        {
+            return _levels[(int)metric].WarningLevel;
+        }
+
+        public decimal DangerLevel(Metric metric)
+        {
+            return _levels[(int)metric].DangerLevel;
         }
     }
 }
