@@ -61,22 +61,28 @@ namespace GUI
 
                 for (int i = 0; i < (int)Metric.NoOfMetrics; i++)
                 {
+                    decimal value = file.MetricValue[i];
                     switch ((Metric)i)
                     {
                         case Metric.CommentPercent:
-                            dataGridView1.Rows[n].Cells[i + 1].Value = file.Met[i].ToString("F02") + " %";
+                            dataGridView1.Rows[n].Cells[i + 1].Value = value.ToString("F02") + " %";
                             break;
                         case Metric.AvgFuncLen:
                         case Metric.AvgFuncDepth:
                         case Metric.AvgComplexity:
-                            dataGridView1.Rows[n].Cells[i + 1].Value = file.Met[i].ToString("F02");
+                            dataGridView1.Rows[n].Cells[i + 1].Value = value.ToString("F02");
                             break;
                         case Metric.NoOfMetrics:
                             throw new Exception();
                         default:
-                            dataGridView1.Rows[n].Cells[i + 1].Value = file.Met[i];
+                            dataGridView1.Rows[n].Cells[i + 1].Value = value;
                             break;
                     }
+
+                    if (file.GetMetricLevel((Metric)i) == Level.Warning)
+                        dataGridView1.Rows[n].Cells[i + 1].Style.BackColor = Color.Orange;
+                    else if (file.GetMetricLevel((Metric)i) == Level.Danger)
+                        dataGridView1.Rows[n].Cells[i + 1].Style.BackColor = Color.Red;
                 }
             }
 

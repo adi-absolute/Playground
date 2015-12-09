@@ -35,23 +35,23 @@ namespace GUI
                 if (commentStringLexer.MaxWidth == 0)
                     return;
 
-                fileInfo.Met[(int)Metric.NoOfLines] = commentStringLexer.NumberOfLines;
-                fileInfo.Met[(int)Metric.CommentPercent] = CalculateCommentPercentage(c);
-                fileInfo.Met[(int)Metric.MaxWidth] = commentStringLexer.MaxWidth;
+                fileInfo.SetMetric(Metric.NoOfLines, commentStringLexer.NumberOfLines);
+                fileInfo.SetMetric(Metric.CommentPercent, CalculateCommentPercentage(c));
+                fileInfo.SetMetric(Metric.MaxWidth, commentStringLexer.MaxWidth);
 
                 
                 var flCalc = new FunctionLengthCalculator(s);
-                fileInfo.Met[(int)Metric.NoOfFunctions] = flCalc.NumberOfFunctions;
-                fileInfo.Met[(int)Metric.MaxFuncLen] = flCalc.MaxLength;
-                fileInfo.Met[(int)Metric.AvgFuncLen] = flCalc.AverageLength;
+                fileInfo.SetMetric(Metric.NoOfFunctions, flCalc.NumberOfFunctions);
+                fileInfo.SetMetric(Metric.MaxFuncLen, flCalc.MaxLength);
+                fileInfo.SetMetric(Metric.AvgFuncLen, flCalc.AverageLength);
 
                 var depthCalc = new FunctionDepthCalculator(flCalc.FunctionRangeSet());
-                fileInfo.Met[(int)Metric.MaxFuncDepth] = depthCalc.MaxDepth;
-                fileInfo.Met[(int)Metric.AvgFuncDepth] = depthCalc.AvgDepth;
+                fileInfo.SetMetric(Metric.MaxFuncDepth, depthCalc.MaxDepth);
+                fileInfo.SetMetric(Metric.AvgFuncDepth, depthCalc.AvgDepth);
 
                 var complexityCalc = new FunctionComplexityCalculator(flCalc.FunctionRangeSet());
-                fileInfo.Met[(int)Metric.MaxComplexity] = complexityCalc.MaxComplexity;
-                fileInfo.Met[(int)Metric.AvgComplexity] = complexityCalc.AvgComplexity;
+                fileInfo.SetMetric(Metric.MaxComplexity, complexityCalc.MaxComplexity);
+                fileInfo.SetMetric(Metric.AvgComplexity, complexityCalc.AvgComplexity);
                 info.Add(fileInfo);
             }
 
